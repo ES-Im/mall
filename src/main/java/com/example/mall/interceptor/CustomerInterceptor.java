@@ -19,7 +19,7 @@ public class CustomerInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") != null) {
 			log.debug(request.getRequestURL().toString() + ", Customer session exist");
-			response.sendRedirect(request.getContextPath() + "/customer/main");
+			response.sendRedirect(request.getContextPath() + "/customer/getGoodsList");
 			return false;
 		}
 		
