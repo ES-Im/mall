@@ -31,5 +31,6 @@
 	<delete id="deleteCustomerByStaff" parameterType="String">
 		DELETE FROM customer WHERE customer_email = #{customerEmail}
 	</delete>
+	
 
 </mapper>

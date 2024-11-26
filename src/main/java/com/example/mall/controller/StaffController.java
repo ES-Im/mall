@@ -80,16 +80,16 @@ public class StaffController {
 	}
 	
 	// removeCustomerByStaff
-	@GetMapping("/staff/removeCustomerByStaff")
-	public String removeCustomerByStaff(@RequestParam String customerEmail) {
-		
-		log.debug(TeamColor.KDH + "removeCustomerEmail : " + customerEmail + TeamColor.RESET); // debug
-		int removeCustomerRow = staffService.removeCustomerByStaff(customerEmail);
-		if(removeCustomerRow == 0) {
+		@GetMapping("/staff/removeCustomerByStaff")
+		public String removeCustomerByStaff(@RequestParam String customerEmail) {
+			
+			log.debug(TeamColor.KDH + "removeCustomerEmail : " + customerEmail + TeamColor.RESET); // debug
+			int removeCustomerRow = staffService.removeCustomerByStaff(customerEmail);
+			if(removeCustomerRow == 0) {
+				return "redirect:/staff/getCustomerListByStaff";
+			}
 			return "redirect:/staff/getCustomerListByStaff";
-		}
-		return "redirect:/staff/getCustomerListByStaff";
-	} 
+		} 
 	
 	
 	
