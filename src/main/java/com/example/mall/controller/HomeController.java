@@ -30,11 +30,7 @@ public class HomeController {
 	public String getstaff() {
 		return "/staff/staff";
 	}
-	
-	@GetMapping("/off/login")
-	public String getlogin() {
-		return "/off/login";
-	}
+
 
 	@GetMapping("/off/join")
 	public String getjoin() {

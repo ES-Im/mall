@@ -28,17 +28,18 @@ public class LoginController {
 	
 	
 	// login.jsp로 이동
-	@GetMapping("/off/logins")
+	@GetMapping("/off/login")
 	public String login(HttpSession session) {
 		log.debug( TeamColor.KMJ + "GET[LoginController]" + TeamColor.RESET );
-		log.debug( TeamColor.KMJ + "/off/login 실행" +TeamColor.RESET);
+		log.debug( TeamColor.KMJ + "/off/login 실행" + TeamColor.RESET);
 		
 		return "off/login";
 	}
 	
 	// 로그인 액션
-	@PostMapping("/off/loginss")
+	@PostMapping("/off/login")
 	public String login(@RequestParam String id, @RequestParam String pw, Model model, HttpSession session) {
+		
 		log.debug(TeamColor.KMJ + "POST[LoginController]" +TeamColor.RESET);
 		
 		// 유효성 검사
@@ -57,11 +58,11 @@ public class LoginController {
 		
 		if(firstChar.equals("@")) {
 			
-//			String staffId = staffService.;
-//			
-//			log.debug(TeamColor.KMJ + "staff" + staffId.toString() + TeamColor.RESET);
-//					
-//			session.setAttribute("loginStaff", staffId);		
+			String staffId = staffService.staffLogin(id, pw);
+			
+			log.debug(TeamColor.KMJ + "staff" + staffId.toString() + TeamColor.RESET);
+					
+			session.setAttribute("loginStaff", staffId);		
 			
 			return " redirect:/staff/getGoodsList";
 					
