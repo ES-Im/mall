@@ -51,7 +51,10 @@ public class HomeController {
 		return "customer/cart";
 	}
 	
-	
+	@GetMapping("/off/template")
+	public String getmain() {
+		return "off/template";
+	}
 	
 	
 	
