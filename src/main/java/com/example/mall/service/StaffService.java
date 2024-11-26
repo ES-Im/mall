@@ -16,6 +16,15 @@ public class StaffService {
 	
 	@Autowired StaffMapper staffMapper;
 	
+	// 스태프 로그인
+	public String staffLogin(String id, String pw) {
+		Staff staff = new Staff();
+		staff.setStaffId(id);
+		staff.setStaffPw(pw);
+		  
+		return staffMapper.staffLogin(staff);
+	}
+	
 	// 스태프 리스트 조회
 	public List<Staff> getStaffList() {
 		return staffMapper.selectStaffList();
