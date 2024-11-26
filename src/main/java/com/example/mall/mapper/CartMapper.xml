@@ -20,7 +20,7 @@
 			#{customerEamil}, #{goodsNo}, #{cartAmount}
 		);
 	</insert>
-	
+	 
 	<delete id="deleteCart" parameterType="com.example.mall.vo.Cart">
 		DELETE FROM cart 
 		WHERE customer_email = #{customerEamil} AND cart_no = #{cartNo};

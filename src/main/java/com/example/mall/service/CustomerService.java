@@ -16,7 +16,7 @@ public class CustomerService {
 		Customer customer = new Customer();
 		customer.setCustomerEmail(id);
 		customer.setCustomerPw(pw);
-		
+		 
 		return customerMapper.login(customer);
 	}
 }

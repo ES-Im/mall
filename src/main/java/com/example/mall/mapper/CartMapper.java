@@ -14,6 +14,6 @@ public interface CartMapper {
 	
 	// customer/addCart : cart에 상품 추가시 사용
 	public int insertCart(Cart cart);
-	
+	 
 	public int deleteCart(Cart cart);
 }
