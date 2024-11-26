@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mall.mapper.StaffMapper;
+import com.example.mall.vo.Customer;
 import com.example.mall.vo.Staff;
 
 @Service
@@ -28,6 +29,11 @@ public class StaffService {
 	// 스태프 삭제
 	public Integer removeStaff(Integer staffId) {
 		return staffMapper.deleteStaff(staffId);
+	}
+	
+	// 고객 리스트 조회
+	public List<Customer> getCustomerListByStaff() {
+		return staffMapper.selectCustomerListByStaff();
 	}
 
 }
