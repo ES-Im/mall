@@ -35,5 +35,10 @@ public class StaffService {
 	public List<Customer> getCustomerListByStaff() {
 		return staffMapper.selectCustomerListByStaff();
 	}
+	
+	// 고객 리스트 삭제
+	public Integer removeCustomerByStaff(String customerEmail) {
+		return staffMapper.deleteCustomerByStaff(customerEmail);
+	}
 
 }
