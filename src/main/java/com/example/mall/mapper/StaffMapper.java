@@ -14,5 +14,8 @@ public interface StaffMapper {
 	
 	// staff/addStaff.jsp
 	Integer insertStaff(Staff staff);
+	
+	// staff/getStaffList.jsp → removeStaff
+	Integer deleteStaff(Integer staffId);
 
 }

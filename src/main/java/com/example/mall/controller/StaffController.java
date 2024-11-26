@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mall.service.StaffService;
 import com.example.mall.vo.Staff;
@@ -51,6 +52,20 @@ public class StaffController {
 		
 		return "staff/getStaffList";
 	}
+	
+	// removeStaff
+	@GetMapping("staff/removeStaff")
+	public String removeStaff(@RequestParam Integer staffId) {
+		
+		log.debug("removeStaffId : " + staffId); // debug
+		int removeStaffRow = staffService.removeStaff(staffId);
+		if(removeStaffRow == 0) {
+			return "redirect:/staff/getStaffList";
+		}
+		return "redirect:/staff/getStaffList";
+	}
+	
+	
 	
 	
 

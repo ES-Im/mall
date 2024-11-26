@@ -24,5 +24,10 @@ public class StaffService {
 	public Integer addStaff(Staff staff) {
 		return staffMapper.insertStaff(staff);
 	}
+	
+	// 스태프 삭제
+	public Integer removeStaff(Integer staffId) {
+		return staffMapper.deleteStaff(staffId);
+	}
 
 }
