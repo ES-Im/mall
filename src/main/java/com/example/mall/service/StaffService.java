@@ -19,5 +19,10 @@ public class StaffService {
 	public List<Staff> getStaffList() {
 		return staffMapper.selectStaffList();
 	}
+	
+	// 스태프 추가
+	public Integer addStaff(Staff staff) {
+		return staffMapper.insertStaff(staff);
+	}
 
 }

@@ -21,14 +21,21 @@ public class StaffController {
 	
 	@Autowired StaffService staffService;
 	
-	
+	// addStaff Form
 	@GetMapping("/staff/addStaff")
-	public String addStaff() {
+	public String addStaff(Model model) {
 		return "staff/addStaff";
 	}
 	
+	// addStaff Action
 	@PostMapping("/staff/addStaff")
-	public String addStaff(Model model) {
+	public String addStaff(Staff staff) {
+		
+		log.debug(staff.toString()); // debug
+		int addStaffRow = staffService.addStaff(staff);
+		if(addStaffRow == 0) {
+			return "staff/addStaff";
+		}
 		
 		return "redirect:/staff/getStaffList";
 	}
@@ -38,7 +45,7 @@ public class StaffController {
 	public String getStaffList(Model model) {
 		
 		List<Staff> staffList = staffService.getStaffList();
-		log.debug("StaffList : " + staffList.toString());
+		log.debug("StaffList : " + staffList.toString()); // debug
 		
 		model.addAttribute("staffList", staffList);
 		

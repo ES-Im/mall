@@ -11,5 +11,8 @@ public interface StaffMapper {
 	
 	// staff/getStaffList.jsp
 	List<Staff> selectStaffList();
+	
+	// staff/addStaff.jsp
+	Integer insertStaff(Staff staff);
 
 }
