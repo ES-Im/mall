@@ -30,7 +30,7 @@ h2 {
 }
 
 body {
-  background: #ffffff;
+  background: #8C8C8C;
   font-family: 'Roboto', sans-serif;
   
 }
