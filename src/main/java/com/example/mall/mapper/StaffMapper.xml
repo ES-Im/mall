@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mall.mapper.StaffMapper"></mapper>
+<mapper namespace="com.example.mall.mapper.StaffMapper">
+
+	<select id="selectStaffList" resultType="com.example.mall.vo.Staff">
+		SELECT staff_no staffNo, staff_id staffId, first_name firstName, last_name lastName, 
+			   update_date updateDate, create_date createDate  
+		FROM staff ORDER BY staff_id
+	</select>
+
+</mapper>
