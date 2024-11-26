@@ -56,7 +56,7 @@ public class StaffController {
 	}
 	
 	// removeStaff
-	@GetMapping("staff/removeStaff")
+	@GetMapping("/staff/removeStaff")
 	public String removeStaff(@RequestParam Integer staffId) {
 		
 		log.debug(TeamColor.KDH + "removeStaffId : " + staffId + TeamColor.RESET); // debug
@@ -76,8 +76,21 @@ public class StaffController {
 		
 		model.addAttribute("customerList", customerList);
 		
-		return new String();
+		return "staff/getCustomerListByStaff";
 	}
+	
+	// removeCustomerByStaff
+	@GetMapping("/staff/removeCustomerByStaff")
+	public String removeCustomerByStaff(@RequestParam String customerEmail) {
+		
+		log.debug(TeamColor.KDH + "removeCustomerEmail : " + customerEmail + TeamColor.RESET); // debug
+		int removeCustomerRow = staffService.removeCustomerByStaff(customerEmail);
+		if(removeCustomerRow == 0) {
+			return "redirect:/staff/getCustomerListByStaff";
+		}
+		return "redirect:/staff/getCustomerListByStaff";
+	} 
+	
 	
 	
 	
