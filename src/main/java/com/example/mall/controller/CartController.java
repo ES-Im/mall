@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mall.service.CartService;
+import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Cart;
 
 import jakarta.servlet.http.HttpSession;
@@ -16,16 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class CartController {
+public class CartController { // Author : 김은서
 	@Autowired CartService cartService;
 	
 	// customer/getCartListByCustomerId 에서 장바구니 리스트 출력시 사용
 	@GetMapping("/customer/getCartList")
 	public String getCartList(Model model, HttpSession session) {
-		String customerEmail = (String) session.getAttribute("loginStaff");
-		List<Map<String, Object>> cartList = cartService.getCartList(customerEmail);
-		model.addAttribute("cartList", cartList);
+		String customerEmail = (String) session.getAttribute("loginCustomer");
+		log.debug(TeamColor.KES + "customerEmail = " + customerEmail);
 		
+		List<Map<String, Object>> cartList = cartService.getCartList(customerEmail);
+		log.debug(TeamColor.KES + "cartList = " + cartList.toString());
+		model.addAttribute("cartList", cartList);
 		return "customer/getCartList";
 	}
 	 
@@ -42,9 +46,9 @@ public class CartController {
 		return "redirect:customer/getCartList";
 	}
 	
-	// customer/addCart : goods_no, cart_amount, customer_email 을 받아서 cart에 열 하나 추가 
+//	// customer/addCart : goods_no, cart_amount, customer_email 을 받아서 cart에 열 하나 추가 
 //	@GetMapping("/customer/getCartListByChecked")
-//	public String getCgetCartListByChecked() {
+//	public String getCgetCartListByChecked(@RequestParam List<String> cartNo) {
 //		return ""
 //	}
 	
