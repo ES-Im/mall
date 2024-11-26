@@ -16,16 +16,14 @@ import com.example.mall.vo.Staff;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-
 @Slf4j
 @Controller
-public class StaffController {
+public class StaffController { // Author : 김동현
 	
 	@Autowired StaffService staffService;
 	
 	// addStaff Form
-	@GetMapping("/staff/addStaff")
+	@GetMapping("/staff/addStaff") 
 	public String addStaff(Model model) {
 		return "staff/addStaff";
 	}

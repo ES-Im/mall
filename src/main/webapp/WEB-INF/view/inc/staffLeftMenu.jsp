@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
 <html>
@@ -17,7 +15,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <meta charset="UTF-8">
-<title>sidebar</title>
+<title>staffLeftMenu</title>
 </head>
 <body>
 
@@ -25,20 +23,17 @@
     <div class="row flex-nowrap">
         <div class=" bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" >
-               
-               
-                   <a href="#" class="nav-link px-0 " > <span class="fs-4 d-none d-sm-inline ps-5" >MUSINSA</span> </a> 
+            	<a href="#" class="nav-link px-0 " > <span class="fs-4 d-none d-sm-inline ps-5" >MUSINSA</span> </a> 
                 
-                   <br>
-                   
-                   <!-- <a href="#" class="nav-link px-0"> <span class="fs-5 d-none d-sm-inline">MUSINSA</span> </a>
-                   <a href="#" class="nav-link px-0"> <span class="fs-5 d-none d-sm-inline">MUSINSA</span> </a> -->
-                   <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                   	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ STAFF_ID 님,</span>
-                   </a>
-                   <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                   	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ ADD STAFF</span>
-                   </a>
+                <br>
+                
+                <a href="${pageContext.request.contextPath}/staff/getGoodsList" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ STAFF_ID 님</span>
+                </a>
+                
+                <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ ADD STAFF</span>
+                </a>
 
 					<br>
 				
@@ -149,9 +144,7 @@
                             </li>
                         </ul>
                     </li>
-                  
                 </ul>
-                
             </div>
         </div>
     </div>

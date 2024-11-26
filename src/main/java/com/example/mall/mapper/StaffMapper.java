@@ -8,7 +8,7 @@ import com.example.mall.vo.Customer;
 import com.example.mall.vo.Staff;
 
 @Mapper
-public interface StaffMapper {
+public interface StaffMapper { // Author : 김동현
 	
 	// off/login.jsp
 	String staffLogin(Staff staff);
