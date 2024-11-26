@@ -12,7 +12,7 @@ import com.example.mall.vo.Cart;
 
 @Service
 @Transactional
-public class CartService {
+public class CartService {  // Author : 김은서
 	@Autowired CartMapper cartMapper; 
 	// /customer/getCartListByCustomerId 에서 장바구니 리스트 출력시 사용
 	public List<Map<String, Object>> getCartList(String CustomerEmail) {

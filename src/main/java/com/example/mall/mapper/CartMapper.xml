@@ -3,13 +3,18 @@
 <mapper namespace="com.example.mall.mapper.CartMapper">
 	<select id="selectCartList" parameterType="String" resultType="map">
 		SELECT 
-		 g.goods_no AS goodsNo
-		 , g.goods_title AS goodTitle
-		 , g.goods_price AS goodsPrice
-		 , c.cart_amount AS cartAmount
-		 , Round(c.cart_amount * g.goods_price, -1) AS totalPrice
+			 c.cart_no AS cartNo
+			 , go.goods_No AS goodsNo
+			 , gf.goods_file_name AS fileName
+			 , go.goods_Title AS goodTitle
+			 , go.goods_Price AS goodsPrice
+			 , c.cart_amount AS cartAmount
+			 , (c.cart_amount * go.goods_Price) AS totalPrice
 		FROM cart c
-		INNER JOIN goods g ON c.goods_no = g.goods_no
+		INNER JOIN goods go
+		ON go.goods_no = c.goods_no
+		INNER JOIN goods_file gf
+		ON go.goods_no = gf.goods_no
 		WHERE c.customer_email = #{customerEmail} 
 	</select>
 	
