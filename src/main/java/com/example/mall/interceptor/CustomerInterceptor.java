@@ -16,10 +16,11 @@ public class CustomerInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 	
+		// 고객 세션이 있는 경우 다른 세션고유 URL에 접근시, 홈으로 이동
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") != null) {
 			log.debug(request.getRequestURL().toString() + ", Customer session exist");
-			response.sendRedirect(request.getContextPath() + "/customer/getGoodsList");
+			response.sendRedirect(request.getContextPath() + "/home");
 			return false;
 		}
 		
