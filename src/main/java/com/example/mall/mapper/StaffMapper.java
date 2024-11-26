@@ -21,5 +21,8 @@ public interface StaffMapper {
 	
 	// staff/getCustomerListByStaff.jsp
 	List<Customer> selectCustomerListByStaff();
+	
+	// staff/getCustomerList.jsp → removeCustomerByStaff
+	Integer deleteCustomerByStaff(String customerEmail);
 
 }

@@ -26,5 +26,11 @@
 			   update_date updateDate, create_date createDate  
 		FROM customer ORDER BY create_date
 	</select>
+	
+	<!-- deleteCustomerByStaff Query : 고객 삭제  -->
+	<delete id="deleteCustomerByStaff" parameterType="String">
+		DELETE FROM customer WHERE customer_email = #{customerEmail}
+	</delete>
+	
 
 </mapper>
