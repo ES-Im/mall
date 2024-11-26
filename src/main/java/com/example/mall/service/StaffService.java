@@ -12,7 +12,7 @@ import com.example.mall.vo.Staff;
 
 @Service
 @Transactional
-public class StaffService {
+public class StaffService { // Author : 김동현
 	
 	@Autowired StaffMapper staffMapper;
 	
