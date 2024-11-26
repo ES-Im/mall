@@ -26,14 +26,27 @@ public class CartController {
 		List<Map<String, Object>> cartList = cartService.getCartList(customerEmail);
 		model.addAttribute("cartList", cartList);
 		
-		return "customer/getCartListByCustomerId";
+		return "customer/getCartList";
 	}
 	 
 	// customer/addCart : cart에 상품 추가시 사용
 	@GetMapping("/customer/addCart") 
 	public String addCart(Cart cart) {
 		cartService.addCart(cart);
-		return "redirect :/customer/getCartList";
+		return "redirect:/customer/getCartList";
 	}
+	// customer/removeCart : customer-Email, cart_no 매개변수를 받아서 카트 삭제
+	@GetMapping("/customer/removeCart")
+	public String removeCart(Cart cart) {
+		cartService.removeCart(cart);
+		return "redirect:customer/getCartList";
+	}
+	
+	// customer/addCart : goods_no, cart_amount, customer_email 을 받아서 cart에 열 하나 추가 
+//	@GetMapping("/customer/getCartListByChecked")
+//	public String getCgetCartListByChecked() {
+//		return ""
+//	}
+	
 	
 }

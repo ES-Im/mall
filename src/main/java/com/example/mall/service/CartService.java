@@ -24,7 +24,9 @@ public class CartService {
 		return cartMapper.insertCart(cart);
 	}
 	
-//	// /customer/removeCart : 장바구니에서 선택한 리스트 삭제
-//	public 
-//	CartService.removeCart()
+	// /customer/removeCart : 장바구니에서 선택한 리스트 삭제
+	public int removeCart(Cart cart) {
+		return cartMapper.deleteCart(cart);
+	}
+	
 }

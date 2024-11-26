@@ -4,6 +4,6 @@
 	<select id="login" parameterType="com.example.mall.vo.Customer" resultType="String">
 		SELECT customer_email customerEmail
 		FROM Customer 
-		WHERE customer_email=#{customerEmail}, customer_pw=#{customerPw}
+		WHERE customer_email=#{customerEmail} and customer_pw=#{customerPw}
 	</select> 
 </mapper>
