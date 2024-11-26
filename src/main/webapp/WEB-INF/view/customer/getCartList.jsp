@@ -113,7 +113,9 @@
 	
 	// 선택한 OrderNo 결제 하기 
 	$(payOnCheckedBtn.click(function(){
+		// 선택한 orderNo이 없으면 alert창 띄우기 
 		
+		// 선택한 orderNo이 1개 이상이라면 /customer/addPayment 로 이동 -> post방식이므로 form Html 수정 필요
 	});
 
 	
