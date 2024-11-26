@@ -27,22 +27,35 @@
                 
                 <br>
                 
-                <a href="${pageContext.request.contextPath}/staff/getGoodsList" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ STAFF_ID 님</span>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                	<li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <li class="w-100">
+			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">ADD CATEGORY</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <a href="${pageContext.request.contextPath}/staff/getGoodsList" class="nav-link px-0 align-middle">
+                	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ ${loginStaff} 님</span>
                 </a>
                 
-                <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ ADD STAFF</span>
+                <a href="${pageContext.request.contextPath}/staff/addStaff" class="nav-link px-0 align-middle">
+                	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ STAFF ADD</span>
                 </a>
 
-					<br>
-				
+				<br>
 
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 
                     <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span></a>
+                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span>
+                        </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
 			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">ADD CATEGORY</span> </a>
