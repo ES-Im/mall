@@ -6,6 +6,6 @@ import com.example.mall.vo.Customer;
 
 @Mapper
 public interface CustomerMapper {
-	// off/login   
-	public String login(Customer customer);
+	// off/login  
+	String login(Customer customer);
 }
