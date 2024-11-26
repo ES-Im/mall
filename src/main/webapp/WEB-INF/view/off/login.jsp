@@ -123,7 +123,7 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
 <body>
 
 
-<form action="${pageContext.request.contextPath}/off/login">
+<form action="${pageContext.request.contextPath}/off/login" method="post">
   <h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2>
   <button class="submit"><span class="entypo-lock"><i class="fa fa-lock"></i></span></button>
   <span class="entypo-user inputUserIcon">
