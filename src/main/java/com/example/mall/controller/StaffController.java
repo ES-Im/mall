@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mall.service.StaffService;
+import com.example.mall.util.TeamColor;
+import com.example.mall.vo.Customer;
 import com.example.mall.vo.Staff;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,7 @@ public class StaffController {
 	@PostMapping("/staff/addStaff")
 	public String addStaff(Staff staff) {
 		
-		log.debug(staff.toString()); // debug
+		log.debug(TeamColor.KDH + "addStaffInfo : " + staff.toString() + TeamColor.RESET); // debug
 		int addStaffRow = staffService.addStaff(staff);
 		if(addStaffRow == 0) {
 			return "staff/addStaff";
@@ -46,7 +48,7 @@ public class StaffController {
 	public String getStaffList(Model model) {
 		
 		List<Staff> staffList = staffService.getStaffList();
-		log.debug("StaffList : " + staffList.toString()); // debug
+		log.debug(TeamColor.KDH + "StaffList : " + staffList.toString() + TeamColor.RESET); // debug
 		
 		model.addAttribute("staffList", staffList);
 		
@@ -57,13 +59,26 @@ public class StaffController {
 	@GetMapping("staff/removeStaff")
 	public String removeStaff(@RequestParam Integer staffId) {
 		
-		log.debug("removeStaffId : " + staffId); // debug
+		log.debug(TeamColor.KDH + "removeStaffId : " + staffId + TeamColor.RESET); // debug
 		int removeStaffRow = staffService.removeStaff(staffId);
 		if(removeStaffRow == 0) {
 			return "redirect:/staff/getStaffList";
 		}
 		return "redirect:/staff/getStaffList";
 	}
+	
+	// customerList Form
+	@GetMapping("/staff/getCustomerListByStaff")
+	public String getCustomerListByStaff(Model model) {
+		
+		List<Customer> customerList = staffService.getCustomerListByStaff();
+		log.debug(TeamColor.KDH + "CustomerList" + customerList.toString() + TeamColor.RESET); // debug
+		
+		model.addAttribute("customerList", customerList);
+		
+		return new String();
+	}
+	
 	
 	
 	
