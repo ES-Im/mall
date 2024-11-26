@@ -10,6 +10,9 @@ import com.example.mall.vo.Staff;
 @Mapper
 public interface StaffMapper {
 	
+	// off/login.jsp
+	String staffLogin(Staff staff);
+	
 	// staff/getStaffList.jsp
 	List<Staff> selectStaffList();
 	
