@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mall.mapper.CustomerMapper">
 	<select id="login" parameterType="com.example.mall.vo.Customer" resultType="String">
-		SELECT customer_email, customer_pw
+		SELECT customer_email customerEmail
 		FROM Customer 
 		WHERE customer_email=#{customerEmail}, customer_pw=#{customerPw}
 	</select> 
