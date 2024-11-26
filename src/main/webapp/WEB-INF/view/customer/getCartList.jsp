@@ -35,18 +35,36 @@ $(document).ready(function(){
 
 <div class="justify-content-center">
 	<div class="col-sm-8">
-		<span class="display-3">CART</span>
+	<div class="row">
+
+	<!-- leftbar -->
+	<div class="col-sm-2 p-0">
+		<div >
+			<c:import url="/WEB-INF/view/inc/staffLeftMenu.jsp"></c:import>
+		</div>
+	</div>
+
+
+	<!-- main -->
+	<div class="col-sm-10 p-0">
+		<!-- header -->
+		<div>
+			<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
+		</div>
+		
+			<span class="display-3">CART</span>
 		<hr>
 		<table class="table">
 			<tr>
-				<th>쳌,</th>
+				<th>goodsNo</th>
 				<th>사진</th>
-				<th>상품명</th>
-				<th>수량</th>
-				<th>수량*가격 or 단품 가격 </th>
+				<th>goodTitle</th>
+				<th>cartAmount</th>
+				<th>totalPrice</th>
 				<th></th>
 			</tr>
 			<!-- 반복문을 이용하여 출력 -->
+			<c:forEach item ="">
 			<tr>
 				<td><label><input type="checkbox" class="checkbox" value=""></label></td>
 				<td></td>
@@ -59,8 +77,17 @@ $(document).ready(function(){
 					<button type="button" class="btn btn-sm btn-light">결제하기</button>
 				</td>
 			</tr>
+			</c:forEach>
 		
 		</table>
+	</div>
+	
+	
+</div>
+	
+	
+	
+	
 		
 	
 	</div>
