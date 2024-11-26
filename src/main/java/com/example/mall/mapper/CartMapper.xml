@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mall.mapper.CartMapper"></mapper>
+<mapper namespace="com.example.mall.mapper.CartMapper">
+	<select id="selectCartListByCustomerId" parameterType="String" resultType="map">
+		SELECT 
+		 g.goods_no AS goodsNo
+		 , g.goods_title AS goodTitle
+		 , g.goods_price AS goodsPrice
+		 , c.cart_amount AS cartAmount
+		 , Round(c.cart_amount * g.goods_price, -1) AS totalPrice
+		FROM cart c
+		INNER JOIN goods g ON c.goods_no = g.goods_no
+		WHERE c.customer_email = #{customerEmail}
+	</select>
+</mapper>
