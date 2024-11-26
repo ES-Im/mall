@@ -3,7 +3,7 @@
 <mapper namespace="com.example.mall.mapper.CustomerMapper">
 	<select id="login" parameterType="com.example.mall.vo.Customer" resultType="String">
 		SELECT customer_email, customer_pw
-		FROM Customer
+		FROM Customer 
 		WHERE customer_email=#{customerEmail}, customer_pw=#{customerPw}
 	</select> 
 </mapper>
