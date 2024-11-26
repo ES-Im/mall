@@ -10,6 +10,6 @@
 		 , Round(c.cart_amount * g.goods_price, -1) AS totalPrice
 		FROM cart c
 		INNER JOIN goods g ON c.goods_no = g.goods_no
-		WHERE c.customer_email = #{customerEmail}
+		WHERE c.customer_email = #{customerEmail} 
 	</select>
 </mapper>

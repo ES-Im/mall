@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CartMapper {
 	public List<Map<String, Object>> selectCartListByCustomerId(String customerEmail);
+	
 }

@@ -13,7 +13,7 @@ import com.example.mall.mapper.CartMapper;
 @Transactional
 public class CartService {
 	@Autowired CartMapper cartMapper; 
-	
+	 
 	public List<Map<String, Object>> getCartListByCustomerId(String CustomerEmail) {
 		return cartMapper.selectCartListByCustomerId(CustomerEmail);
 	}
