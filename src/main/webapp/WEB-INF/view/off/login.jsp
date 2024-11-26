@@ -30,7 +30,7 @@ h2 {
 }
 
 body {
-  background: #272125;
+  background: #ffffff;
   font-family: 'Roboto', sans-serif;
   
 }
@@ -123,17 +123,17 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
 <body>
 
 
-<form action="">
+<form action="${pageContext.request.contextPath}/off/login">
   <h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2>
   <button class="submit"><span class="entypo-lock"><i class="fa fa-lock"></i></span></button>
   <span class="entypo-user inputUserIcon">
      <i class="fa fa-user"></i>
    </span>
-  <input type="text" class="user" placeholder="E-Mail"/>
+  <input type="text" class="user" placeholder="E-Mail" name="id"/>
   <span class="entypo-key inputPassIcon">
      <i class="fa fa-key"></i>
    </span>
-  <input type="password" class="pass"placeholder="Password"/>
+  <input type="password" class="pass"placeholder="Password" name="pw"/>
 </form>
 
 

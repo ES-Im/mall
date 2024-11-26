@@ -11,12 +11,10 @@ public class HomeController {
 		return "/off/home";
 	}
 	
-	
 	@GetMapping("/off/header")
 	public String getheader() {
 		return "/inc/header";
 	}
-	
 	
 	@GetMapping("/off/footer")
 	public String getfooter() {
@@ -37,9 +35,7 @@ public class HomeController {
 	public String getlogin() {
 		return "/off/login";
 	}
-	
-	
-	
+
 	@GetMapping("/off/join")
 	public String getjoin() {
 		return "/off/join";
