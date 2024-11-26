@@ -50,6 +50,10 @@ public class HomeController {
 	public String getgoodsOne() {
 		return "/off/goodsOne";
 	}
+	@GetMapping("/off/cart")
+	public String getcart() {
+		return "customer/cart";
+	}
 	
 	
 	

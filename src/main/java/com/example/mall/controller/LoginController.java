@@ -41,7 +41,6 @@ public class LoginController {
 	public String login(@RequestParam String id, @RequestParam String pw, Model model, HttpSession session) {
 		log.debug(TeamColor.KMJ + "POST[LoginController]" +TeamColor.RESET);
 		
-		
 		// 유효성 검사
 		if(id == null || id.equals("") || pw == null || pw.equals("") ) {
 			
@@ -58,16 +57,11 @@ public class LoginController {
 		
 		if(firstChar.equals("@")) {
 			
-			Map<String, Object> paramMap = new HashMap<>();
-			
-			paramMap.put("staffId", id);
-			paramMap.put("staffPw", pw);
+//			String staffId = staffService.;
 //			
-//			Map<String, Object> staff = staffService.;
-//			
-//			log.debug(TeamColor.KMJ + "staff" + staff.toString() + TeamColor.RESET);
-					
-//			session.setAttribute("loginStaff", staff);		
+//			log.debug(TeamColor.KMJ + "staff" + staffId.toString() + TeamColor.RESET);
+//					
+//			session.setAttribute("loginStaff", staffId);		
 			
 			return " redirect:/staff/getGoodsList";
 					
@@ -75,17 +69,12 @@ public class LoginController {
 		}else {
 			
 			// customer 로그인
-			Map<String, Object> paramMap = new HashMap<>();
+			String customerEmail = customerService.login(id, pw);
 			
-			paramMap.put("customerEmail", id);
-			paramMap.put("customerPw", pw);
-			
-//			Map<String, Object> customer = customerService.;
-//			
-//			log.debug(TeamColor.KMJ + "customer" + customer.toString() + TeamColor.RESET);
+			log.debug(TeamColor.KMJ + "customer" + customerEmail.toString() + TeamColor.RESET);
 
 			
-//			session.setAttribute("loginCustomer", customer);
+			session.setAttribute("loginCustomer", customerEmail);
 			
 			return "redirect:/customer/main";
 			
