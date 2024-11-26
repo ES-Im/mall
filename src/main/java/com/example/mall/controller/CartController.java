@@ -30,7 +30,7 @@ public class CartController {
 	}
 	 
 	// customer/addCart : cart에 상품 추가시 사용
-	@GetMapping("/customer/addCart")
+	@GetMapping("/customer/addCart") 
 	public String addCart(Cart cart) {
 		cartService.addCart(cart);
 		return "redirect :/customer/getCartList";

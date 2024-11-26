@@ -5,5 +5,5 @@
 		SELECT customerEmail, customerPw
 		FROM Customer
 		WHERE customer_email=#{customerEmail}, customer_pw=#{customerPw} 
-	</select>
+	</select> 
 </mapper>
