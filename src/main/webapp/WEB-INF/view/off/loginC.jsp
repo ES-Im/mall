@@ -166,13 +166,13 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
   <span class="entypo-user inputUserIcon">
      <i class="fa fa-user"></i>
   </span>
-  <input type="text" class="user" placeholder="ID" name="id" id="id" />
+  <input type="text" class="user" placeholder="ID" name="id" id="id" value="customer1@naver.com" />
   
   <!-- PW 입력부분 -->
   <span class="entypo-key inputPassIcon">
      <i class="fa fa-key"></i>
   </span>
-  <input type="password" class="pass"placeholder="PASSWORD" name="pw" id="pw" />
+  <input type="password" class="pass"placeholder="PASSWORD" name="pw" id="pw" value="1234" />
 </form>
 
 

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.mall.service.AddressService;
 import com.example.mall.service.CartService;
 import com.example.mall.util.TeamColor;
+import com.example.mall.vo.Address;
 import com.example.mall.vo.Cart;
 
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CartController {
 	@Autowired CartService cartService;
+	@Autowired AddressService addressService;
 	
 	// customer/getCartListByCustomerId 에서 장바구니 리스트 출력시 사용
 	@GetMapping("/customer/getCartList")
@@ -36,14 +39,16 @@ public class CartController {
 	}
 	
 	@GetMapping("/customer/getCartListByChecked")
-	public String getCartListByChecked(Model model, @RequestParam Integer[] cartNo) {
-		// 선택한 CartNo 리스팅
+	public String getCartListByChecked(Model model, HttpSession session, @RequestParam Integer[] cartNo) {
+		// 선택한 CartNo 리스팅 + 총 합계
 		Map<String, Object> cartInfoByCheckedMap = cartService.getCartListByChecked(cartNo);
-		// 선택한 cartNo의 총 합계 
 		
+		// 해당 고객의 배송지리스트 출력
+		List<Address> addressList = addressService.getAddressList((String)session.getAttribute("loginCustomer"));
 		
 		model.addAttribute("cartListByChecked", cartInfoByCheckedMap.get("cartList"));
 		model.addAttribute("totalSum", cartInfoByCheckedMap.get("totalSum"));
+		model.addAttribute("addressList", addressList);
 		
 		return "customer/getCartListByChecked";
 	}

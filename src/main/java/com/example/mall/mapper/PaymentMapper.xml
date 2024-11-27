@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mall.mapper.PaymentMapper"></mapper>
+<mapper namespace="com.example.mall.mapper.PaymentMapper">
+	<insert id="insertPayment" parameterType="com.example.mall.vo.Payment">
+		INSERT INTO payment(
+			address_no, payment_price, payment_method, payment_status
+		) VALUES(
+			#{addressNo}, #{paymentPrice}, #{paymentMethod}, '결제완료'
+		)
+	    <selectKey keyProperty="paymentNo" resultType="Integer" order="AFTER">
+     	   SELECT paymentNo
+    	</selectKey>
+	</insert>
+	
+	<insert id="insertOrders" parameterType="Map">
+		INSERT INTO orders(
+			goods_no, orders_amount, payment_no
+		) VALUES(
+			(SELECT goods_no FROM cart WHERE cart_no=#{cartNo})
+			, (SELECT cart_amount FROM cart WHERE cart_no=#{cartNo})
+			, #{paymentNo}
+		)	
+	</insert>
+	
+</mapper>

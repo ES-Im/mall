@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mall.mapper.AddressMapper"></mapper>
+<mapper namespace="com.example.mall.mapper.AddressMapper">
+	<select id="selectAddressList" parameterType="com.example.mall.vo.Address" resultType="com.example.mall.vo.Address">
+		SELECT 
+			address_no addressNo
+			, customer_email customerEmail
+			, address_detail addressDetail
+			, update_date updateDate
+			, create_date createDate
+		FROM address WHERE customer_email = #{customerEmail}
+	</select>
+
+</mapper>
