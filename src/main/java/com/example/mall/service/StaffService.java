@@ -36,8 +36,8 @@ public class StaffService { // Author : 김동현
 	}
 	
 	// 스태프 삭제
-	public Integer removeStaff(Integer staffId) {
-		return staffMapper.deleteStaff(staffId);
+	public Integer removeStaff(Integer staffNo) {
+		return staffMapper.deleteStaff(staffNo);
 	}
 	
 	// 고객 리스트 조회

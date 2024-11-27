@@ -55,10 +55,10 @@ public class StaffController { // Author : 김동현
 	
 	// removeStaff
 	@GetMapping("/staff/removeStaff")
-	public String removeStaff(@RequestParam Integer staffId) {
+	public String removeStaff(@RequestParam Integer staffNo) {
 		
-		log.debug(TeamColor.KDH + "removeStaffId : " + staffId + TeamColor.RESET); // debug
-		int removeStaffRow = staffService.removeStaff(staffId);
+		log.debug(TeamColor.KDH + "removeStaffId : " + staffNo + TeamColor.RESET); // debug
+		int removeStaffRow = staffService.removeStaff(staffNo);
 		if(removeStaffRow == 0) {
 			return "redirect:/staff/getStaffList";
 		}
