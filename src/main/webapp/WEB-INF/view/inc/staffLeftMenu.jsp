@@ -19,8 +19,8 @@
 </head>
 <body>
 
-<div class="container-fluid " style="height:100%;" >
-    <div class="row flex-nowrap">
+<div class="container-fluid " style="height:100%">
+    <div class="row flex-nowrap" style="position: fixed;">
         <div class=" bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" >
             	<a href="#" class="nav-link px-0 " > <span class="fs-4 d-none d-sm-inline ps-5" >MUSINSA</span> </a> 
@@ -42,7 +42,7 @@
                             </li>
                         </ul>
                     </li>
-                     
+                    
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
        	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span><span style="margin-left: 90px; color: white;">▼</span>
@@ -56,7 +56,7 @@
                             </li>
                         </ul>
                     </li>
-                     
+                    
                     <li>
                         <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
        	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">GOODS</span><span style="margin-left: 113px; color: white;">▼</span>
