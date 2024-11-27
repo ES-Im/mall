@@ -70,6 +70,10 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
 	                  	</form>
 					</div>
                   	
+                  	
+                  	
+                  	
+                  	
                   	<!-- 장바구니 버튼 -->
                   	<form class="d-flex me-3 " >
                         <button class="btn btn-outline-dark" type="submit">
@@ -78,14 +82,22 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
-                  	
+
                   	<!-- 회원가입 & 로그인 버튼 -->
-                  	<div class="me-3">
-	                  	<a href="#"><button type="button" class="btn btn-sm btn-light">회원가입</button></a>
-	                  	<a href="#"><button type="button" class="btn btn-sm btn-dark">로그인</button></a>
-                 	</div>
-      
-      		
+                  	<c:if test="${sessionScope.loginCustomer == null}">
+	                  	<div class="me-3">
+		                  	<a href="#"><button type="button" class="btn btn-sm btn-light">회원가입</button></a>
+		                  	<a href="#"><button type="button" class="btn btn-sm btn-dark">로그인</button></a>
+	                 	</div>
+	      			</c:if>
+	      				
+      				<!-- 로그아웃 & 마이페이지 -->                 
+                  	<c:if test="${sessionScope.loginCustomer != null}">
+	                  	<div class="me-3">
+		                  	<a href="${pageContext.request.contextPath}/logout"><button type="button" class="btn btn-sm btn-light">로그아웃</button></a>
+		                  	<a href="#"><button type="button" class="btn btn-sm btn-dark">마이페이지</button></a>
+	                 	</div>
+                  	</c:if>
       
       
       

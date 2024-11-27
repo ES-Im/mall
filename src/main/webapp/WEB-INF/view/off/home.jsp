@@ -172,11 +172,11 @@
 				</c:forEach>
 				
 				<!-- 다음 페이지 -->
-				<c:if test="${!(page.currentPage < page.lastPage)}">
+				<c:if test="${!(page.currentPage < page.lastPage - page.numPerPage)}">
 					<a href="" style="pointer-events: none;">Next</a>
 				</c:if>
 				
-				<c:if test="${page.currentPage < page.lastPage}">
+				<c:if test="${page.currentPage < page.lastPage - page.numPerPage}">
 					<a href="${pageContext.request.contextPath}/home?currentPage=${page.currentPage + 10}&searchWord=${searchWord}">
 						Next
 					</a>
