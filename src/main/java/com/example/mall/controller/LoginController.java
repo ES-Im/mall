@@ -101,11 +101,86 @@ public class LoginController {
 	
 	
 	
+	// 테스트용 로그인 화면 ( 완성 후 삭제 필요 )
 	
+	// login.jsp로 이동
+	@GetMapping("/off/loginC")
+	public String loginC(HttpSession session) {
+		log.debug( TeamColor.KMJ + "GET[LoginController]" + TeamColor.RESET );
+		log.debug( TeamColor.KMJ + "/off/login 실행" + TeamColor.RESET);
+		
+		return "off/loginC";
+	}
 	
+	// 로그인 액션
+	@PostMapping("/off/loginC")
+	public String loginC(@RequestParam String id, @RequestParam String pw, Model model, HttpSession session) {
+		
+		log.debug(TeamColor.KMJ + "POST[LoginController]" +TeamColor.RESET);
+		
+		// 유효성 검사
+		if(id == null || id.equals("") || pw == null || pw.equals("") ) {
+			
+			return "off/loginC";
+		}
+
+		log.debug(TeamColor.KMJ + "id : " + id + TeamColor.RESET);
+		log.debug(TeamColor.KMJ + "pw : " + pw + TeamColor.RESET);
+		
+		
+		
+		String customerEmail = customerService.login(id, pw);
+			
+		log.debug(TeamColor.KMJ + "customer" + customerEmail.toString() + TeamColor.RESET);
+
+		
+		session.setAttribute("loginCustomer", customerEmail);
+		
+		return "redirect:/customer/main";
+			
+	}
 	
+	// 테스트용 로그인 화면 ( 완성 후 삭제 필요 )
 	
+	// login.jsp로 이동
+	@GetMapping("/off/loginS")
+	public String loginS(HttpSession session) {
+		log.debug( TeamColor.KMJ + "GET[LoginController]" + TeamColor.RESET );
+		log.debug( TeamColor.KMJ + "/off/login 실행" + TeamColor.RESET);
+		
+		return "off/loginS";
+	}
 	
+	// 로그인 액션
+	@PostMapping("/off/loginS")
+	public String loginS(@RequestParam String id, @RequestParam String pw, Model model, HttpSession session) {
+		
+		log.debug(TeamColor.KMJ + "POST[LoginController]" +TeamColor.RESET);
+		
+		// 유효성 검사
+		if(id == null || id.equals("") || pw == null || pw.equals("") ) {
+			
+			return "off/loginS";
+		}
+
+		log.debug(TeamColor.KMJ + "id : " + id + TeamColor.RESET);
+		log.debug(TeamColor.KMJ + "pw : " + pw + TeamColor.RESET);
+		
+		
+		
+		// 넘어온 id가 staffId인지 확인하기
+		String firstChar = ""+id.charAt(0);
+		
+			
+		String staffId = staffService.staffLogin(id, pw);
+		
+		log.debug(TeamColor.KMJ + "staff" + staffId.toString() + TeamColor.RESET);
+				
+		session.setAttribute("loginStaff", staffId);		
+		
+		return "redirect:/staff/getGoodsList";
+	
+	}
 	
 
 }
