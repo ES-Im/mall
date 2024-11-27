@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mall.mapper.CartMapper">
-	<select id="selectCartList" parameterType="String" resultType="map">
+	<select id="selectCartList" parameterType="com.example.mall.vo.Cart" resultType="map">
 		SELECT 
 			 c.cart_no AS cartNo
 			 , go.goods_No AS goodsNo
@@ -15,7 +15,24 @@
 		ON go.goods_no = c.goods_no
 		INNER JOIN goods_file gf
 		ON go.goods_no = gf.goods_no
-		WHERE c.customer_email = #{customerEmail} 
+		WHERE c.customer_email = #{customerEamil}
+	</select>
+	
+	<select id="selectCartListByChecked" parameterType="com.example.mall.vo.Cart" resultType="map">
+		SELECT 
+			 c.cart_no AS cartNo
+			 , go.goods_No AS goodsNo
+			 , gf.goods_file_name AS fileName
+			 , go.goods_Title AS goodTitle
+			 , go.goods_Price AS goodsPrice
+			 , c.cart_amount AS cartAmount
+			 , (c.cart_amount * go.goods_Price) AS totalPrice
+		FROM cart c
+		INNER JOIN goods go
+		ON go.goods_no = c.goods_no
+		INNER JOIN goods_file gf
+		ON go.goods_no = gf.goods_no
+		WHERE c.cart_no = #{cartNo}
 	</select>
 	
 	<insert id="insertCart" parameterType="com.example.mall.vo.Cart">
@@ -26,8 +43,8 @@
 		);
 	</insert>
 	 
-	<delete id="deleteCart" parameterType="com.example.mall.vo.Cart">
-		DELETE FROM cart 
-		WHERE customer_email = #{customerEamil} AND cart_no = #{cartNo};
+	<delete id="deleteCart" parameterType="Integer">
+		DELETE FROM cart WHERE cart_no = #{cartNo};
 	</delete>
 </mapper>
+

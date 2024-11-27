@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-
+//Author : 김은서
 @Slf4j
 @Component
 public class CustomerInterceptor implements HandlerInterceptor {
