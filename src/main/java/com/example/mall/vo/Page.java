@@ -6,7 +6,7 @@ import lombok.Data;
 public class Page {
 	// currentPage, rowperPage, numperPage 디폴트값 설정 
     private Integer currentPage = 1;
-    private Integer rowPerPage = 10;
+    private Integer rowPerPage = 8;
     private Integer numPerPage = 10;
     private Integer lastPage;
     

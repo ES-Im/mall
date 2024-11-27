@@ -9,6 +9,27 @@
 <meta charset="UTF-8">
 <title>HEADER</title>
 </head>
+
+<script>
+$(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 실행.
+	
+	$('#btnSearchWord').click(function() {
+		if($('#searchWord').val() == null || $('#searchWord').val() == ''){
+			alert('검색어를 입력해주세요');
+			$('#searchWord').focus();
+			return;
+		}
+		$('#searchWordForm').submit();
+		
+		
+		
+	})
+	
+	
+	
+})
+</script>
+
 <body>
 
 <head>
@@ -43,14 +64,14 @@
 
                   	<!-- 제품검색 -->
                 	<div class="me-3">
-	                  	<form class="d-flex">
-		 					<input type="text" class="form-control-sm" name="">
-		 					<button type="button" class="btn btn-sm btn-dark">검색</button>
+	                  	<form class="d-flex" action="${pageContext.request.contextPath }/home" method="get" id="searchWordForm">
+		 					<input type="text" class="form-control-sm" name="searchWord" id="searchWord">
+		 					<button type="button" class="btn btn-sm btn-dark" id="btnSearchWord">검색</button>
 	                  	</form>
 					</div>
                   	
                   	<!-- 장바구니 버튼 -->
-                  	<form class="d-flex me-3 ">
+                  	<form class="d-flex me-3 " >
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
