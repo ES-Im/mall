@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Item - Start Bootstrap Template</title>
+        <title>쇼팽몰</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath }/assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -17,27 +19,44 @@
         <link href="${pageContext.request.contextPath }//css/styles.css" rel="stylesheet" />
     </head>
     <body>
+    	<!-- 헤더 -->
+    	<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
     
  
         <!-- Product section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
+                	<!-- 이미지 ~ 상품 상세설명 -->
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1">SKU: BST-498</div>
-                        <h1 class="display-5 fw-bolder">Shop item template</h1>
+                        <div class="small mb-1">GOODSNO : ${goods.goodsNo }</div>
+                        <h1 class="display-5 fw-bolder">${goods.goodsTitle }</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$45.00</span>
-                            <span>$40.00</span>
+                            <span class="text-decoration-line-through">$450000</span>
+                            <span>${goods.goodsPrice }</span>
                         </div>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                        <p class="lead">${goods.goodsMemo }</p>
+                        
+                        <!-- 장바구니  -->
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
+                        	<c:if test="${goods.goodsStatus == '재고있음' }">
+                        		<input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+	                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+	                                <i class="bi-cart-fill me-1"></i>
+	                                Add to cart
+	                            </button>
+                        	</c:if>	
+                        	<c:if test="${goods.goodsStatus == '재고없음' }">
+
+	                            <button class="btn btn-outline-dark flex-shrink-0 btn-dark text-light" type="button">
+	                                <i class="bi-cart-fill me-1"></i>
+	                              	SOLD OUT😂
+	                            </button>
+                        	</c:if>	
+                        
+                        
+                            
                         </div>
                     </div>
                 </div>
@@ -158,7 +177,8 @@
 
         
         
-        
+        <!-- 푸터 -->
+    	<c:import url="/WEB-INF/view/inc/footer.jsp"></c:import>
         
         
         <!-- Bootstrap core JS-->
