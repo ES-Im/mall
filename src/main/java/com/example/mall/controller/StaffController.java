@@ -1,6 +1,7 @@
 package com.example.mall.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.mall.service.StaffService;
 import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Customer;
+import com.example.mall.vo.Page;
 import com.example.mall.vo.Staff;
 
 import lombok.extern.slf4j.Slf4j;
@@ -67,12 +69,13 @@ public class StaffController { // Author : 김동현
 	
 	// customerList Form
 	@GetMapping("/staff/getCustomerListByStaff")
-	public String getCustomerListByStaff(Model model) {
+	public String getCustomerListByStaff(Model model, Page page) {
 		
-		List<Customer> customerList = staffService.getCustomerListByStaff();
+		Map<String, Object> customerList = staffService.getCustomerListByStaff(page);
 		log.debug(TeamColor.KDH + "CustomerList" + customerList.toString() + TeamColor.RESET); // debug
 		
-		model.addAttribute("customerList", customerList);
+		model.addAttribute("customerList", customerList.get("customerList"));
+		model.addAttribute("page", customerList.get("page"));
 		
 		return "staff/getCustomerListByStaff";
 	}
