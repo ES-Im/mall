@@ -6,11 +6,64 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Get Staff List</title>
+<title>Add Staff</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-
+    	
+    	// 스태프 추가 유효성 검사
+		$('#btnAddStaff').click(function(){
+			
+	        const staffId = $('#staffId').val();
+	        const firstName = $('#firstName').val();
+	        const lastName = $('#lastName').val();
+	        const staffPw = $('#staffPw').val();
+	        const reStaffPw = $('#ReStaffPw').val();
+			
+			if (staffId == '' || staffId == null || staffId.length < 4) { // 아이디
+	            alert('Staff ID를 입력하세요 (4자이상)');
+	            $('#staffId').focus();
+	            return;
+	        } else if (!staffId.startsWith('@')) {
+	        	alert('Staff ID는 "@"로 시작해야 합니다');
+	            $('#staffId').focus();
+	            return;
+	        } else if (firstName == '' || firstName == null) { // 이름
+	        	alert('First Name을 입력하세요');
+	        	$('#firstName').focus();
+	            return;
+	        } else if (!/^[가-힣a-zA-Z]+$/.test(firstName)) {
+	        	alert('First Name은 한글, 영어만 입력 가능합니다');
+	        	$('#firstName').focus();
+	            return;
+	        } else if (lastName == '' || lastName == null) {
+	        	alert('Last Name을 입력하세요');
+	        	$('#firstName').focus();
+	            return;
+	        } else if (!/^[가-힣a-zA-Z]+$/.test(lastName)) {
+	        	alert('Last Name은 한글, 영어만 입력 가능합니다');
+	        	$('#lastName').focus();
+	            return;
+	        } else if (staffPw == '' || staffPw == null) { // 비밀번호
+	        	alert('PassWord를 입력하세요');
+	        	$('#staffPw').focus();
+	            return;
+	        } else if (reStaffPw  == '' || reStaffPw  == null) {
+	        	alert('PassWord를 확인하세요');
+	        	$('#reStaffPw').focus();
+	            return;
+	        } else if (staffPw.length < 4 && reStaffPw.length < 4) {
+	        	alert('PassWord는 4자리 이상 입력해주세요');
+	        	$('#staffPw').focus();
+	            return;
+	        } else if (staffPw != reStaffPw) {
+	        	alert('PassWord가 서로 다릅니다');
+	        	$('#staffPw').focus();
+	            return;
+	        } else {
+	        	$('#formAddStaff').submit(); // 성공
+	        }
+		});
     });
 </script>
 <style>
@@ -60,7 +113,7 @@
 	                    <input type="password" class="form-control" id="ReStaffPw" placeholder="Confirm Password" name="ReStaffPw">
 	                </div>
 	                <div class="d-flex justify-content-end" style="margin-top: 30px;">
-	                	<button type="submit" id="btnAddStaff" class="btn btn-sm btn-outline-primary">Add Staff</button>
+	                	<button type="button" id="btnAddStaff" class="btn btn-sm btn-outline-primary">Add Staff</button>
 	                </div>
 	            </form>
         	</div>
