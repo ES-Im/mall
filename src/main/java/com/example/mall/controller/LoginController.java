@@ -77,7 +77,7 @@ public class LoginController {
 			
 			session.setAttribute("loginCustomer", customerEmail);
 			
-			return "redirect:/customer/main";
+			return "redirect:/customer/getCartList";
 			
 		}
 

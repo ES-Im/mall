@@ -141,8 +141,8 @@
 			
 				
 			<!-- PAGINATION -->
-       		<div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; width: 1300px">
-				<!-- Pagination --> <!-- 이전 11 12 13 14 15 16 17 18 19 20 다음 -->
+       		<div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+				
 				<!-- 첫 페이지 -->
 				<c:if test="${!(page.currentPage > 1)}">
 					<a href="" style="pointer-events: none;">&laquo;</a>

@@ -47,11 +47,12 @@ public class GoodsController {
 	public String home(Page page, Model model, @RequestParam(required = false) String searchWord) {
 		
 		log.debug( TeamColor.KMJ + "GET[GoodsController - home]" + TeamColor.RESET );
-		log.debug( TeamColor.KMJ + "page : " + page.toString() + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "searchWord : " + searchWord + TeamColor.RESET );
 
 		// 상품리스트 
 		Map<String, Object> goodsList = goodsService.getGoodsList(page, searchWord);
+		
+		log.debug( TeamColor.KMJ + "page : " + page.toString() + TeamColor.RESET );
 		
 		model.addAttribute("goodsList", goodsList.get("goodsList"));
 		model.addAttribute("page", goodsList.get("page"));
