@@ -15,6 +15,32 @@
 		FROM goods
 		WHERE goods_no = #{goodsNo}
 	</select>
+	
+	<!-- getGoodsOne : 후기 리스트 -->
+	<select id="selectBoardListByGoodsNo" parameterType="Integer" resultType="map">
+		SELECT b.orders_no ordersNo
+				, b.board_content boardContent
+				, b.create_date createDate
+				, acpo.orders_no ordersNo
+				, acpo.goods_no goodsNo
+				, acpo.payment_no paymentNo
+				, acpo.customer_email customerEmail
+		FROM board b INNER JOIN (SELECT o.orders_no
+										, o.goods_no
+										, o.payment_no
+										, acp.customer_email
+									FROM orders o INNER JOIN (SELECT p.payment_no
+																	, ac.customer_email
+																FROM payment p INNER JOIN (SELECT a.address_no 
+																								, c.customer_email 
+																							FROM address a INNER JOIN customer c 
+																							ON a.customer_email = c.customer_email) ac
+																ON p.address_no = ac.address_no) acp
+									ON o.payment_no = acp.payment_no) acpo
+		ON b.orders_no = acpo.orders_no
+		WHERE goods_no = #{goodsNo}
+	</select>
+	
 
 	<!-- home : 메인 페이지 상품 리스트 출력 -->
 	<select id="selectGoodsList" parameterType="map" resultType="com.example.mall.vo.Goods">

@@ -16,6 +16,8 @@ import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Goods;
 import com.example.mall.vo.Page;
 
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -27,16 +29,21 @@ public class GoodsController {
 	// Author : 김문정
 	// getGoodsOne : 상품 상세보기
 	@GetMapping("/getGoodsOne")
-	public String getGoodsOne(@RequestParam Integer goodsNo, Model model) {
+	public String getGoodsOne(@RequestParam Integer goodsNo, Model model, HttpSession session) {
 		log.debug( TeamColor.KMJ + "GET[GoodsController - getGoodsOne]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "goodsNo : " + goodsNo + TeamColor.RESET );
 	
+		// goodsOne
 		Goods goods = goodsService.getGoodsOne(goodsNo);
+		
+		// boardList 
+		List<Map<String, Object>> boardList = goodsService.getBoardListByGoodsNo(goodsNo);
 	
 		log.debug(TeamColor.KMJ + "goods : " + goods.toString() + TeamColor.RESET );
 		
 		model.addAttribute("goodsNo", goodsNo);
 		model.addAttribute("goods", goods);
+		model.addAttribute("boardList", boardList);
 		
 		return "off/getGoodsOne";
 	}
