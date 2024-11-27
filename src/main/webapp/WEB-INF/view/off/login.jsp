@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>login</title>
 
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <style>
 @import url(http://weloveiconfonts.com/api/?family=entypo);
 @import url(https://fonts.googleapis.com/css?family=Roboto);
@@ -97,7 +99,6 @@ input:focus::-webkit-input-placeholder {
 
 
 </style>
-
 <script>
 $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 실행.
 	
@@ -113,27 +114,65 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
 	  $(".inputPassIcon").css("color", "white");
 	});
 	
+	/* 유효성 검사 */
+	const emailTest = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
+	const isStaffTest = /^@[a-zA-Z0-9]+$/;
+	
+	$('#btnLogin').click(function() {
+		
+		if($('#id').val() == null || $('#id').val() == ''){
+			alert('id를 입력하세요.');
+			$('#id').focus();
+			return;
+			
+		}else if(isStaffTest.test($('#id').val()) == false){// staffId가 아니라면 회원이메일 유효성 검사하기
+			
+			if(emailTest.test($('#id').val()) == false){
+				alert('E-Mail을 입력해주세요.');
+				$('#id').focus();
+				return;
+			}
+			
+		}
+		
+		if($('#pw').val() == null || $('#pw').val() == ''){
+			alert('password를 입력해주세요.');
+			$('#pw').focus();
+			return;
+		}
+		
+		
+		$('#loginForm').submit();
+		
+	})
+	
+
 	
 })
 </script>
-
-
 
 </head>
 <body>
 
 
-<form action="${pageContext.request.contextPath}/off/login" method="post">
+<form action="${pageContext.request.contextPath}/off/login" method="post" id="loginForm">
+  
   <h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2>
-  <button class="submit"><span class="entypo-lock"><i class="fa fa-lock"></i></span></button>
+ 
+  <!-- 로그인 버튼  -->
+  <button type="button" class="button" id="btnLogin"><span class="entypo-lock"><i class="fa fa-lock"></i></span></button>
+  
+  <!-- ID 입력부분 -->
   <span class="entypo-user inputUserIcon">
      <i class="fa fa-user"></i>
-   </span>
-  <input type="text" class="user" placeholder="E-Mail" name="id"/>
+  </span>
+  <input type="text" class="user" placeholder="ID" name="id" id="id" />
+  
+  <!-- PW 입력부분 -->
   <span class="entypo-key inputPassIcon">
      <i class="fa fa-key"></i>
-   </span>
-  <input type="password" class="pass"placeholder="Password" name="pw"/>
+  </span>
+  <input type="password" class="pass"placeholder="PASSWORD" name="pw" id="pw" />
 </form>
 
 
@@ -141,4 +180,5 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
 
 
 </body>
+
 </html>
