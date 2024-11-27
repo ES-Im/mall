@@ -15,11 +15,15 @@ public interface GoodsMapper {
 	// getGoodsOne : 상품 상세보기 
 	Goods selectGoodsOne(Integer goodsNo);
 	
+	// getGoodsOne : 후기 리스트
+	List<Map<String, Object>> selectBoardListByGoodsNo(Integer goodsNo);
+	
 	// home : 메인 페이지 상품 리스트 출력
 	List<Goods> selectGoodsList(Map<String, Object> paramMap);
 	
 	// home : lastpage
 	Integer selectGoodsListLastPage(String searchWord);
+	
 	
 
 }
