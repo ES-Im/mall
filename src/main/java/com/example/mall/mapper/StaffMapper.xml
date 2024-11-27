@@ -23,7 +23,7 @@
 	
 	<!-- deleteStaff Query : 스태프 삭제 -->
 	<delete id="deleteStaff" parameterType="Integer">
-		DELETE FROM staff WHERE staff_id = #{staffId}
+		DELETE FROM staff WHERE staff_no = #{staffNo}
 	</delete>
 	
 	<!-- selectCustomerListByStaff Query : 고객 리스트 조회 -->

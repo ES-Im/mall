@@ -28,134 +28,93 @@
                 <br>
                 
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                
                 	<li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ ${loginStaff} 님</span><span style="margin-left: 65px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">ADD CATEGORY</span> </a>
+			                    <a href="${pageContext.request.contextPath}/staff/getStaffList" class="nav-link px-0"> <span class="d-none d-sm-inline">Staff List</span> </a>
                             </li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <a href="${pageContext.request.contextPath}/staff/getGoodsList" class="nav-link px-0 align-middle">
-                	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ ${loginStaff} 님</span>
-                </a>
-                
-                <a href="${pageContext.request.contextPath}/staff/addStaff" class="nav-link px-0 align-middle">
-                	<i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ STAFF ADD</span>
-                </a>
-
-				<br>
-
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-
-                    <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span>
-                        </a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">ADD CATEGORY</span> </a>
-	
+			                    <a href="${pageContext.request.contextPath}/staff/addStaff" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Staff</span> </a>
                             </li>
-                           
-					
                         </ul>
                     </li>
-  
+                    
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-light">GOODS</span></a>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span><span style="margin-left: 90px; color: white;">▼</span>
+                        </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-							<li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">~~~~~~~~~</span> </a>
+                            <li class="w-100">
+			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Category List</span> </a>
                             </li>
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">@@@@@@@@@</span> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">$$$$$$$$$</span> </a>
+			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Category</span> </a>
                             </li>
                         </ul>
                     </li>
+                    
                     <li>
-                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">ORDERS</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">GOODS</span><span style="margin-left: 113px; color: white;">▼</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0">
-                                	<span class="d-none d-sm-inline">AAAAAAAAA</span>
-                                </a>
+			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Goods List</span> </a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0">
-                                	<span class="d-none d-sm-inline">FFFFFFFF</span>
-                                </a>
+                            <li class="w-100">
+			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Goods</span> </a>
                             </li>
-                           
                         </ul>
                     </li>
+                    
                     <li>
-                        <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">BOARD</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
+                        <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">ORDERS</span><span style="margin-left: 108px; color: white;">▼</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0">
-                                	<span class="d-none d-sm-inline">BBBBBBB</span>
-                                </a>
+			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Orders List</span> </a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0">
-                                	<span class="d-none d-sm-inline">CCCCCCCC</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">SSSSSSSSS</span></a>
-                            </li>
-                           
                         </ul>
                     </li>
+                    
                     <li>
-                        <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">CUSTOMER</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
+                        <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">BOARD</span><span style="margin-left: 115px; color: white;">▼</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0">
-                                	<span class="d-none d-sm-inline">QQQQQQQQ</span>
-                                </a>
+			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Board List</span> </a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0">
-                                	<span class="d-none d-sm-inline">TTTTTTT</span>
-                                </a>
-                            </li>
-                           
                         </ul>
                     </li>
-                     <li>
-                        <a href="#submenu6" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">STATISTICAL</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu6" data-bs-parent="#menu">
+                    
+                    <li>
+                        <a href="#submenu6" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">CUSTOMER</span><span style="margin-left: 85px; color: white;">▼</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu6" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0">
-                                	<span class="d-none d-sm-inline">#######</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0">
-                                	<span class="d-none d-sm-inline">%%%%%%%%%</span>
-
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> 
-                                	<span class="d-none d-sm-inline">*********</span>
-                                </a>
+			                    <a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff" class="nav-link px-0"> <span class="d-none d-sm-inline">Customer List</span> </a>
                             </li>
                         </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#submenu7" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">STATISTICAL</span><span style="margin-left: 80px; color: white;">▼</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu7" data-bs-parent="#menu">
+                        	<li class="w-100">
+                                <a href="#" class="nav-link px-0">
+                                	<span class="d-none d-sm-inline">Statistical</span>
+                                </a>
+                            </li>
+                       	</ul>
                     </li>
                 </ul>
             </div>

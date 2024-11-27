@@ -36,22 +36,22 @@
 		<div>
 			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
 		  		<div class="list-group">
-  					<c:forEach var="staff" items="${staffList}">
+  					<c:forEach var="customer" items="${customerList}">
   						<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;">
 	      					<div class="d-flex gap-2 w-100 justify-content-between">
 						        <div>
-	      							<i class="bi bi-person-fill"> No.${staff.staffNo}</i> 
-						        	<p class="mb-1">Name : ${staff.firstName} ${staff.lastName}</p>
+	      							<i class="bi bi-person-fill"> ${customer.customerEmail}</i>
+						        	<p class="mb-1">Gender : ${customer.customerGender}</p>
 						        	<div class="justify-content-between">
-						        		<p class="mb-1">ID : ${staff.staffId}</p>
+						        		<p class="mb-1">Birth : ${customer.customerBirth}</p>
 						        	</div>
 						        </div>
 						        <div>
 					        		<div style="text-align: right;">
-									    <a href="${pageContext.request.contextPath}/staff/removeStaff?staffNo=${staff.staffNo}" class="btn btn-sm btn-outline-danger">remove</a>
+									    <a href="${pageContext.request.contextPath}/staff/removeCustomerByStaff?customerEmail=${customer.customerEmail}" class="btn btn-sm btn-outline-danger">remove</a>
 									</div>
 					        		<br>
-					        		<small class="opacity-75 text-nowrap">CreateDate : ${staff.createDate}</small>
+					        		<small class="opacity-75 text-nowrap">CreateDate : ${customer.createDate}</small>
 				        		</div>
 				        	</div>
 				    	</div>

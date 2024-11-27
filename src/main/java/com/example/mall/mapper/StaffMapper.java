@@ -20,7 +20,7 @@ public interface StaffMapper { // Author : 김동현
 	Integer insertStaff(Staff staff);
 	
 	// staff/getStaffList.jsp → removeStaff
-	Integer deleteStaff(Integer staffId);
+	Integer deleteStaff(Integer staffNo);
 	
 	// staff/getCustomerListByStaff.jsp
 	List<Customer> selectCustomerListByStaff();
