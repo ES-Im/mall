@@ -41,6 +41,62 @@
 		WHERE goods_no = #{goodsNo}
 	</select>
 	
+	<!-- getGoodsOne : 후기 작성 가능한 회원 조회 -->
+	<select id="selectEligibleReviewers" parameterType="map" resultType="map">
+		SELECT result.orderNo orderNo
+			 , result.customer_Email customerEmail
+			 , result.orders_no boardOrdersNo
+			 , result.goods_no goodsNo
+			 , result.payment_no paymentNo  
+		FROM (
+			    SELECT 
+			        o.orders_no AS `orderNo`
+					  , c.customer_email
+					  , b.orders_no
+					  , o.goods_no
+					  , p.payment_no
+			    FROM orders o
+							   INNER JOIN payment p ON p.payment_no = o.payment_no
+							   INNER JOIN address a ON a.address_no = p.address_no
+							   INNER JOIN customer c ON c.customer_email = a.customer_email
+		    				   LEFT OUTER JOIN board b ON b.orders_no = o.orders_no
+			    WHERE NOT EXISTS (
+							        SELECT 1
+							        FROM board b2
+							        INNER JOIN orders o2 ON b2.orders_no = o2.orders_no
+							        WHERE o2.orders_no = o.orders_no
+							    	)
+			    UNION ALL
+			    SELECT 
+			      	  o.orders_no 
+					  , c.customer_email
+					  , b.orders_no 
+					  , o.goods_no
+					  , p.payment_no
+			    FROM orders o
+							   INNER JOIN payment p ON p.payment_no = o.payment_no
+							   INNER JOIN address a ON a.address_no = p.address_no
+							   INNER JOIN customer c ON c.customer_email = a.customer_email
+							   LEFT JOIN board b ON b.orders_no = o.orders_no
+			    WHERE EXISTS (
+						        SELECT 1
+						        FROM board b2
+						        INNER JOIN orders o2 ON b2.orders_no = o2.orders_no
+						        WHERE o2.orders_no = o.orders_no
+							   )
+			) result
+		<where>
+			<if test="loginCustomer != null">	
+				result.customer_email = '#{loginCustomer}' 
+				AND result.goods_no = #{goodsNo}
+			</if>
+		</where>
+		ORDER BY `orderNo` ASC
+	
+	</select>
+	
+	
+	
 
 	<!-- home : 메인 페이지 상품 리스트 출력 -->
 	<select id="selectGoodsList" parameterType="map" resultType="com.example.mall.vo.Goods">

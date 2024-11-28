@@ -33,7 +33,7 @@ public class GoodsService {
 		return goods;
 	}
 	
-	
+	// getGoodsOne : 후기 리스트
 	public List<Map<String, Object>> getBoardListByGoodsNo(Integer goodsNo){
 		log.debug( TeamColor.KMJ + "[GoodsService - getBoardListByGoodsNo]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "goodsNo : " + goodsNo + TeamColor.RESET );
@@ -42,6 +42,25 @@ public class GoodsService {
 
 		return boardList;
 	}
+	
+	// getGoodsOne : 후기 작성 가능한 회원
+	public List<Map<String, Object>> getEligibleReviewers(Integer goodsNo, String loginCustomer){
+		log.debug( TeamColor.KMJ + "[GoodsService - getEligibleReviewers]" + TeamColor.RESET );
+		log.debug( TeamColor.KMJ + "goodsNo : " + goodsNo + TeamColor.RESET );
+		log.debug( TeamColor.KMJ + "loginCustomer : " + loginCustomer + TeamColor.RESET );
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("loginCustomer", loginCustomer);
+		paramMap.put("goodsNo", goodsNo);
+
+		List<Map<String, Object>> eligibleReviewersMap = goodsMapper.selectEligibleReviewers(paramMap);
+		
+		return eligibleReviewersMap;
+		
+	}
+	
+	
+	
 	
 	
 	// home : 메인 페이지 상품 리스트 출력
