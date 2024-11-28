@@ -25,7 +25,7 @@ public class BoardService {
 	// 후기 리스트 조회 - 김동현
 	public Map<String, Object> getBoardListByStaff(Page page) {
 		
-		page.setRowPerPage(5);
+		page.setRowPerPage(4);
 		Integer beginRow = page.getBeginRow();
 		Integer rowPerPage = page.getRowPerPage();
 		
@@ -53,9 +53,9 @@ public class BoardService {
 		return boardListMap;
 	}
 
-//	// 후기 리스트 삭제 - 김동현
-//	public Integer removeCustomerByStaff(String customerEmail) {
-//		return staffMapper.deleteCustomerByStaff(customerEmail);
-//	}
+	// 후기 리스트 삭제 - 김동현
+	public Integer removeBoardByStaff(Integer ordersNo) {
+		return boardMapper.deleteBoardByStaff(ordersNo);
+	}
 
 }

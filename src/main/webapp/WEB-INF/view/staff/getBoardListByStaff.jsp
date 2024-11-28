@@ -8,7 +8,7 @@
 	<script>
 	$(document).ready(function() {
 	    // 삭제 버튼 클릭
-	    $('.btnRemoveCustomer').click(function(event) {
+	    $('.btnRemoveBoard').click(function(event) {
 	        // 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
 	        event.preventDefault();
 	        
@@ -100,19 +100,18 @@
       					<div class="d-flex gap-2 w-100 justify-content-between">
 					        <div>
       							<i class="bi bi-chat-right-text-fill">&nbsp;&nbsp;${board.customerEmail}</i>
+      							<p class="mb-1">OrderNo : ${board.ordersNo}</p>
 					        	<p class="mb-1">Goods : [${board.goodsNo}] ${board.goodsTitle}</p>
-					        	<div class="justify-content-between">
-					        		<p class="mb-1">BoardContent : ${board.boardContent}</p>
-					        	</div>
+					        	<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
+				        		<p class="mb-1">BoardContent : ${board.boardContent}</p>
 					        </div>
 					        <div>
 				        		<div style="text-align: right;">
-								    <a href="${pageContext.request.contextPath}/staff/removeCustomerByStaff?customerEmail=${customer.customerEmail}" class="btnRemoveCustomer btn btn-sm btn-outline-danger">remove</a>
+								    <a href="${pageContext.request.contextPath}/staff/removeBoardByStaff?ordersNo=${board.ordersNo}" class="btnRemoveBoard btn btn-sm btn-outline-danger">remove</a>
 								</div>
 				        		<br>
-				        		<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
 			        		</div>
-			        	</div>
+			        	</div>	
 			    	</div>
 			    	<br>
  					</c:forEach>
@@ -123,15 +122,25 @@
 						<a href="" style="pointer-events: none;">&laquo;</a>
 					</c:if>
 					<c:if test="${page.currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=1">&laquo;</a>
+						<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=1">&laquo;</a>
+					</c:if>
+					
+					<!-- 페이지 - 10 -->
+					<c:if test="${!(page.currentPage > 10)}">
+						<a href="" style="pointer-events: none;">&lt;</a>
+					</c:if>
+					<c:if test="${page.currentPage > 10}">
+						<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.currentPage - 10}">
+							&lt;
+						</a>
 					</c:if>
 					
 					<!-- 이전 페이지 -->
-					<c:if test="${!(page.currentPage > 10)}">
+					<c:if test="${!(page.currentPage > 1)}">
 						<a href="" style="pointer-events: none;">Previous</a>
 					</c:if>
-					<c:if test="${page.currentPage > 10}">
-						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${page.currentPage - 10}">
+					<c:if test="${page.currentPage > 1}">
+						<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.currentPage - 1}">
 							Previous
 						</a>
 					</c:if>
@@ -142,18 +151,29 @@
 							<a class="active">${num}</a>
 						</c:if>
 						<c:if test= "${num != page.currentPage}">
-							<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${num}">${num}</a>
+							<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${num}">${num}</a>
 						</c:if>
 					</c:forEach>
 					
 					<!-- 다음 페이지 -->
-					<c:if test="${!(page.currentPage < page.lastPage - page.numPerPage)}">
+					<c:if test="${!(page.currentPage < page.lastPage)}">
 						<a href="" style="pointer-events: none;">Next</a>
 					</c:if>
 					
-					<c:if test="${page.currentPage < page.lastPage - page.numPerPage}">
-						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${page.currentPage + 10}">
+					<c:if test="${page.currentPage < page.lastPage}">
+						<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.currentPage + 1}">
 							Next
+						</a>
+					</c:if>
+					
+					<!-- 페이지 + 10 -->
+					<c:if test="${!(page.currentPage < page.lastPage)}">
+						<a href="" style="pointer-events: none;">&gt;</a>
+					</c:if>
+					
+					<c:if test="${page.currentPage < page.lastPage}">
+						<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.currentPage + 10}">
+							&gt;
 						</a>
 					</c:if>
 					
@@ -162,7 +182,7 @@
 						<a href="" style="pointer-events: none;">&raquo;</a>
 					</c:if>
 					<c:if test="${page.currentPage < page.lastPage}">
-						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${page.lastPage}">&raquo;</a>
+						<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.lastPage}">&raquo;</a>
 					</c:if>
 				</div>
 	  		</div>

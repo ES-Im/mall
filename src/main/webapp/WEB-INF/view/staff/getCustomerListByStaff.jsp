@@ -126,12 +126,22 @@
 						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=1">&laquo;</a>
 					</c:if>
 					
-					<!-- 이전 페이지 -->
+					<!-- 페이지 - 10 -->
 					<c:if test="${!(page.currentPage > 10)}">
-						<a href="" style="pointer-events: none;">Previous</a>
+						<a href="" style="pointer-events: none;">&lt;</a>
 					</c:if>
 					<c:if test="${page.currentPage > 10}">
 						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${page.currentPage - 10}">
+							&lt;
+						</a>
+					</c:if>
+					
+					<!-- 이전 페이지 -->
+					<c:if test="${!(page.currentPage > 1)}">
+						<a href="" style="pointer-events: none;">Previous</a>
+					</c:if>
+					<c:if test="${page.currentPage > 1}">
+						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${page.currentPage - 1}">
 							Previous
 						</a>
 					</c:if>
@@ -147,13 +157,24 @@
 					</c:forEach>
 					
 					<!-- 다음 페이지 -->
-					<c:if test="${!(page.currentPage < page.lastPage - page.numPerPage)}">
+					<c:if test="${!(page.currentPage < page.lastPage)}">
 						<a href="" style="pointer-events: none;">Next</a>
 					</c:if>
 					
-					<c:if test="${page.currentPage < page.lastPage - page.numPerPage}">
-						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${page.currentPage + 10}">
+					<c:if test="${page.currentPage < page.lastPage}">
+						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${page.currentPage + 1}">
 							Next
+						</a>
+					</c:if>
+					
+					<!-- 페이지 + 10 -->
+					<c:if test="${!(page.currentPage < page.lastPage)}">
+						<a href="" style="pointer-events: none;">&gt;</a>
+					</c:if>
+					
+					<c:if test="${page.currentPage < page.lastPage}">
+						<a href="${pageContext.request.contextPath}/staff/getCustomerListByStaff?currentPage=${page.currentPage + 10}">
+							&gt;
 						</a>
 					</c:if>
 					

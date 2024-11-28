@@ -50,7 +50,7 @@ public class StaffService { // Author : 김동현
 	// 고객 리스트 조회
 	public Map<String, Object> getCustomerListByStaff(Page page) {
 		
-		page.setRowPerPage(3);
+		page.setRowPerPage(4);
 		Integer beginRow = page.getBeginRow();
 		Integer rowPerPage = page.getRowPerPage();
 		

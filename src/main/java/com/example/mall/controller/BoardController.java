@@ -44,11 +44,28 @@ public class BoardController {
 		Map<String, Object> boardList = boardService.getBoardListByStaff(page);
 		log.debug(TeamColor.KDH + "boardList" + boardList.toString() + TeamColor.RESET); // debug
 		
+		if(page.getCurrentPage() > page.getLastPage()) {
+			return "redirect:/staff/getBoardListByStaff?currentPage=" + page.getLastPage();
+		}
+		
 		model.addAttribute("boardList", boardList.get("boardList"));
 		model.addAttribute("page", boardList.get("page"));
 		
 		return "staff/getBoardListByStaff";
 	}
+	
+	// 김동현
+	// removeCustomerByStaff
+	@GetMapping("/staff/removeBoardByStaff")
+	public String removeCustomerByStaff(@RequestParam Integer ordersNo) {
+		
+		log.debug(TeamColor.KDH + "removeBoardordersNo : " + ordersNo + TeamColor.RESET); // debug
+		int removeBoardRow = boardService.removeBoardByStaff(ordersNo);
+		if(removeBoardRow == 0) {
+			return "redirect:/staff/getBoardListByStaff";
+		}
+		return "redirect:/staff/getBoardListByStaff";
+	} 
 	
 	
 	
