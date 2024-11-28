@@ -11,6 +11,7 @@ import com.example.mall.vo.Payment;
 
 import lombok.extern.slf4j.Slf4j;
 
+//Author : 김동현, 김은서
 @Controller
 @Slf4j
 public class PaymentController {
@@ -24,11 +25,19 @@ public class PaymentController {
 	}
 	
 	// Author : 김은서
-	// customer/addPayment에서 사용 : Payment 인스턴스 추가 + Orders 인스턴스 추가 트랜잭션 처리
+	// customer/addPayment에서 '결제하기' 클릭 시 사용
 	@PostMapping("/customer/addPayment") 
 	public String addPayment(Payment payment, Integer[] cartNo) {
 		paymentService.addPayment(payment, cartNo);
 		return "redirect:/customer/payResult";
+	}
+	
+	// Author : 김은서
+	// customer/getPaymentList에서 '결제이력' 리스팅 출력
+	@GetMapping("/customer/getPaymentList")
+	public String getPaymentList() {
+		
+		return "customer/getPaymentList";
 	}
 	
 	

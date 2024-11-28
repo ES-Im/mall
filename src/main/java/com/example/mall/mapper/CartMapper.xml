@@ -13,7 +13,7 @@
 		FROM cart c
 		INNER JOIN goods go
 		ON go.goods_no = c.goods_no
-		INNER JOIN goods_file gf
+		LEFT OUTER JOIN goods_file gf
 		ON go.goods_no = gf.goods_no
 		WHERE c.customer_email = #{customerEamil}
 	</select>
@@ -30,7 +30,7 @@
 		FROM cart c
 		INNER JOIN goods go
 		ON go.goods_no = c.goods_no
-		INNER JOIN goods_file gf
+		LEFT OUTER JOIN goods_file gf
 		ON go.goods_no = gf.goods_no
 		WHERE c.cart_no = #{cartNo}
 	</select>
