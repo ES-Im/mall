@@ -23,20 +23,52 @@
 		)	
 	</insert>
 	
-	<select id="paymentList" parameterType="String" resultType="com.example.mall.vo.Payment">
+	<select id="paymentList" parameterType="com.example.mall.vo.Customer" resultType="com.example.mall.vo.Payment">
 		SELECT
-		 	p.payment_no paymentNo
-			 , p.payment_status paymentStatus
-			 , p.payment_price paymentPrice
-			 , p.payment_method paymentMethod
-			 , p.create_date createDate
-			 , a.customer_email customerEmail
+		    p.payment_no paymentNo
+		    , p.payment_status paymentStatus
+		    , p.payment_price paymentPrice
+		    , p.payment_method paymentMethod
+		    , p.create_date createDate
+		    , a.customer_email customerEmail
 		FROM payment p
-		INNER JOIN address a
-		ON p.address_no = a.address_no
+		INNER JOIN address a ON p.address_no = a.address_no
+		INNER JOIN orders o ON p.payment_no = o.payment_no;
 		<where>
-		
+			<if test="customerEmail != null">
+				a.customer_email =  #{customerEmail}
+			</if>
 		</where>
-</select>
+	</select>
+	
+	<select id="selectPayInfoListByPaymentNo" parameterType="Integer" resultType="Map">
+		SELECT
+			o.payment_no AS paymentNo
+			, o.orders_no AS ordersNo
+			, gc.goods_no AS goodsNo
+			, gc.category_no AS categoryNo
+			, o.orders_amount AS ordersAmount
+			, gc.goods_title AS goodsTitle
+			, gc.goods_memo AS goodsMemo
+			, gc.category_title AS categoryTitle
+		FROM orders o
+		INNER JOIN 
+			(SELECT
+				g.goods_title goods_title
+			   , g.goods_memo goods_memo
+			   , g.goods_price goods_price
+				, gc.goods_no goods_no
+				, ct.category_no category_no
+			   , ct.category_title category_title
+			FROM category ct
+			INNER JOIN goods_category gc
+				ON gc.category_no = ct.category_no
+			INNER JOIN goods g
+				ON gc.goods_no = g.goods_no) gc
+		ON o.goods_no = gc.goods_no
+		WHERE o.payment_no = #{paymentNo}
+	</select>
+	
+	
 	
 </mapper>
