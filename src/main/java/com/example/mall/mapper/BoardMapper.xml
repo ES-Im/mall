@@ -24,4 +24,10 @@
 		DELETE FROM board WHERE orders_no = #{ordersNo}
 	</delete>
 
+	<!-- getGoodsOne : 후기 등록 -->
+	<insert id="insertBoardOne" parameterMap="com.example.mall.vo.Board">
+		INSERT INTO board(orders_no, board_content)
+		VALUES(#{ordersNo}, #{boardContent})
+	</insert>
+
 </mapper>

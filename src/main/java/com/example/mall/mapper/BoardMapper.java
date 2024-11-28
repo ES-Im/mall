@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.mall.vo.Board;
 import com.example.mall.vo.Customer;
 
 @Mapper
@@ -19,4 +20,9 @@ public interface BoardMapper {
 	// staff/getBoardList.jsp → removeBoardByStaff : Integer ordersNo → board에 ordersNo 
 	Integer deleteBoardByStaff(Integer ordersNo);
 
+	// getGoodsOne : 후기 등록
+	Integer insertBoardOne(Board board);
+	
+	
+	
 }

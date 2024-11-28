@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mall.mapper.BoardMapper;
 import com.example.mall.util.TeamColor;
+import com.example.mall.vo.Board;
 import com.example.mall.vo.Customer;
 import com.example.mall.vo.Page;
 
@@ -57,5 +58,26 @@ public class BoardService {
 	public Integer removeBoardByStaff(Integer ordersNo) {
 		return boardMapper.deleteBoardByStaff(ordersNo);
 	}
+	
+	
+	// 김문정
+	// getGoodsOne : 후기 등록
+	public Integer addBoardOne(Integer ordersNo, String boardContent){
+		log.debug( TeamColor.KMJ + "GET[BoardController - addBoardOne]" + TeamColor.RESET );
+		
+		log.debug( TeamColor.KMJ + "ordersNo : " + ordersNo + TeamColor.RESET );
+		log.debug( TeamColor.KMJ + "boardContent : " + boardContent + TeamColor.RESET );
+		
+		Board board = new Board(); 
+		board.setOrdersNo(ordersNo);;
+		board.setBoardContent(boardContent);
+
+		Integer result = boardMapper.insertBoardOne(board);
+		
+		return result;
+	}
+	
+	
+	
 
 }
