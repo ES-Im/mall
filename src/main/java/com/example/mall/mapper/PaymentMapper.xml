@@ -24,25 +24,30 @@
 	</insert>
 	
 	<select id="paymentList" parameterType="com.example.mall.vo.Customer" resultType="com.example.mall.vo.Payment">
-		SELECT
-		    p.payment_no paymentNo
-		    , p.payment_status paymentStatus
-		    , p.payment_price paymentPrice
-		    , p.payment_method paymentMethod
-		    , p.create_date createDate
-		    , a.customer_email customerEmail
-		FROM payment p
-		INNER JOIN address a ON p.address_no = a.address_no
-		INNER JOIN orders o ON p.payment_no = o.payment_no;
+		SELECT 
+		    p.payment_no AS paymentNo
+		    , p.payment_status AS paymentStatus
+		    , p.payment_price AS paymentPrice
+		    , p.payment_method AS paymentMethod
+		    , p.create_date AS createDate
+		    , a.customer_email AS customerEmail
+		    , CONCAT(COUNT(o.orders_no), '건') AS orderCnt
+		FROM 
+		    payment p
+		INNER JOIN 
+		    address a ON p.address_no = a.address_no
+		INNER JOIN 
+		    orders o ON p.payment_no = o.payment_no
 		<where>
 			<if test="customerEmail != null">
 				a.customer_email =  #{customerEmail}
 			</if>
 		</where>
+		GROUP BY p.payment_no
 	</select>
 	
 	<select id="selectPayInfoListByPaymentNo" parameterType="Integer" resultType="Map">
-		SELECT
+SELECT
 			o.payment_no AS paymentNo
 			, o.orders_no AS ordersNo
 			, gc.goods_no AS goodsNo
@@ -50,7 +55,9 @@
 			, o.orders_amount AS ordersAmount
 			, gc.goods_title AS goodsTitle
 			, gc.goods_memo AS goodsMemo
+			, gc.goods_price AS goodsPrice
 			, gc.category_title AS categoryTitle
+			, gc.goodsFileName AS goodsFileName
 		FROM orders o
 		INNER JOIN 
 			(SELECT
@@ -60,11 +67,11 @@
 				, gc.goods_no goods_no
 				, ct.category_no category_no
 			   , ct.category_title category_title
+			   , IFNULL(gf.goods_file_name, 'no file') goodsFileName
 			FROM category ct
-			INNER JOIN goods_category gc
-				ON gc.category_no = ct.category_no
-			INNER JOIN goods g
-				ON gc.goods_no = g.goods_no) gc
+			INNER JOIN goods_category gc ON gc.category_no = ct.category_no
+			INNER JOIN goods g ON gc.goods_no = g.goods_no
+			LEFT outer JOIN goods_file  gf ON gc.goods_no = gf.goods_no) gc
 		ON o.goods_no = gc.goods_no
 		WHERE o.payment_no = #{paymentNo}
 	</select>
