@@ -1,12 +1,16 @@
 package com.example.mall.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mall.service.BoardService;
 import com.example.mall.util.TeamColor;
+import com.example.mall.vo.Page;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +35,21 @@ public class BoardController {
 
 		return "redirect:/off/getGoodsOne?goodsNo="+goodsNo;
 	}
+	
+	// 김동현
+	// getBoardListByStaff Form : 관리자 전용 BoardList
+	@GetMapping("/staff/getBoardListByStaff")
+	public String getBoardListByStaff(Model model, Page page) {
+		
+		Map<String, Object> boardList = boardService.getBoardListByStaff(page);
+		log.debug(TeamColor.KDH + "boardList" + boardList.toString() + TeamColor.RESET); // debug
+		
+		model.addAttribute("boardList", boardList.get("boardList"));
+		model.addAttribute("page", boardList.get("page"));
+		
+		return "staff/getBoardListByStaff";
+	}
+	
 	
 	
 	

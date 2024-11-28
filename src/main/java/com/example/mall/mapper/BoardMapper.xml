@@ -1,3 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mall.mapper.BoardMapper"></mapper>
+<mapper namespace="com.example.mall.mapper.BoardMapper">
+
+	<!-- selectBoardListByStaff Query : 관리자 전용 후기 리스트 조회 -->
+	<select id="selectBoardListByStaff" parameterType="Map" resultType="Map">
+		SELECT b.orders_no ordersNo, b.board_content boardContent, b.create_date createDate, g.goods_no goodsNo
+			 , g.goods_title goodsTitle, c.customer_email customerEmail FROM board b 
+		INNER JOIN orders o ON b.orders_no = o.orders_no 
+		INNER JOIN payment p ON o.payment_no = p.payment_no 
+		INNER JOIN address a ON p.address_no = a.address_no
+		INNER JOIN customer c ON a.customer_email = c.customer_email 
+		INNER JOIN goods g ON o.goods_no = g.goods_no
+		ORDER BY b.orders_no DESC LIMIT #{beginRow}, #{rowPerPage};
+	</select>
+	
+	<!-- selectCountBoard Query : LastPage Count -->
+	<select id="selectCountBoard" resultType="Integer">
+		SELECT COUNT(*) FROM board
+	</select>
+	
+	<!-- deleteBoardByStaff Query : 후기 삭제 -->
+	<delete id="deleteBoardByStaff" parameterType="Integer">
+		DELETE FROM board WHERE orders_no = #{ordersNo}
+	</delete>
+
+</mapper>
