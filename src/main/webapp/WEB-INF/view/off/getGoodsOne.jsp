@@ -39,7 +39,30 @@
     
     
     </style>
-    
+    <script>
+	$(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 실행.
+		// URL 파라미터 값을 가져오는 함수
+        function getMsg(param) {
+            const urlMsg = new URLSearchParams(window.location.search);
+            let value = urlMsg.get(param);  // 'msg' 파라미터 값 가져오기
+
+            // 한글 디코딩
+            if (value) {
+                value = decodeURIComponent(value);  // URL 디코딩
+            }
+            return value;
+        }
+
+        // 'msg' 값 가져오기
+        const msg = getMsg('msg');
+		
+		if(msg != null){
+			alert(msg);
+			return;
+		}
+		
+	})
+	</script>
     <body>
     	<!-- 헤더 -->
     	<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
@@ -98,11 +121,11 @@
 					<div class="d-flex gap-2 w-100 justify-content-between">
 						<div class="${pageContext.request.contextPath }/addBoardOne" >
 							<form action="#" method="post">
-								<input type="hidden" name="orderNo" value="${orderNo}">
+								<input type="hidden" name="ordersNo" value="${orderNo}">
 								<input type="hidden" name="goodsNo" value="${goodsNo}">
 								
 								<label for="comment" class="mb-2">후기 작성 </label>
-								<textarea class="form-control" rows="5" cols="90" id="comment" name="text"></textarea>
+								<textarea class="form-control" rows="5" cols="90" id="comment" name="boardContent"></textarea>
 								<div class="d-flex justify-content-end">
 									<button type="button" class="btn btn-sm btn-dark mt-3" > WRITE </button>
 								</div>	
