@@ -94,7 +94,7 @@
       	  <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
       	  	<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;" id="boardForm">
 				
-				<c:if test="${iseligibleReviewer == ture || loginStaff != null }">
+				<c:if test="${isEligibleReviewer == true || loginStaff != null }">
 					<div class="d-flex gap-2 w-100 justify-content-between">
 						<div class="" >
 							<label for="comment" class="mb-2">후기 작성 </label>
