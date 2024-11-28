@@ -20,7 +20,7 @@
 <body>
 
 <div class="container-fluid " style="height:100%">
-    <div class="row flex-nowrap" style="position: fixed;">
+    <div class="row flex-nowrap" style="position: fixed; z-index: 10;">
         <div class=" bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" >
             	<a href="${pageContext.request.contextPath}/home" class="nav-link px-0 " > <span class="fs-4 d-none d-sm-inline ps-5" >MUSINSA</span> </a> 
@@ -49,10 +49,10 @@
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Category List</span> </a>
+			                    <a href="${pageContext.request.contextPath}/staff/getCategoryList" class="nav-link px-0"> <span class="d-none d-sm-inline">Category List</span> </a>
                             </li>
                             <li class="w-100">
-			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Category</span> </a>
+			                    <a href="${pageContext.request.contextPath}/staff/addCategory" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Category</span> </a>
                             </li>
                         </ul>
                     </li>
@@ -63,21 +63,21 @@
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                             <li class="w-100">
-			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Goods List</span> </a>
+			                    <a href="${pageContext.request.contextPath}/staff/getGoodsList" class="nav-link px-0"> <span class="d-none d-sm-inline">Goods List</span> </a>
                             </li>
                             <li class="w-100">
-			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Goods</span> </a>
+			                    <a href="${pageContext.request.contextPath}/staff/addGoods" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Goods</span> </a>
                             </li>
                         </ul>
                     </li>
                     
                     <li>
                         <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">ORDERS</span><span style="margin-left: 108px; color: white;">▼</span>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">PAYMENT</span><span style="margin-left: 108px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                             <li class="w-100">
-			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Orders List</span> </a>
+			                    <a href="${pageContext.request.contextPath}/staff/getPaymentList" class="nav-link px-0"> <span class="d-none d-sm-inline">Payment List</span> </a>
                             </li>
                         </ul>
                     </li>
@@ -88,7 +88,7 @@
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
                             <li class="w-100">
-			                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Board List</span> </a>
+			                    <a href="${pageContext.request.contextPath}/staff/getBoardListByStaff" class="nav-link px-0"> <span class="d-none d-sm-inline">Board List</span> </a>
                             </li>
                         </ul>
                     </li>
