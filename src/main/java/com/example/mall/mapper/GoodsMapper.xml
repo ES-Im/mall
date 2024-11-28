@@ -45,9 +45,10 @@
 	<select id="selectEligibleReviewers" parameterType="map" resultType="map">
 		SELECT result.orderNo orderNo
 			 , result.customer_Email customerEmail
-			 , result.orders_no boardOrdersNo
+			 , IFNULL(result.orders_no, -1) boardOrdersNo
 			 , result.goods_no goodsNo
-			 , result.payment_no paymentNo  
+			 , result.payment_no paymentNo
+			 , result.payment_status paymentStatus  
 		FROM (
 			    SELECT 
 			        o.orders_no AS `orderNo`
@@ -55,6 +56,7 @@
 					  , b.orders_no
 					  , o.goods_no
 					  , p.payment_no
+					  , p.payment_status
 			    FROM orders o
 							   INNER JOIN payment p ON p.payment_no = o.payment_no
 							   INNER JOIN address a ON a.address_no = p.address_no
@@ -73,6 +75,7 @@
 					  , b.orders_no 
 					  , o.goods_no
 					  , p.payment_no
+					  , p.payment_status
 			    FROM orders o
 							   INNER JOIN payment p ON p.payment_no = o.payment_no
 							   INNER JOIN address a ON a.address_no = p.address_no
