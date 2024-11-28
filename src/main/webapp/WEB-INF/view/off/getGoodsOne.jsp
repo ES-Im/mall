@@ -93,13 +93,15 @@
       	  <!-- 후기 작성 폼 -->
       	  <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
       	  	<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;" id="boardForm">
-
-				<div class="d-flex gap-2 w-100 justify-content-between">
-					<div class="" >
-						<label for="comment" class="mb-2">후기 작성 </label>
-						<textarea class="form-control" rows="5" cols="90" id="comment" name="text"></textarea>
+				<c:if test="${eligibleReviewer == sessionScope.loginEmail || loginStaff != null }">
+					<div class="d-flex gap-2 w-100 justify-content-between">
+						<div class="" >
+							<label for="comment" class="mb-2">후기 작성 </label>
+							<textarea class="form-control" rows="5" cols="90" id="comment" name="text"></textarea>
+							<button type="button" class="btn btn-sm btn-dark" > WRITE </button>
+						</div>
 					</div>
-				</div>
+				</c:if>	
 			</div>
       	  
       	  </div>
