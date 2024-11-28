@@ -25,7 +25,7 @@ public class BoardService {
 	// 후기 리스트 조회 - 김동현
 	public Map<String, Object> getBoardListByStaff(Page page) {
 		
-		page.setRowPerPage(3);
+		page.setRowPerPage(5);
 		Integer beginRow = page.getBeginRow();
 		Integer rowPerPage = page.getRowPerPage();
 		
