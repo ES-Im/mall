@@ -55,14 +55,18 @@ public class GoodsController {
 		
 		// 후기 작성 가능 회원 확인 (해당 상품의 구매이력이 있으면서 후기를 작성하지 않은 회원 + 모든 staff)
 		List<Map<String, Object>> eligibleReviewersListMap = goodsService.getEligibleReviewers(goodsNo, loginCustomer);
-		String eligibleReviewer = (String)eligibleReviewersListMap.get(0).get("customerEmail");
+		boolean iseligibleReviewer = false;
 		
-		log.debug(TeamColor.KMJ + "eligibleReviewer : " + eligibleReviewer + TeamColor.RESET );
+		if(eligibleReviewersListMap.size() > 0) {
+			iseligibleReviewer = true;
+		}
+		
+		log.debug(TeamColor.KMJ + "eligibleReviewer : " + iseligibleReviewer + TeamColor.RESET );
 		
 		model.addAttribute("goodsNo", goodsNo);
 		model.addAttribute("goods", goods);
 		model.addAttribute("boardList", boardList);
-		model.addAttribute("eligibleReviewer", eligibleReviewer);
+		model.addAttribute("iseligibleReviewer", iseligibleReviewer);
 		
 		return "off/getGoodsOne";
 	}
