@@ -93,7 +93,7 @@
 				result.customer_email = #{loginCustomer}
 				AND result.payment_status = '배송완료'
 				AND IFNULL(result.ordersNO, -1) = -1
-				AND result.goods_no = 1
+				AND result.goods_no = #{goodsNo}
 						
 			</if>
 		</where>
