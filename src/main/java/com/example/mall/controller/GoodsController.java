@@ -53,23 +53,39 @@ public class GoodsController {
 		// boardList : 후기 리스트
 		List<Map<String, Object>> boardList = goodsService.getBoardListByGoodsNo(goodsNo);
 		
-		// 후기 작성 가능 회원 확인 (해당 상품의 구매이력이 있으면서 후기를 작성하지 않은 회원 + 모든 staff)
+		// 후기 작성 가능 회원 확인 (해당 상품의 구매이력이 존재 + payment_Status가 '배송완료' + 후기를 작성하지 않은 회원 + 모든 staff)
 		List<Map<String, Object>> eligibleReviewersListMap = goodsService.getEligibleReviewers(goodsNo, loginCustomer);
+		
 		log.debug(TeamColor.KMJ + "eligibleReviewersListMap : " + eligibleReviewersListMap.toString() + TeamColor.RESET );
-
 		boolean isEligibleReviewer = false;
 		
-		if(Integer.parseInt(String.valueOf((eligibleReviewersListMap.get(0).get("boardOrdersNo"))))  == -1) {
+		if(eligibleReviewersListMap.size() > 0) {
 			
-			isEligibleReviewer = true;
+			if(Integer.parseInt(String.valueOf((eligibleReviewersListMap.get(0).get("boardOrdersNo")))) == -1) {
+				
+				isEligibleReviewer = true;
+			}
+
+			Integer orderNo = null;
+
+			for(int i = 0; i<eligibleReviewersListMap.size(); i++) {
+				if(eligibleReviewersListMap.get(i).get("paymentStatus").equals("배송완료") && eligibleReviewersListMap.get(i).get("boardOrdersNo").equals("-1")) {
+					orderNo = Integer.parseInt(String.valueOf(eligibleReviewersListMap.get(i).get("orderNo")));
+					model.addAttribute("orderNo", orderNo);
+					log.debug(TeamColor.KMJ + "orderNo : " + orderNo + TeamColor.RESET );
+				}
+
+			}
+			
 		}
-		
+
 		log.debug(TeamColor.KMJ + "eligibleReviewer : " + isEligibleReviewer + TeamColor.RESET );
 		
 		model.addAttribute("goodsNo", goodsNo);
 		model.addAttribute("goods", goods);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("isEligibleReviewer", isEligibleReviewer);
+	
 		
 		return "off/getGoodsOne";
 	}
