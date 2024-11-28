@@ -43,15 +43,15 @@
 	
 	<!-- getGoodsOne : 후기 작성 가능한 회원 조회 -->
 	<select id="selectEligibleReviewers" parameterType="map" resultType="map">
-		SELECT result.orderNo orderNo
+		SELECT result.ordersNo ordersNo
 			 , result.customer_Email customerEmail
-			 , IFNULL(result.orders_no, -1) boardOrdersNo
+			 , IFNULL(result.orders_no,-1) boardOrdersNo
 			 , result.goods_no goodsNo
 			 , result.payment_no paymentNo
 			 , result.payment_status paymentStatus  
 		FROM (
 			    SELECT 
-			        o.orders_no AS `orderNo`
+			        o.orders_no AS `ordersNo`
 					  , c.customer_email
 					  , b.orders_no
 					  , o.goods_no
@@ -89,13 +89,15 @@
 							   )
 			) result
 		<where>
-			<if test="loginCustomer != null">	
+			<if test="loginCustomer != null">
 				result.customer_email = #{loginCustomer}
-				AND result.goods_no = #{goodsNo}
+				AND result.payment_status = '배송완료'
+				AND IFNULL(result.ordersNO, -1) = -1
+				AND result.goods_no = 1
+						
 			</if>
 		</where>
-		ORDER BY `orderNo` ASC
-	
+		ORDER BY ordersNo ASC
 	</select>
 	
 	

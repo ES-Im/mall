@@ -97,9 +97,12 @@
 				<c:if test="${isEligibleReviewer == true || loginStaff != null }">
 					<div class="d-flex gap-2 w-100 justify-content-between">
 						<div class="" >
-							<label for="comment" class="mb-2">후기 작성 </label>
-							<textarea class="form-control" rows="5" cols="90" id="comment" name="text"></textarea>
-							<button type="button" class="btn btn-sm btn-dark" > WRITE </button>
+							<form action="#" method="post">
+								<input type="hidden" name="orderNo" value="${orderNo}">
+								<label for="comment" class="mb-2">후기 작성 </label>
+								<textarea class="form-control" rows="5" cols="90" id="comment" name="text"></textarea>
+								<button type="button" class="btn btn-sm btn-dark" > WRITE </button>
+							</form>
 						</div>
 					</div>
 					
