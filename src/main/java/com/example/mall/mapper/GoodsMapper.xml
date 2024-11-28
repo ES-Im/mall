@@ -87,7 +87,7 @@
 			) result
 		<where>
 			<if test="loginCustomer != null">	
-				result.customer_email = '#{loginCustomer}' 
+				result.customer_email = #{loginCustomer}
 				AND result.goods_no = #{goodsNo}
 			</if>
 		</where>
