@@ -53,18 +53,27 @@ public class PaymentService {
 				
 	}
 	
-	// payment 기준 리스트 출력시 사용 (결제번호 리스트 간략 출력)
-	// 파라미터값(Customer)에 customerEmail가 있으면 /customer/getPaymentList 에서 사용
+	// # payment 기준 리스트 출력시 사용 (결제번호 리스트 간략 출력)
+		// (1) 직원용 : /staff/getPaymentListByStaff : 파라미터값(Customer)에 customerEmail가 없으면 스태프용 PaymentList 출력
+	public List<Payment> getPaymentList() {
+		return paymentMapper.paymentList(new Customer());
+	}
+	
+		// (2) 고객용 : 파라미터값(Customer)에 customerEmail가 있으면 /customer/getPaymentList 에서 사용
 	public List<Payment> getPaymentList(String customerEmail) {
 		Customer customer = new Customer(); 
 		customer.setCustomerEmail(customerEmail);
 		
 		return paymentMapper.paymentList(customer);
 	}
-	// 파라미터값(Customer)에 customerEmail가 없으면 /staff/getPaymentListByStaff 에서 사용
-	public List<Payment> getPaymentList() {
-		return paymentMapper.paymentList(new Customer());
+
+	
+	// # selectPayInfoListByPaymentNo : Payment_No 별 Order + goods + category 정보 출력 
+		//  직원용 + 고객용 
+	public List<Map<String,Object>> getPayInfoListByPaymentNo(Integer paymentNo) {
+		return paymentMapper.selectPayInfoListByPaymentNo(paymentNo);
 	}
+	
  	
 
 }
