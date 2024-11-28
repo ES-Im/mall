@@ -54,7 +54,7 @@
  					<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 500px;">
       					<div class="d-flex gap-2 w-100 justify-content-between">
 					        <div>
-      							<i class="bi bi-bookmark-fill"> CategoryNo. ${category.categoryNo}</i> 
+      							<i class="bi bi-bookmark-fill"></i><span> CategoryNo. ${category.categoryNo}</span>
 					        	<p class="mt-2 mb-0">Title : ${category.categoryTitle}</p>
 					        </div>
 			        		<div style="text-align: right;">

@@ -89,6 +89,24 @@ public class GoodsController {
 		
 		return "off/getGoodsOne";
 	}
+	
+	// 김동현
+	// getGoodsListByStaff Form
+	@GetMapping("/staff/getGoodsListByStaff")
+	public String getGoodsListByStaff(Model model, Page page, @RequestParam(required = false) String searchWord) {
+		
+		Map<String, Object> goodsList = goodsService.getGoodsListByStaff(page, searchWord);
+		log.debug(TeamColor.KDH + "goodsList" + goodsList.toString() + TeamColor.RESET); // debug
+		
+		if(page.getCurrentPage() > page.getLastPage()) {
+			return "redirect:/staff/getGoodsListByStaff?currentPage=" + page.getLastPage();
+		}
+		
+		model.addAttribute("goodsList", goodsList.get("goodsList"));
+		model.addAttribute("page", goodsList.get("page"));
+		
+		return "staff/getGoodsListByStaff";
+	}
 
 	
 	// home : 메인 페이지 상품 리스트 출력
@@ -109,6 +127,9 @@ public class GoodsController {
 
 		return "off/home";
 	}
+	
+	
+	
 	
 	
 	

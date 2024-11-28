@@ -31,7 +31,7 @@
                 
                 	<li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ ${loginStaff} 님</span><span style="margin-left: 65px; color: white;">▼</span>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">⭐ ${loginStaff} 님</span><span style="margin-left: 66px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
@@ -45,7 +45,7 @@
                     
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span><span style="margin-left: 90px; color: white;">▼</span>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">CATEGORY</span><span style="margin-left: 92px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
@@ -59,11 +59,11 @@
                     
                     <li>
                         <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">GOODS</span><span style="margin-left: 113px; color: white;">▼</span>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">GOODS</span><span style="margin-left: 114px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                             <li class="w-100">
-			                    <a href="${pageContext.request.contextPath}/staff/getGoodsList" class="nav-link px-0"> <span class="d-none d-sm-inline">Goods List</span> </a>
+			                    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff" class="nav-link px-0"> <span class="d-none d-sm-inline">Goods List</span> </a>
                             </li>
                             <li class="w-100">
 			                    <a href="${pageContext.request.contextPath}/staff/addGoods" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Goods</span> </a>
@@ -73,7 +73,7 @@
                     
                     <li>
                         <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">PAYMENT</span><span style="margin-left: 108px; color: white;">▼</span>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">PAYMENT</span><span style="margin-left: 100px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                             <li class="w-100">
@@ -84,7 +84,7 @@
                     
                     <li>
                         <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">BOARD</span><span style="margin-left: 115px; color: white;">▼</span>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">BOARD</span><span style="margin-left: 116px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
                             <li class="w-100">
@@ -95,7 +95,7 @@
                     
                     <li>
                         <a href="#submenu6" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">CUSTOMER</span><span style="margin-left: 85px; color: white;">▼</span>
+       	                     <i class="fs-4 bi-grid " style="color: white;"></i> <span class="ms-1 d-none d-sm-inline text-light">CUSTOMER</span><span style="margin-left: 87px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu6" data-bs-parent="#menu">
                             <li class="w-100">
@@ -106,7 +106,7 @@
                     
                     <li>
                         <a href="#submenu7" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">STATISTICAL</span><span style="margin-left: 80px; color: white;">▼</span>
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-light">STATISTICAL</span><span style="margin-left: 81px; color: white;">▼</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu7" data-bs-parent="#menu">
                         	<li class="w-100">
