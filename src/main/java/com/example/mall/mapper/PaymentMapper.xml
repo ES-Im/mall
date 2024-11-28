@@ -2,24 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mall.mapper.PaymentMapper">
 	<insert id="insertPayment" parameterType="com.example.mall.vo.Payment">
+	    <selectKey keyProperty="paymentNo" keyColumn="payment_no" resultType="Integer" order="AFTER">
+     	   SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	
 		INSERT INTO payment(
 			address_no, payment_price, payment_method, payment_status
-		) VALUES(
+		) VALUES (
 			#{addressNo}, #{paymentPrice}, #{paymentMethod}, '결제완료'
 		)
-	    <selectKey keyProperty="paymentNo" resultType="Integer" order="AFTER">
-     	   SELECT paymentNo
-    	</selectKey>
 	</insert>
 	
 	<insert id="insertOrders" parameterType="Map">
 		INSERT INTO orders(
 			goods_no, orders_amount, payment_no
-		) VALUES(
+		) VALUES (
 			(SELECT goods_no FROM cart WHERE cart_no=#{cartNo})
 			, (SELECT cart_amount FROM cart WHERE cart_no=#{cartNo})
 			, #{paymentNo}
 		)	
 	</insert>
+	
+	<select id="paymentList" parameterType="String" resultType="com.example.mall.vo.Payment">
+		SELECT
+		 	p.payment_no paymentNo
+			 , p.payment_status paymentStatus
+			 , p.payment_price paymentPrice
+			 , p.payment_method paymentMethod
+			 , p.create_date createDate
+			 , a.customer_email customerEmail
+		FROM payment p
+		INNER JOIN address a
+		ON p.address_no = a.address_no
+		<where>
+		
+		</where>
+</select>
 	
 </mapper>
