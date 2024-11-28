@@ -33,10 +33,12 @@
 		        </button>
 		        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 		            <!-- 로그아웃 & 마이페이지 버튼 -->
+		            
 		            <div class="me-3">
 		                <a href="${pageContext.request.contextPath}/logout"><button type="button" class="btn btn-sm btn-light">로그아웃</button></a>
-		                <a href="#"><button type="button" class="btn btn-sm btn-dark">마이페이지</button></a>
+		                <a href="${pageContext.request.contextPath}/staff/getGoodsList"><button type="button" class="btn btn-sm btn-dark">관리페이지</button></a>
 		            </div>
+		            
 		        </div>
 		    </div>
 		</nav>
