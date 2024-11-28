@@ -58,11 +58,21 @@
                         </button>
                     </form>
                   	
-                  	<!-- 회원가입 & 로그인 버튼 -->
-                  	<div class="me-3">
-	                  	<a href="#"><button type="button" class="btn btn-sm btn-light">회원가입</button></a>
-	                  	<a href="#"><button type="button" class="btn btn-sm btn-dark">로그인</button></a>
-                 	</div>
+                   	<!-- 회원가입 & 로그인 버튼 -->
+                  	<c:if test="${sessionScope.loginCustomer == null}">
+	                  	<div class="me-3">
+		                  	<a href="${pageContext.request.contextPath }/customer/addCustomer"><button type="button" class="btn btn-sm btn-light">회원가입</button></a>
+		                  	<a href="${pageContext.request.contextPath }/off/login"><button type="button" class="btn btn-sm btn-dark">로그인</button></a>
+	                 	</div>
+	      			</c:if>
+	      				
+      				<!-- 로그아웃 & 마이페이지 -->                 
+                  	<c:if test="${sessionScope.loginCustomer != null}">
+	                  	<div class="me-3">
+		                  	<a href="${pageContext.request.contextPath}/logout"><button type="button" class="btn btn-sm btn-light">로그아웃</button></a>
+		                  	<a href="${pageContext.request.contextPath}/customer/getCustomerOne"><button type="button" class="btn btn-sm btn-dark">마이페이지</button></a>
+	                 	</div>
+                  	</c:if>
       
       		
       
