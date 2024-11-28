@@ -23,8 +23,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        
-        
+
     </head>
     <style>
 		.main {
@@ -77,7 +76,11 @@
 		  border-bottom-right-radius: 5px;
 		}
 	</style>
-    
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#demo').carousel();
+    });
+    </script>
     
     
     
@@ -85,20 +88,63 @@
     
     <body>
     	
-    	<!-- 헤더 -->
-    	<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
-    
+    	<!-- 고객 헤더 -->
+    	<c:if test="${loginCustomer != null }">
+    		<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
+    	</c:if>
+    	
+    	<!-- 스태프 헤더 -->
+    	<c:if test="${loginStaff != null }">
+    		<c:import url="/WEB-INF/view/inc/staffHeader.jsp"></c:import>
+    	</c:if>
        
         <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-                </div>
-            </div>
-        </header>
-        
+
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+  </div>
+  
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://www.w3schools.com/bootstrap5/chicago.jpg" alt="Los Angeles" class="d-block" style="width:100%">
+      <div class="carousel-caption">
+        <h3>Los Angeles</h3>
+        <p>We had such a great time in LA!</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://www.w3schools.com/bootstrap5/ny.jpg" alt="Chicago" class="d-block" style="width:100%">
+      <div class="carousel-caption">
+        <h3>Chicago</h3>
+        <p>Thank you, Chicago!</p>
+      </div> 
+    </div>
+    <div class="carousel-item">
+      <img src="https://www.w3schools.com/bootstrap5/la.jpg" alt="New York" class="d-block" style="width:100%">
+      <div class="carousel-caption">
+        <h3>New York</h3>
+        <p>We love the Big Apple!</p>
+      </div>  
+    </div>
+  </div>
+  
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+
         <!-- Section-->
         <section class="py-5">
         	
@@ -171,13 +217,19 @@
 					</c:if>
 				</c:forEach>
 				
-				<!-- 다음 페이지 -->
-				<c:if test="${!(page.currentPage < page.lastPage - page.numPerPage)}">
-					<a href="" style="pointer-events: none;">Next</a>
+
+				
+				
+				<!-- 다음 페이지 : 검색어 없을 때 -->
+				<c:if test="${ searchWord == '' && ( (page.lastPage - (page.lastPage) % page.numPerPage + 1) > page.currentPage)}">
+					<a href="${pageContext.request.contextPath}/home?currentPage=${page.lastPage - (page.lastPage)%page.numPerPage + 1}">
+						Next
+					</a>
 				</c:if>
 				
-				<c:if test="${page.currentPage < page.lastPage - page.numPerPage}">
-					<a href="${pageContext.request.contextPath}/home?currentPage=${page.currentPage + 10}&searchWord=${searchWord}">
+				<!-- 다음 페이지 : 검색어 있을 때 -->
+				<c:if test="${searchWord != '' && ((page.lastPage - (page.lastPage) % page.numPerPage + 1) > page.currentPage)}">
+					<a href="${pageContext.request.contextPath}/home?currentPage=${page.lastPage - (page.lastPage) % page.numPerPage + 1}&searchWord=${searchWord}">
 						Next
 					</a>
 				</c:if>
@@ -196,6 +248,8 @@
           
         </section>
        
+       
+      	
        
        
         <!-- Bootstrap core JS-->
