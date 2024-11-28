@@ -96,12 +96,16 @@
 				
 				<c:if test="${isEligibleReviewer == true || loginStaff != null }">
 					<div class="d-flex gap-2 w-100 justify-content-between">
-						<div class="" >
+						<div class="${pageContext.request.contextPath }/addBoardOne" >
 							<form action="#" method="post">
 								<input type="hidden" name="orderNo" value="${orderNo}">
+								<input type="hidden" name="goodsNo" value="${goodsNo}">
+								
 								<label for="comment" class="mb-2">후기 작성 </label>
 								<textarea class="form-control" rows="5" cols="90" id="comment" name="text"></textarea>
-								<button type="button" class="btn btn-sm btn-dark" > WRITE </button>
+								<div class="d-flex justify-content-end">
+									<button type="button" class="btn btn-sm btn-dark mt-3" > WRITE </button>
+								</div>	
 							</form>
 						</div>
 					</div>
