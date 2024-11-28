@@ -26,22 +26,20 @@
 </head>
 <body>
  		<!-- header-->
+ 		
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: relative;">
-		    <div class="container ">
+		    <div class="container" >
 		        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		            <span class="navbar-toggler-icon"></span>
 		        </button>
 		        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 		            <!-- 로그아웃 & 마이페이지 버튼 -->
-		            
 		            <div class="me-3">
 		                <a href="${pageContext.request.contextPath}/logout"><button type="button" class="btn btn-sm btn-light">로그아웃</button></a>
-		                <a href="${pageContext.request.contextPath}/staff/getGoodsList"><button type="button" class="btn btn-sm btn-dark">관리페이지</button></a>
+		                <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff"><button type="button" class="btn btn-sm btn-dark">관리페이지</button></a>
 		            </div>
-		            
 		        </div>
 		    </div>
 		</nav>
-
 </body>
 </html>

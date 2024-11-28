@@ -59,6 +59,38 @@ public class GoodsService {
 		
 	}
 	
+	// getGoodsList.jsp
+	public Map<String, Object> getGoodsListByStaff(Page page, String searchWord) {
+		
+		page.setRowPerPage(5);
+		Integer beginRow = page.getBeginRow();
+		Integer rowPerPage = page.getRowPerPage();
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
+		
+		// boardList
+		List<Map<String, Object>> goodsList = goodsMapper.selectGoodsListByStaff(paramMap);
+		
+		Integer totalCount = goodsMapper.selectCountGoods();
+		
+		Integer lastPage = totalCount / rowPerPage;
+		if(totalCount % rowPerPage != 0) {
+			lastPage++;
+		}
+		
+		log.debug( TeamColor.KDH + "GoodsListLastPage : " + lastPage + TeamColor.RESET ); // debug
+		page.setLastPage(lastPage);
+		
+		Map<String, Object> goodsListMap = new HashMap<>();
+		goodsListMap.put("goodsList", goodsList);
+		goodsListMap.put("page", page);
+		
+		return goodsListMap;
+	}
+	
 	
 	
 	

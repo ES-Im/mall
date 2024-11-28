@@ -97,26 +97,26 @@
 	  		<div class="list-group">
  					<c:forEach var="board" items="${boardList}">
  						<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;">
-      					<div class="d-flex gap-2 w-100 justify-content-between">
-					        <div>
-      							<i class="bi bi-chat-right-text-fill">&nbsp;&nbsp;${board.customerEmail}</i>
-      							<p class="mb-1">OrderNo : ${board.ordersNo}</p>
-					        	<p class="mb-1">Goods : [${board.goodsNo}] ${board.goodsTitle}</p>
-					        	<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
-				        		<p class="mb-1">BoardContent : ${board.boardContent}</p>
-					        </div>
-					        <div>
-				        		<div style="text-align: right;">
-								    <a href="${pageContext.request.contextPath}/staff/removeBoardByStaff?ordersNo=${board.ordersNo}" class="btnRemoveBoard btn btn-sm btn-outline-danger">remove</a>
-								</div>
-				        		<br>
-			        		</div>
-			        	</div>	
-			    	</div>
+      						<div class="d-flex gap-2 w-100 justify-content-between">
+						        <div>
+	      							<i class="bi bi-chat-right-text-fill">&nbsp;&nbsp;${board.customerEmail}</i>
+	      							<p class="mb-1">OrderNo : ${board.ordersNo}</p>
+						        	<p class="mb-1">Goods : [${board.goodsNo}] ${board.goodsTitle}</p>
+						        	<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
+					        		<p class="mb-1">BoardContent : ${board.boardContent}</p>
+						        </div>
+						        <div>
+					        		<div style="text-align: right;">
+									    <a href="${pageContext.request.contextPath}/staff/removeBoardByStaff?ordersNo=${board.ordersNo}" class="btnRemoveBoard btn btn-sm btn-outline-danger">remove</a>
+									</div>
+					        		<br>
+				        		</div>
+			        		</div>	
+			    		</div>
 			    	<br>
  					</c:forEach>
  					<!-- PAGINATION -->
-      				<div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+    				<div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
 					<!-- 첫 페이지 -->
 					<c:if test="${!(page.currentPage > 1)}">
 						<a href="" style="pointer-events: none;">&laquo;</a>
@@ -184,7 +184,7 @@
 					<c:if test="${page.currentPage < page.lastPage}">
 						<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.lastPage}">&raquo;</a>
 					</c:if>
-				</div>
+					</div>
 	  		</div>
 		</div>
 	</div>
