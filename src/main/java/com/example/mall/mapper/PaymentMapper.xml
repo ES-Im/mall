@@ -23,7 +23,7 @@
 		)	
 	</insert>
 	
-	<select id="selectPaymentList" parameterType="map" resultType="com.example.mall.vo.Payment">
+	<select id="selectPaymentList" parameterType="map" resultType="map">
 		SELECT 
 		    p.payment_no AS paymentNo
 		    , p.payment_status AS paymentStatus

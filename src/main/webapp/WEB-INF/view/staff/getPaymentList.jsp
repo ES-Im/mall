@@ -86,12 +86,7 @@
 			<div>
 				<h3>PAYMENT LIST</h3>
 			</div>
-			<div class="d-flex justify-content-end " style="width: 1050px;">
-				<form id="formGoodsSearch" method="get" action="${pageContext.request.contextPath}/staff/getPaymentList"}>
-					<input type="text" name="searchWord" id="searchWord" value="${searchWord}"> 
-					<button id="btnGoodsSearch" type="submit" class="btn btn-sm btn-outline-success align-items-center">Search</button>
-				</form>
-			</div>
+			
 		</div>
 		
 		<!-- updateDate 기준으로 그룹화 출력 -->
@@ -104,22 +99,27 @@
  				<c:forEach var="payment" items="${paymentList}">
  				
                 <!-- paymentNo/회원 아이디 기준 추출 -->
-             <%--    <c:if test=""> --%>
             
                     <div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
                     	<div class="d-flex align-items-center" style="width: 100%;">
-                        	<div style="margin-left: 20px;">
-                            	<span> (${payment.paymentNo })${payment.customerEmail }</span>
+                        	<div class="me-3" style="margin-left: 20px;" >
+                            	<span> PaymentNo : ${payment.paymentNo } / ${payment.customerEmail }</span>
                           	</div>
-                          	<div>${payment.paymentStatus }</div>
+                          	<div>Payment Status : ${payment.paymentStatus }</div>
+                          	<div>
+                          		<c:if test="${payment.paymentStatus == '결제완료' }">
+	                          		<a href="${pageContext.request.contextPath}/staff/modifyPaymentStatus?paymentNo=${payment.paymentNo}&paymentStatus=배송중"><button type="button" class="btn btn-sm btn-outline-primary mt-2" disabled style="opacity: 1;"> 배송시작 </button></a>
+	                          		<a href="${pageContext.request.contextPath}/staff/modifyPaymentStatus?paymentNo=${payment.paymentNo}&paymentStatus=결제취소"><button type="button" class="btn btn-sm btn-outline-danger mt-2" disabled style="opacity: 1;"> 결제취소 </button></a>
+                          		</c:if>
+                          	</div>
+                       
                       	</div>
                   	</div>
-              	<%-- </c:if> --%>
               		
               		<!-- 해당 페이먼트의 orders 출력을 위한 반복문 -->
               		<c:forEach var="orders" items="${PayInfoListByPaymentNo}">
               	
-              	
+              			<!-- 이미지 -->
 	 					<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
 	 						<div class="d-flex justify-content-center align-items-center">
 	 							<!-- 파일 있을 때 -->
@@ -133,34 +133,95 @@
 	 								</div>
 	 							</c:if>
 	 						</div>
+	 						
+	 						<!-- 주문 정보 -->
 	      					<div class="d-flex gap-2 w-100 justify-content-between">
 						        <div>
 						        	
-	      							<p class="mt-2 mb-0"><small>Category : ${orders.categoryTitle}</small></p>
+	      							<p class="mt-2 mb-0"><small>OrdersNo : ${orders.ordersNo}</small></p>
 	      							<div class="d-flex justify-content-between">
 									    <div style="flex-grow: 1;"> 
-									        <p class="mt-2 mb-0"><small>Description : ${orders.goodsMemo}</small></p>
-									        <div class="d-flex justify-content-between mt-2 align-items-center">
-									        	<div>
-									        		<small class="opacity-75">UpdateDate : ${orders.updateDate}</small>
-									        	</div>
-									        	
-									        </div>
+									        <p class="mt-2 mb-0"><small>주문 상품 :${orders.categoryTitle} / ${orders.goodsTitle}</small></p>
+									        <p class="mt-2 mb-0"><small>상품 가격 :${orders.goodsPrice}</small></p>
+									        <p class="mt-2 mb-0"><small>주문 수량 : ${orders.ordersAmount}</small></p>
 									    </div>
+									    
 									</div>
+									<div>
+								        <small class="opacity-75">payment status : ${payment.paymentStatus}</small>
+								    </div>
 						        </div>
 				        	</div>
 				    	</div>
 			    	</c:forEach><!-- orders 반복문 끝 -->
-			    	<br>
+			    	
+			    	<div class="d-flex justify-content-end mt-2 align-items-center">
+			        	<p class="h4">TOTAL PRICE : ${payment.paymentPrice}</p>
+			        </div>
+			        <br>
  				</c:forEach>
  				
+ 			
+ 		<!-- PAGINATION -->
+		<div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+						
+		    <!-- 첫 페이지 -->
+		    <c:if test="${!(page.currentPage > 1)}">
+		        <a href="" style="pointer-events: none;">&laquo;</a>
+		    </c:if>
+		    <c:if test="${page.currentPage > 1}">
+		        <a href="${pageContext.request.contextPath}/staff/getPaymentList?currentPage=1">&laquo;</a>
+		    </c:if>
+		    
+		    <!-- 이전 페이지 -->
+            <c:if test="${!(page.currentPage - page.numPerPage > 0)}">
+               <a href="${pageContext.request.contextPath}/staff/getPaymentList?currentPage=1">
+                  Previous
+               </a>
+            </c:if>
+
+            <c:if test="${page.currentPage - page.numPerPage > 0}">
+               <a href="${pageContext.request.contextPath}/staff/getPaymentList?currentPage=${(page.currentPage - page.numPerPage) - (page.currentPage % page.numPerPage) + 1}">
+                  Previous
+               </a>
+            </c:if>
+		    
+		    <!-- 페이지 번호 링크 -->
+		    <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+		        <c:if test= "${num == page.currentPage}">
+		            <a class="active">${num}</a>
+		        </c:if>
+		        <c:if test= "${num != page.currentPage}">
+		            <a href="${pageContext.request.contextPath}/staff/getPaymentList?currentPage=${num}">${num}</a>
+		        </c:if>
+		    </c:forEach>
+		    
+		    <!-- 다음 페이지 -->
+		    <c:if test="${!((page.lastPage - (page.lastPage)%page.numPerPage + 1) > page.currentPage)}">
+		        <a href=""style="pointer-events: none;">
+		            Next
+		        </a>
+		    </c:if>
+		    <c:if test="${(page.lastPage - (page.lastPage)%page.numPerPage + 1) > page.currentPage}">
+		        <a href="${pageContext.request.contextPath}/staff/getPaymentList?currentPage=${page.lastPage - (page.lastPage%page.numPerPage)}">
+		            Next
+		        </a>
+		    </c:if>
+		    
+		    <!-- 마지막 페이지 -->
+		    <c:if test="${!(page.currentPage < page.lastPage)}">
+		        <a href="" style="pointer-events: none;">&raquo;</a>
+		    </c:if>
+		    <c:if test="${page.currentPage < page.lastPage}">
+		        <a href="${pageContext.request.contextPath}/staff/getPaymentList?currentPage=${page.lastPage}">&raquo;</a>
+		    </c:if>
+		</div>
  				
  				
- 				<div style="width: 1000px; text-align: right;">
- 					<a href="${pageContext.request.contextPath}/staff/addGoods" class="btn btn-sm btn-outline-primary">상품추가</a>
- 				</div>
  				
+			
+ 				
+
 			
 	  		</div>
 		</div>
