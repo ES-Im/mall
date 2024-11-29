@@ -31,7 +31,11 @@ public interface GoodsMapper {
 	List<Map<String, Object>> selectGoodsListByStaff(Map<String, Object> parmaMap);
 	
 	// staff/getGoodsListByStaff.jsp → lastPage 구하기 위한 Count 구하기
-	Integer selectCountGoods();
+	Integer selectCountGoods(String searchWord);
+	
+	// removeGoods : 상품 리스트 삭제 ( 실제로는 판매중지로 변경 )
+	Integer deleteGoods(Goods goods);
+
 	
 
 }

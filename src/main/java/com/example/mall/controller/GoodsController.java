@@ -87,7 +87,7 @@ public class GoodsController {
 		model.addAttribute("isEligibleReviewer", isEligibleReviewer);
 	
 		
-		return "off/getGoodsOne";
+		return "/off/getGoodsOne";
 	}
 	
 	// 김동현
@@ -104,8 +104,35 @@ public class GoodsController {
 		
 		model.addAttribute("goodsList", goodsList.get("goodsList"));
 		model.addAttribute("page", goodsList.get("page"));
+		log.debug(TeamColor.KDH + "searchWord : " + searchWord + TeamColor.RESET); // debug
+		model.addAttribute("searchWord", searchWord);
 		
 		return "staff/getGoodsListByStaff";
+	}
+	
+	// 김동현
+	// removeGoods - 판매중지
+	@GetMapping("/staff/removeGoods")
+	public String removeGoods(Goods goods) {
+		
+		// log.debug(TeamColor.KDH + "goodsStatuts : " + goods.getGoodsStatus() + TeamColor.RESET); // debug
+		goods.setGoodsStatus("판매중지");
+		// log.debug(TeamColor.KDH + "goodsStatuts : " + goods.getGoodsStatus() + TeamColor.RESET); // debug
+		
+		// log.debug(TeamColor.KDH + "removeGoodsNo : " + goods.getGoodsNo() + TeamColor.RESET); // debug
+		int removeGoodsRow = goodsService.removeGoods(goods);
+		if(removeGoodsRow == 0) {
+			return "redirect:/staff/getGoodsListByStaff";
+		}
+		
+		return "redirect:/staff/getGoodsListByStaff";
+	}
+	
+	// 김동현
+	// addGoods Form
+	@GetMapping("/staff/addGoods")
+	public String addGoods(Model model) {
+		return "staff/addGoods";
 	}
 
 	
