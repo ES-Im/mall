@@ -124,22 +124,25 @@
 	</select>
 	
 	<!-- selectCountGoods Query : 관리자 페이지 상품 리스트 lastPage 위한 Count -->
-	<select id="selectCountGoods" resultType="Integer">
-		SELECT COUNT(*) FROM goods
-		<where>
+	<select id="selectCountGoods" parameterType="Map" resultType="Integer">
+    	SELECT COUNT(*) FROM goods
+	    <where>
 	        <if test="searchWord != null and searchWord != ''">
-            	g.goods_title LIKE CONCAT('%', #{searchWord}, '%')
-            	OR 
-            	g.goods_memo LIKE CONCAT('%', #{searchWord}, '%')
+	            goods_title LIKE CONCAT('%', #{searchWord}, '%')
+	           	OR 
+	           	goods_memo LIKE CONCAT('%', #{searchWord}, '%')
 	        </if>
-    	</where>
+	    </where>
 	</select>
 	
-	
-	
+	<!-- deleteGoods Query : 상품 리스트 삭제 (실제로는 판매중지로 변경)-->
+	<update id="deleteGoods" parameterType="com.example.mall.vo.Goods">
+	    UPDATE goods SET goods_status = '판매중지', update_date = update_date WHERE goods_no = #{goodsNo}
+	</update>
+
 
 	<!-- home : 메인 페이지 상품 리스트 출력 -->
-	<select id="selectGoodsList" parameterType="map" resultType="com.example.mall.vo.Goods">
+	<select id="selectGoodsList" parameterType="String" resultType="com.example.mall.vo.Goods">
 		SELECT goods_no goodsNo
 			, goods_title goodsTitle
 			, goods_memo goodsMemo
@@ -157,7 +160,7 @@
 	</select>
 	
 	<!-- home : paging을 위한 lastPage -->
-	<select id="selectGoodsListLastPage" resultType="Integer">
+	<select id="selectGoodsListLastPage" parameterType="String" resultType="Integer">
 		SELECT COUNT(*)
 		FROM goods
 		<where>

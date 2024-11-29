@@ -15,13 +15,20 @@
 	        event.preventDefault();
 	        
 	        // 삭제 확인 
-	        var result = confirm("정말로 삭제하시겠습니까?");
+	        var result = confirm("이 상품을 판매중지 하시겠습니까?");
 	        if (result) {
 	        	window.location.href = $(this).attr('href');
-	        	alert('삭제 성공하였습니다.');
+	        	alert('이 상품은 판매중지 입니다.');
 	        } else {
 	            return false;
 	        }
+	    });
+		
+	    $('.btnRemovedGoods').click(function(event) {
+	        // 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
+	        event.preventDefault();
+	        alert('이 상품은 판매중지 상품 입니다.');
+	        return false;
 	    });
 		
 	 	// 상품 업데이트 날짜에 따른 요일 추가
@@ -41,17 +48,17 @@
 	});
 	</script>
 	<style>
-		.customer-link {
+		.goods-link {
         	color: black;
         	text-decoration: none;
         }
         
-        .customer-link:hover {
+        .goods-link:hover {
             color: #D8D8D8;
             text-decoration: none;
         }
         
-        .customer-link:visited {
+        .goods-link:visited {
         	color: black;
         	text-decoration: none;
         }
@@ -107,7 +114,15 @@
 		</div>
 		<!-- main -->
 		<div style="margin-left: 80px; margin-top: 30px;">
-			<h3>Staff Goods List</h3>
+			<div>
+				<h3>Staff Goods List</h3>
+			</div>
+			<div class="d-flex justify-content-end " style="width: 1050px;">
+				<form id="formGoodsSearch" method="get" action="${pageContext.request.contextPath}/staff/getGoodsListByStaff"}>
+					<input type="text" name="searchWord" id="searchWord" value="${searchWord}"> 
+					<button id="btnGoodsSearch" type="submit" class="btn btn-sm btn-outline-success align-items-center">Search</button>
+				</form>
+			</div>
 		</div>
 		
 		<!-- updateDate 기준으로 그룹화 출력 -->
@@ -155,15 +170,26 @@
 					        <div>
 					        	<div class="d-flex justify-content-between">
 					        		<div>
-      									<i class="bi bi-box-seam"> No.${goods.goodsNo}</i> <span>${goods.goodsTitle}</span>
+					        			<c:if test="${goods.goodsStatus eq '재고있음' or goods.goodsStatus eq '재고없음'}">
+						        			<a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goods.goodsNo}" class="goods-link">
+	      										<i class="bi bi-box-seam"> No.${goods.goodsNo}</i> <span>${goods.goodsTitle}</span>
+	      									</a>
+      									</c:if>
+      									<c:if test="${goods.goodsStatus eq '판매중지'}">
+						        			<a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goods.goodsNo}" class="goods-link btnRemovedGoods">
+	      										<i class="bi bi-box-seam"> No.${goods.goodsNo}</i> <span>${goods.goodsTitle}</span>
+	      									</a>
+      									</c:if>
       								</div>
       								<div>
 					        			 <a href="${pageContext.request.contextPath}/staff/modifyGoods?goodsNo=${goods.goodsNo}" class="btnModifyGoods btn btn-sm btn-outline-success">
-										   Modify
+										   상품수정
 										</a>
-									    <a href="${pageContext.request.contextPath}/staff/removeGoods?goodsNo=${goods.goodsNo}" class="btnRemoveGoods btn btn-sm btn-outline-danger">
-										   Remove
-										</a>
+										<c:if test="${goods.goodsStatus eq '재고있음' or goods.goodsStatus eq '재고없음'}">
+										    <a href="${pageContext.request.contextPath}/staff/removeGoods?goodsNo=${goods.goodsNo}&goodsStatus=${goods.goodsStatus}" class="btnRemoveGoods btn btn-sm btn-outline-danger">
+											   판매중단
+											</a>
+										</c:if>
 									</div>
       							</div>
       							<p class="mt-2 mb-0"><small>Category : ${goods.categoryTitle}</small></p>
@@ -177,15 +203,15 @@
 								        	<div style="display: flex; align-items: center; justify-content:center;">
 									        	<c:if test="${goods.goodsStatus == '재고있음'}">
 									        	 	<small class="opacity-75" style="margin-right: 10px;">Goods_Status</small>
-											        <a href="${pageContext.request.contextPath}/staff/modifyGoodsStatus?goodsNo=${goods.goodsNo}" class="btnModifyGoodsStatus btn btn-sm btn-outline-primary mt-2">
-											           품절
-											        </a>
+									        	 	<button class="btn btn-sm btn-outline-primary mt-2" disabled style="opacity: 1;">판매중</button>
 										        </c:if>
 										        <c:if test="${goods.goodsStatus == '재고없음'}">
 										        	<small class="opacity-75" style="margin-right: 10px;">Goods_Status</small>
-											        <a href="${pageContext.request.contextPath}/staff/modifyGoodsStatus?goodsNo=${goods.goodsNo}" class="btnModifyGoodsStatus btn btn-sm btn-outline-primary mt-2">
-											            재입고
-											        </a>
+											        <button class="btn btn-sm btn-outline-warning mt-2" disabled style="opacity: 1;">품절</button>
+										        </c:if>
+										        <c:if test="${goods.goodsStatus == '판매중지'}">
+										        	<small class="opacity-75" style="margin-right: 10px;">Goods_Status</small>
+											        <button class="btn btn-sm btn-outline-danger mt-2" disabled style="opacity: 1;">판매중지</button>
 										        </c:if>
 									        </div>
 								        </div>
@@ -197,10 +223,85 @@
 			    	<br>
  				</c:forEach>
  				<div style="width: 1000px; text-align: right;">
- 					<a href="${pageContext.request.contextPath}/staff/addGoods" class="btn btn-sm btn-outline-primary">Add Goods</a>
+ 					<a href="${pageContext.request.contextPath}/staff/addGoods" class="btn btn-sm btn-outline-primary">상품추가</a>
  				</div>
  				
  				<!-- PAGINATION -->
+ 				<!-- searchWord 없을 때 PAGINATION -->
+ 				<c:if test="${empty searchWord}">
+ 				<div class="pagination justify-content-center" style="text-align: center; margin-top: 15px; ">
+					<!-- 첫 페이지 -->
+					<c:if test="${!(page.currentPage > 1)}">
+						<a href="" style="pointer-events: none;">&laquo;</a>
+					</c:if>
+					<c:if test="${page.currentPage > 1}">
+						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=1">&laquo;</a>
+					</c:if>
+					
+					<!-- 페이지 - 10 -->
+					<c:if test="${!(page.currentPage > 10)}">
+						<a href="" style="pointer-events: none;">&lt;</a>
+					</c:if>
+					<c:if test="${page.currentPage > 10}">
+						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage - 10}">
+							&lt;
+						</a>
+					</c:if>
+					
+					<!-- 이전 페이지 -->
+					<c:if test="${!(page.currentPage > 1)}">
+						<a href="" style="pointer-events: none;">Previous</a>
+					</c:if>
+					<c:if test="${page.currentPage > 1}">
+						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage - 1}">
+							Previous
+						</a>
+					</c:if>
+					
+					<!-- 페이지 번호 링크 -->
+					<c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+						<c:if test= "${num == page.currentPage}">
+							<a class="active">${num}</a>
+						</c:if>
+						<c:if test= "${num != page.currentPage}">
+							<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${num}">${num}</a>
+						</c:if>
+					</c:forEach>
+					
+					<!-- 다음 페이지 -->
+					<c:if test="${!(page.currentPage < page.lastPage)}">
+						<a href="" style="pointer-events: none;">Next</a>
+					</c:if>
+					
+					<c:if test="${page.currentPage < page.lastPage}">
+						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage + 1}">
+							Next
+						</a>
+					</c:if>
+					
+					<!-- 페이지 + 10 -->
+					<c:if test="${!(page.currentPage < page.lastPage)}">
+						<a href="" style="pointer-events: none;">&gt;</a>
+					</c:if>
+					
+					<c:if test="${page.currentPage < page.lastPage}">
+						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage + 10}">
+							&gt;
+						</a>
+					</c:if>
+					
+					<!-- 마지막 페이지 -->
+					<c:if test="${!(page.currentPage < page.lastPage)}">
+						<a href="" style="pointer-events: none;">&raquo;</a>
+					</c:if>
+					<c:if test="${page.currentPage < page.lastPage}">
+						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.lastPage}">&raquo;</a>
+					</c:if>
+				</div>
+ 				</c:if>
+ 				
+ 				<!-- searchWord 있을 때 PAGINATION -->
+ 				<c:if test="${not empty searchWord}">
    				<div class="pagination justify-content-center" style="text-align: center; margin-top: 15px; ">
 					<!-- 첫 페이지 -->
 					<c:if test="${!(page.currentPage > 1)}">
@@ -270,6 +371,7 @@
 						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.lastPage}&searchWord=${searchWord}">&raquo;</a>
 					</c:if>
 				</div>
+				</c:if>
 	  		</div>
 		</div>
 	</div>
