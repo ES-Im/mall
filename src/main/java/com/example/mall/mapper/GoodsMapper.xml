@@ -137,7 +137,7 @@
 	
 	<!-- deleteGoods Query : 상품 리스트 삭제 (실제로는 판매중지로 변경)-->
 	<update id="deleteGoods" parameterType="com.example.mall.vo.Goods">
-	    UPDATE goods SET goods_status = '판매중지' WHERE goods_no = #{goodsNo}
+	    UPDATE goods SET goods_status = '판매중지', update_date = update_date WHERE goods_no = #{goodsNo}
 	</update>
 
 
