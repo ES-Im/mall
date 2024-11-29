@@ -23,7 +23,7 @@
 		)	
 	</insert>
 	
-	<select id="paymentList" parameterType="com.example.mall.vo.Customer" resultType="com.example.mall.vo.Payment">
+	<select id="selectPaymentList" parameterType="map" resultType="com.example.mall.vo.Payment">
 		SELECT 
 		    p.payment_no AS paymentNo
 		    , p.payment_status AS paymentStatus
@@ -38,16 +38,30 @@
 		    address a ON p.address_no = a.address_no
 		INNER JOIN 
 		    orders o ON p.payment_no = o.payment_no
-		<where>
-			<if test="customerEmail != null">
+		<if test="customerEmail != null">
+			<where>
 				a.customer_email =  #{customerEmail}
+			</where>
 			</if>
-		</where>
 		GROUP BY p.payment_no
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectTotalRowOnPaymentList" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)	FROM payment p
+		INNER JOIN 
+		   (SELECT * FROM address
+			<if test="customerEmail != null">
+				<where>
+					customer_email =  #{customerEmail}
+				</where>
+			</if>
+			) a 
+		ON p.address_no = a.address_no
 	</select>
 	
 	<select id="selectPayInfoListByPaymentNo" parameterType="Integer" resultType="Map">
-SELECT
+		SELECT
 			o.payment_no AS paymentNo
 			, o.orders_no AS ordersNo
 			, gc.goods_no AS goodsNo
@@ -76,6 +90,21 @@ SELECT
 		WHERE o.payment_no = #{paymentNo}
 	</select>
 	
+	<update id="updatePaymentStatus" parameterType="com.example.mall.vo.Payment">
+		UPDATE payment SET payment_status = #{paymentStatus}
+		WHERE payment_no
+		 = (SELECT paymentNo
+		 	 FROM (SELECT p.payment_no paymentNo
+				   FROM payment p
+				   INNER JOIN address a	ON p.address_no = a.address_no
+  				   <where>
+				   		p.payment_no = #{paymentNo}
+					   <if test="customerEmail != null">
+						 	 AND a.customer_email = #{customerEmail}
+					   </if>
+				   </where>
+				   ) AS target);
+	</update>
 	
 	
 </mapper>

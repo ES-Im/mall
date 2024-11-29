@@ -12,6 +12,7 @@ import com.example.mall.mapper.CartMapper;
 import com.example.mall.mapper.PaymentMapper;
 import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Customer;
+import com.example.mall.vo.Page;
 import com.example.mall.vo.Payment;
 
 import lombok.extern.slf4j.Slf4j;
@@ -54,17 +55,48 @@ public class PaymentService {
 	}
 	
 	// # payment 기준 리스트 출력시 사용 (결제번호 리스트 간략 출력)
-		// (1) 직원용 : /staff/getPaymentListByStaff : 파라미터값(Customer)에 customerEmail가 없으면 스태프용 PaymentList 출력
-	public List<Payment> getPaymentList() {
-		return paymentMapper.paymentList(new Customer());
+		// (1) 직원용 : /staff/getPaymentList : 파라미터값(map)에 customerEmail가 없으면 스태프용 PaymentList 출력
+	public List<Payment> getPaymentList(Page page) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("beginRow", page.getBeginRow());
+		paramMap.put("rowPerPage", page.getRowPerPage());
+		
+		return paymentMapper.selectPaymentList(paramMap);
+	}
+
+		
+		// (2) 고객용 : 파라미터값(map)에 customerEmail가 있으면 /customer/getPaymentList 에서 사용
+	public List<Payment> getPaymentList(Page page, String customerEmail) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("beginRow", page.getBeginRow());
+		paramMap.put("rowPerPage", page.getRowPerPage());
+		paramMap.put("customerEmail", customerEmail);
+		
+		return paymentMapper.selectPaymentList(paramMap);
 	}
 	
-		// (2) 고객용 : 파라미터값(Customer)에 customerEmail가 있으면 /customer/getPaymentList 에서 사용
-	public List<Payment> getPaymentList(String customerEmail) {
-		Customer customer = new Customer(); 
-		customer.setCustomerEmail(customerEmail);
+	// # payment 기준 마지막 페이지 구하기
+		// (1) 직원용 : 라스트 페이지 넘기기 :  /staff/getPaymentList : 파라미터값(map)에 customerEmail가 없으면 스태프용 라스트페이지 값 반환
+	public Integer getlastPageOnPaymentList(Page page) {
+		Integer totalNum = paymentMapper.selectTotalRowOnPaymentList(new HashMap<>());
+		Integer lastPage = totalNum / page.getRowPerPage();
+		if(totalNum % page.getRowPerPage() != 0)  {
+			lastPage++;
+		}
 		
-		return paymentMapper.paymentList(customer);
+		return lastPage;
+	}
+		// (2) 고객용 : 라스트 페이지 넘기기 :  /staff/getPaymentList : 파라미터값(map)에 customerEmail가 있으면 직원용 라스트페이지 값 반환
+	public Integer getlastPageOnPaymentList(Page page, String customerEmail) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("customerEmail", customerEmail);
+		
+		Integer totalNum = paymentMapper.selectTotalRowOnPaymentList(paramMap);
+		Integer lastPage = totalNum / page.getRowPerPage();
+		if(totalNum % page.getRowPerPage() != 0)  {
+			lastPage++;
+		}
+		return lastPage;
 	}
 
 	
@@ -72,6 +104,25 @@ public class PaymentService {
 		//  직원용 + 고객용 
 	public List<Map<String,Object>> getPayInfoListByPaymentNo(Integer paymentNo) {
 		return paymentMapper.selectPayInfoListByPaymentNo(paymentNo);
+	}
+	
+	// # payment status 변경
+		// (1) 직원용 /staff/modifyPaymentStatus
+	public Integer modifyPaymentStatus(Payment payment) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("paymentStatus", payment.getPaymentStatus());
+		paramMap.put("paymentNo", payment.getPaymentNo());
+		
+		return paymentMapper.updatePaymentStatus(paramMap);
+	}
+		// (2) 고객용 /customer/modifyPaymentStatus 용
+	public Integer modifyPaymentStatus(Payment payment, String customerEmail) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("paymentStatus", payment.getPaymentStatus());
+		paramMap.put("paymentNo", payment.getPaymentNo());
+		paramMap.put("customerEmail", customerEmail);
+		
+		return paymentMapper.updatePaymentStatus(paramMap);
 	}
 	
  	
