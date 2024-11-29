@@ -35,6 +35,9 @@ public interface GoodsMapper {
 	
 	// removeGoods : 상품 리스트 삭제 ( 실제로는 판매중지로 변경 )
 	Integer deleteGoods(Goods goods);
+	
+	// addGoods : 상품 추가
+	Integer insertGoods(Goods goods);
 
 	
 

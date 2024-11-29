@@ -139,6 +139,14 @@
 	<update id="deleteGoods" parameterType="com.example.mall.vo.Goods">
 	    UPDATE goods SET goods_status = '판매중지', update_date = update_date WHERE goods_no = #{goodsNo}
 	</update>
+	
+	<!-- insertGoods Query : 상품 추가 -->
+	<insert id="insertGoods" parameterType="com.example.mall.vo.Goods">
+		<selectKey resultType="Integer" keyProperty="actorId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO goods(goods_title, goods_memo, goods_price, goods_status) VALUES(#{goodsTitle}, #{goodsMemo}, #{goodsPrice}, #{goodsStatus})
+	</insert>
 
 
 	<!-- home : 메인 페이지 상품 리스트 출력 -->
