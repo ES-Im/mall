@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mall.service.PaymentService;
 import com.example.mall.util.TeamColor;
+import com.example.mall.vo.Page;
 import com.example.mall.vo.Payment;
 
 import jakarta.servlet.http.HttpSession;
@@ -42,11 +43,16 @@ public class PaymentController {
 	// Author : 김은서
 	// 고객용 : /customer/getPaymentList에서 '결제이력' 리스팅 출력
 	@GetMapping("/customer/getPaymentList")
-	public String getPaymentList(Model model, HttpSession session) {
+	public String getPaymentList(Model model, HttpSession session, Page page) {
+		page.setRowPerPage(3);
 		// 1) 로그인한 고객의 paymentList 출력
-		List<Payment> paymentList = paymentService.getPaymentList((String) session.getAttribute("loginCustomer"));
+		List<Payment> paymentList = paymentService.getPaymentList(page ,(String) session.getAttribute("loginCustomer"));
+
+		// 2) 1)의 라스트 페이지 출력 및 Page 객체에 sets
+		page.setLastPage(paymentService.getlastPageOnPaymentList(page, (String) session.getAttribute("loginCustomer")));
+		log.debug(TeamColor.KES + "페이먼트 라스트 페이지 : " +page.getLastPage() + TeamColor.RESET);
 		
-		// 2) 1)에서 출력된 paymentList 인덱스 별 상세정보 출력 (Payment 별 orders + goods + category 정보) 
+		// 3) 1)에서 출력된 paymentList 인덱스 별 상세정보 출력 (Payment 별 orders + goods + category 정보) 
 		List<Map<String,Object>> PayInfoListByPaymentNo = new ArrayList<>();
 		for(Payment p : paymentList) {
 			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo(p.getPaymentNo());
@@ -54,9 +60,28 @@ public class PaymentController {
 		log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제 상세 정보 리스트 : " + PayInfoListByPaymentNo.get(0).toString() + TeamColor.RESET);
 		//log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제리스트 : " + paymentList.toString() + TeamColor.RESET);
 		
+		model.addAttribute("page", page);
 		model.addAttribute("paymentList", paymentList);
 		model.addAttribute("PayInfoListByPaymentNo", PayInfoListByPaymentNo);
+		
 		return "customer/getPaymentList";
+	}
+	
+	// Author : 김은서
+	// 직원용 : /customer/modifyPaymentStatus 에서 특정 paymentNo에 따라 paymentStatus 변경
+	@GetMapping("/customer/modifyPaymentStatus")
+	public String modifyPaymentStatus(Payment payment, HttpSession session) {
+		//g.debug(TeamColor.KES + "받아온 payment 값" + payment.toString() + TeamColor.RESET);
+		
+		// 고객이 '결제완료' -> '배송중' 바꾸지 못하도록 막기
+		if(payment.getPaymentStatus().equals("배송중")) {
+			return "redirect:/customer/getPaymentList";
+		}
+		// paymentStatus 변경
+		int checkSuccess = paymentService.modifyPaymentStatus(payment, (String) session.getAttribute("loginCustomer"));
+		log.debug(TeamColor.KES + "modify PayStatus 결과" + checkSuccess + TeamColor.RESET);	// 1일시 정상 실행
+		
+		return "redirect:/customer/getPaymentList";
 	}
 	
 
