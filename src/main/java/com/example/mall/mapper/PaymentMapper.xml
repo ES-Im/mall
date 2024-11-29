@@ -42,7 +42,7 @@
 			<where>
 				a.customer_email =  #{customerEmail}
 			</where>
-			</if>
+		</if>
 		GROUP BY p.payment_no
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -70,18 +70,24 @@
 			, gc.goods_title AS goodsTitle
 			, gc.goods_memo AS goodsMemo
 			, gc.goods_price AS goodsPrice
+			, gc.goods_status AS goodsStatus
 			, gc.category_title AS categoryTitle
 			, gc.goodsFileName AS goodsFileName
+			, gc.goodsFileExt AS goodsFileExt
+			, gc.goodsFileNo AS goodsFileNo
 		FROM orders o
 		INNER JOIN 
 			(SELECT
 				g.goods_title goods_title
 			   , g.goods_memo goods_memo
 			   , g.goods_price goods_price
+			   , g.goods_status goods_status
 				, gc.goods_no goods_no
 				, ct.category_no category_no
 			   , ct.category_title category_title
 			   , IFNULL(gf.goods_file_name, 'no file') goodsFileName
+			   , gf.goods_file_ext goodsFileExt
+			   , gf.goods_file_no goodsFileNo
 			FROM category ct
 			INNER JOIN goods_category gc ON gc.category_no = ct.category_no
 			INNER JOIN goods g ON gc.goods_no = g.goods_no
