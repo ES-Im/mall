@@ -85,5 +85,36 @@ public class PaymentController {
 	}
 	
 
+	// getPaymentList
+	@GetMapping("/staff/getPaymentList")
+	public String getPaymentList(Model model, Page page) {
+		log.debug(TeamColor.KMJ + "[PaymentController]");
+		log.debug(TeamColor.KMJ + "[GET - getPaymentList]");
+		
+		// 직원용 paymentList 가져오기
+		List<Payment> paymentList = paymentService.getPaymentList(page);
+		log.debug(TeamColor.KMJ + "paymentList : "+ paymentList.toString() + TeamColor.RESET);
+		
+		List<Map<String, Object>> PayInfoListByPaymentNo = new ArrayList<>();
+		
+		for(int i=0; i<paymentList.size(); i++) {
+			
+			Integer paymentNo = paymentList.get(i).getPaymentNo();
+			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo(paymentNo);
+			
+		}
+		
+		model.addAttribute("PayInfoListByPaymentNo", PayInfoListByPaymentNo);
+		log.debug(TeamColor.KMJ + "PayInfoListByPaymentNo : "+ PayInfoListByPaymentNo + TeamColor.RESET);	
+		
+		model.addAttribute("paymentList", paymentList);
+		
+		return "/staff/getPaymentList";
+	}
+	
+	
+	
+	
+	
 	
 }
