@@ -46,7 +46,7 @@ public class PaymentController {
 	public String getPaymentList(Model model, HttpSession session, Page page) {
 		page.setRowPerPage(3);
 		// 1) 로그인한 고객의 paymentList 출력
-		List<Payment> paymentList = paymentService.getPaymentList(page ,(String) session.getAttribute("loginCustomer"));
+		List<Map<String,Object>> paymentList = paymentService.getPaymentList(page ,(String) session.getAttribute("loginCustomer"));
 
 		// 2) 1)의 라스트 페이지 출력 및 Page 객체에 sets
 		page.setLastPage(paymentService.getlastPageOnPaymentList(page, (String) session.getAttribute("loginCustomer")));
@@ -54,8 +54,9 @@ public class PaymentController {
 		
 		// 3) 1)에서 출력된 paymentList 인덱스 별 상세정보 출력 (Payment 별 orders + goods + category 정보) 
 		List<Map<String,Object>> PayInfoListByPaymentNo = new ArrayList<>();
-		for(Payment p : paymentList) {
-			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo(p.getPaymentNo());
+		
+		for(Map<String, Object> p : paymentList) {
+			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo( Integer.parseInt(String.valueOf(p.get("paymentNo"))));
 		}
 		log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제 상세 정보 리스트 : " + PayInfoListByPaymentNo.get(0).toString() + TeamColor.RESET);
 		//log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제리스트 : " + paymentList.toString() + TeamColor.RESET);
@@ -85,5 +86,64 @@ public class PaymentController {
 	}
 	
 
+	// getPaymentList
+	@GetMapping("/staff/getPaymentList")
+	public String getPaymentList(Model model, Page page) {
+		log.debug(TeamColor.KMJ + "[PaymentController]");
+		log.debug(TeamColor.KMJ + "[GET - getPaymentList]");
+		
+		page.setRowPerPage(3);
+		
+		// 직원용 paymentList 가져오기
+		List<Map<String,Object>> paymentList = paymentService.getPaymentList(page);
+		log.debug(TeamColor.KMJ + "paymentList : "+ paymentList.toString() + TeamColor.RESET);
+		
+		List<Map<String, Object>> PayInfoListByPaymentNo = new ArrayList<>();
+		
+		for(int i=0; i<paymentList.size(); i++) {
+			
+			Integer paymentNo = Integer.parseInt(String.valueOf(paymentList.get(i).get("paymentNo")));
+			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo(paymentNo);
+			
+		}
+		
+		model.addAttribute("PayInfoListByPaymentNo", PayInfoListByPaymentNo);
+		log.debug(TeamColor.KMJ + "PayInfoListByPaymentNo : "+ PayInfoListByPaymentNo + TeamColor.RESET);	
+		
+		model.addAttribute("paymentList", paymentList);
+		
+		// lastpage 
+		Integer lastPage = paymentService.getlastPageOnPaymentList(page);
+		page.setLastPage(lastPage);
+		model.addAttribute("page", page);
+		
+		
+		return "/staff/getPaymentList";
+	}
+	
+	
+	// modifyPaymentStatus : getPaymentList - '결제완료' => '배송중' or '결제취소'로 변경
+	@GetMapping("/staff/modifyPaymentStatus")
+	public String modifyPaymentStatus(Payment payment) {
+		log.debug(TeamColor.KMJ + "[PaymentController]");
+		log.debug(TeamColor.KMJ + "[GET - modifyPaymentStatus]");
+		
+		log.debug(TeamColor.KMJ + "payment : "+ payment.toString() + TeamColor.RESET);	
+
+		
+		Integer result = paymentService.modifyPaymentStatus(payment);
+		
+		log.debug(TeamColor.KMJ + "result : "+ result + TeamColor.RESET);	
+		
+		if(result == 0) {
+			
+			return "redirect:/staff/getPaymentList";
+		}
+	
+		return "redirect:/staff/getPaymentList";
+	}
+	
+	
+	
 	
 }
