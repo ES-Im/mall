@@ -76,11 +76,7 @@
 		  border-bottom-right-radius: 5px;
 		}
 	</style>
-    <script type="text/javascript">
-    $(document).ready(function () {
-        $('#demo').carousel();
-    });
-    </script>
+	
     
     
     
@@ -120,7 +116,7 @@
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://www.w3schools.com/bootstrap5/ny.jpg" alt="Chicago" class="d-block" style="width:100%">
+      <img src="https://www.w3schools.com/bootstrap5/ny.jpg" alt="Chicago" class="d-block" style=width:100%">
       <div class="carousel-caption">
         <h3>Chicago</h3>
         <p>Thank you, Chicago!</p>
@@ -147,6 +143,22 @@
 
         <!-- Section-->
         <section class="py-5">
+        		
+        		<!-- 카테고리 -->
+<!--        		<div class="card col-sm-1 m-3" id="category">
+        			<div class="card-body">
+        			 	CATEGORY
+        			 	<br>
+        			 	<div class="form-check" id="checkbox">
+        			 		<c:forEach var="c" items="${categoryList }" varStatus="status">
+								<input class="form-check-input" type="checkbox" name="category" value="${c.categoryNo }" id="status.count">
+								<label class="form-check-label">${c.categoryTitle }</label>  
+							</c:forEach>			 	
+        			 	</div>		 
+        			 </div>
+        		</div>
+-->        		
+        
         	
         	
 				<div class="container px-4 px-lg-5 mt-5">
