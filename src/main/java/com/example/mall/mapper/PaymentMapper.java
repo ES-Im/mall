@@ -5,8 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.mall.vo.Customer;
-import com.example.mall.vo.Orders;
 import com.example.mall.vo.Payment;
 
 // Author : 김은서
