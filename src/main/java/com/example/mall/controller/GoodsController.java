@@ -6,17 +6,20 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.mall.service.CategoryService;
 import com.example.mall.service.GoodsService;
 import com.example.mall.util.TeamColor;
+import com.example.mall.vo.Category;
 import com.example.mall.vo.Goods;
+import com.example.mall.vo.GoodsForm;
 import com.example.mall.vo.Page;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 
 
@@ -25,6 +28,7 @@ import jakarta.servlet.http.HttpSession;
 public class GoodsController {
 	
 	@Autowired GoodsService goodsService;
+	@Autowired CategoryService categoryService;
 	
 	// Author : 김문정
 	// getGoodsOne : 상품 상세보기 + 후기 리스트 + 후기 작성, 수정
@@ -132,7 +136,53 @@ public class GoodsController {
 	// addGoods Form
 	@GetMapping("/staff/addGoods")
 	public String addGoods(Model model) {
+		
+		// Category List
+		List<Category> categoryList = categoryService.getCategoryList();
+		
+		log.debug(TeamColor.KDH + "categoryList : " + categoryList + TeamColor.RESET); // debug
+		model.addAttribute("categoryList", categoryList);
+		
 		return "staff/addGoods";
+	}
+	
+	// 김동현
+	//addGoods Action
+	@PostMapping("/staff/addGoods")
+	public String addGoods(Model model, GoodsForm goodsForm, HttpSession session) {
+		
+		
+//		/*
+//		log.debug("actorForm.getFirstName() : " + actorForm.getFirstName());
+//		log.debug("actorForm.getLastName() : " + actorForm.getLastName());
+//		log.debug("actorForm.getActorFile() : " + actorForm.getActorFile());
+//		if(actorForm.getActorFile() != null) {
+//			log.debug("actorForm.getActorFile().size() : " + actorForm.getActorFile().size());
+//		}
+//		*/
+//		List<MultipartFile> list = actorForm.getActorFile();
+//		
+//		// 배우 정보만 입력하고 사진은 첨부 안했을 때
+//		if(list == null || list.isEmpty()) {
+//			String path = null;	
+//			actorService.addActor(actorForm, path);
+//			return "redirect:/on/actorList";
+//		}
+//		
+//		// 이미지파일은 *.jpg or *png만 가능
+//		for(MultipartFile f : list) { 
+//			if(!(f.getContentType().equals("image/jpeg") || f.getContentType().equals("image/png"))) {
+//				model.addAttribute("imageMsg", "jpeg, png 파일만 입력이 가능합니다");
+//				return "on/addActor";
+//			} 
+//		}
+//		
+//		String path = session.getServletContext().getRealPath("/upload/");
+//		actorService.addActor(actorForm, path);
+		
+		goodsService.addGoods(goodsForm);
+		
+		return "redirect:/getGoodsListByStaff";
 	}
 
 	

@@ -9,86 +9,35 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script>
 	$(document).ready(function() {
-		// 상품 삭제 버튼 클릭
-	    $('.btnRemoveGoods').click(function(event) {
-	        // 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
-	        event.preventDefault();
-	        
-	        // 삭제 확인 
-	        var result = confirm("정말로 삭제하시겠습니까?");
-	        if (result) {
-	        	window.location.href = $(this).attr('href');
-	        	alert('삭제 성공하였습니다.');
-	        } else {
-	            return false;
-	        }
-	    });
 		
-	 	// 상품 업데이트 날짜에 따른 요일 추가
-        $('span[id="dayOfWeek"]').each(function() {
-            var updateDate = $(this).data('update-date');  // data-update-date 속성에서 날짜를 가져옵니다.
-            
-            // 'Z'를 붙여 UTC 시간으로 처리
-            var date = new Date(updateDate + "Z");  // UTC 시간으로 변환
-            
-            // 요일을 추출 (0: 일요일, 1: 월요일, ..., 6: 토요일)
-            var daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-            var dayOfWeek = daysOfWeek[date.getUTCDay()];  // getUTCDay()로 UTC 기준으로 요일 숫자 추출
-            
-            // 해당 span에 요일을 삽입
-            $(this).text(dayOfWeek);  // 요일을 삽입
-        });
+		// 파일 첨부 버튼
+		$('#btnAddFile').click(function() {
+			if($('.goodsFile').last().val() == '') { // 마지막 input=file값이 공백이라면
+				alert('첨부하지 않은 파일이 이미 존재');
+			} else {
+				let html = '<div><input type="file" name="goodsFile" class="goodsFile mt-1"></div>';
+				$('#fileDiv').append(html);
+			}
+		});
+		
+		// 파일 삭제 버튼
+		$('#btnRemoveFile').click(function() {
+			if($('.goodsFile').length == 0) {
+				alert('삭제 할 File이 존재하지 않습니다');
+			} else {
+				$('.goodsFile').last().closest('div').remove();	
+			}
+		});
+		
+		
+	 	
 	});
 	</script>
 	<style>
-		.goods-link {
-        	color: black;
-        	text-decoration: none;
-        }
-        
-        .goods-link:hover {
-            color: #D8D8D8;
-            text-decoration: none;
-        }
-        
-        .goods-link:visited {
-        	color: black;
-        	text-decoration: none;
-        }
 		
-		.pagination {
-		  display: flex;
-  		  justify-content: center;
-		}
-		
-		.pagination a {
-		  color: #5D5D5D;
-		  float: left;
-		  padding: 6px 12px;
-		  text-decoration: none;
-		  border: 1px solid #ddd;
-		}
-		
-		.pagination a.active {
-		  background-color: #5D5D5D;
-		  color: white;
-		  border: 1px solid #5D5D5D;
-		}
-		
-		.pagination a:hover:not(.active) {background-color: #ddd;}
-		
-		.pagination a:first-child {
-		  border-top-left-radius: 5px;
-		  border-bottom-left-radius: 5px;
-		}
-		
-		.pagination a:last-child {
-		  border-top-right-radius: 5px;
-		  border-bottom-right-radius: 5px;
-		}
 	</style>
 <meta charset="UTF-8">
-<title>Goods List</title>
+<title>Add Goods</title>
 </head>
 <body>
 <div class="row">
@@ -108,108 +57,50 @@
 		<!-- main -->
 		<div style="margin-left: 80px; margin-top: 30px;">
 			<div>
-				<h3>Staff Goods List</h3>
+				<h3>Add Goods</h3>
 			</div>
-			<div class="d-flex justify-content-end " style="width: 1050px;">
-				<form id="formGoodsSearch" method="get" action="${pageContext.request.contextPath}/staff/getGoodsListByStaff"}>
-					<input type="text" name="searchWord" id="searchWord" value="${searchWord}"> 
-					<button id="btnGoodsSearch" type="submit" class="btn btn-sm btn-outline-success align-items-center">Search</button>
-				</form>
-			</div>
-		</div>
-		
-		<!-- updateDate 기준으로 그룹화 출력 -->
-        <c:set var="previousDate" value="" /> <!-- 이전 날짜를 저장할 변수 -->
-        
-		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
-	  		<div class="list-group">
- 				<c:forEach var="goods" items="${goodsList}">
- 				
- 				<!-- 날짜를 'yyyy-MM-dd' 형식으로 추출 -->
-                <c:set var="formattedDate" value="${fn:substring(goods.updateDate, 0, 10)}" />
-                
-                <!-- 요일을 추출 -->
-                <fmt:parseDate var="date" value="${goods.updateDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
-                <fmt:formatDate value="${date}" pattern="E" var="dayOfWeek" />
- 				
- 				<!-- 새로운 날짜 그룹 시작 -->
-                <c:if test="${formattedDate != previousDate}">
-                	<c:set var="previousDate" value="${formattedDate}" />
-                  
-    				<!-- 날짜와 요일을 삽입할 div -->
-                    <div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
-                    	<div class="d-flex align-items-center" style="width: 100%;">
-                        <!-- 날짜와 요일을 삽입 -->
-                        	<div style="margin-left: 20px;">
-                            	<span>${formattedDate} (<span id="dayOfWeek">${dayOfWeek}</span>)</span>
-                          	</div>
-                      	</div>
-                  	</div>
-              	</c:if>
- 					<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
- 						<div class="d-flex justify-content-center align-items-center">
- 							<!-- 파일 있을 때 -->
- 							<c:if test="${not empty goods.goodsFileNo}">
- 								<img src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsExt}" alt="${goods.goodsOriginName}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
- 							</c:if>
- 							<!-- 파일 없을 때 -->
- 							<c:if test="${empty goods.goodsFileNo}">
- 								<div style="align-items: center;">
- 									<img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
- 								</div>
- 							</c:if>
- 						</div>
-      					<div class="d-flex gap-2 w-100 justify-content-between">
-					        <div>
-					        	<div class="d-flex justify-content-between">
-					        		<div>
-					        			<a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goods.goodsNo}" class="goods-link">
-      										<i class="bi bi-box-seam"> No.${goods.goodsNo}</i> <span>${goods.goodsTitle}</span>
-      									</a>
-      								</div>
-      								<div>
-					        			 <a href="${pageContext.request.contextPath}/staff/modifyGoods?goodsNo=${goods.goodsNo}" class="btnModifyGoods btn btn-sm btn-outline-success">
-										   Modify
-										</a>
-									    <a href="${pageContext.request.contextPath}/staff/removeGoods?goodsNo=${goods.goodsNo}" class="btnRemoveGoods btn btn-sm btn-outline-danger">
-										   Remove
-										</a>
-									</div>
-      							</div>
-      							<p class="mt-2 mb-0"><small>Category : ${goods.categoryTitle}</small></p>
-      							<div class="d-flex justify-content-between">
-								    <div style="flex-grow: 1;"> 
-								        <p class="mt-2 mb-0"><small>Description : ${goods.goodsMemo}</small></p>
-								        <div class="d-flex justify-content-between mt-2 align-items-center">
-								        	<div>
-								        		<small class="opacity-75">UpdateDate : ${goods.updateDate}</small>
-								        	</div>
-								        	<div style="display: flex; align-items: center; justify-content:center;">
-									        	<c:if test="${goods.goodsStatus == '재고있음'}">
-									        	 	<small class="opacity-75" style="margin-right: 10px;">Goods_Status</small>
-											        <a href="${pageContext.request.contextPath}/staff/modifyGoodsStatus?goodsNo=${goods.goodsNo}" class="btnModifyGoodsStatus btn btn-sm btn-outline-primary mt-2">
-											           품절
-											        </a>
-										        </c:if>
-										        <c:if test="${goods.goodsStatus == '재고없음'}">
-										        	<small class="opacity-75" style="margin-right: 10px;">Goods_Status</small>
-											        <a href="${pageContext.request.contextPath}/staff/modifyGoodsStatus?goodsNo=${goods.goodsNo}" class="btnModifyGoodsStatus btn btn-sm btn-outline-primary mt-2">
-											            재입고
-											        </a>
-										        </c:if>
-									        </div>
-								        </div>
-								    </div>
-								</div>
-					        </div>
-			        	</div>
-			    	</div>
-			    	<br>
- 				</c:forEach>
- 				<div style="width: 1000px; text-align: right;">
- 					<a href="${pageContext.request.contextPath}/staff/addGoods" class="btn btn-sm btn-outline-primary">Add Goods</a>
- 				</div>
-	  		</div>
+			<form id="formAddGoods" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/staff/addActor">
+				<div class="container px-4 px-lg-5 my-5">
+	                <div class="row gx-4 gx-lg-5 align-items-center">
+	                	<!-- 이미지 ~ 상품 상세설명 -->
+	                    <div class="col-md-6">
+	                    	<img class="card-img-top mb-5 mb-md-0" style="width: 500px; height: 600px;" src="${pageContext.request.contextPath}/goodsFile/addGoodsImage.png" />
+	                    	<div class="d-flex justify-content-end" style="margin-top: 10px; width: 500px;">
+	                    		<button id="btnAddFile" type="button" class="btn btn-sm btn-outline-primary" style="margin-right: 7px;">파일 첨부</button>
+	                    		<button id="btnRemoveFile" type="button" class="btn btn-sm btn-outline-danger">파일 삭제</button>
+	                    	</div>
+                    		<div id="fileDiv" class="d-block" style="text-align: right;">
+                    			
+                    		</div>
+	                   	</div>
+	                    <div class="col-md-6">
+	                    	<div class="my-2 py-2">
+	                    		<i style="font-size: xx-large;" class="bi bi-box-seam">&nbsp;</i> <span style="font-size: x-large;"> Title : </span>  
+	                    		<input type="text" placeholder="상품을 입력하세요" style="text-align:center; width: 250px; height: 40px; border-radius: 10px;">
+	                    	</div>
+	                    	<div class="my-2 py-2">
+	                    		<i style="font-size: xx-large;" class="bi bi-cash-coin">&nbsp;</i>
+	                    		<input type="text" placeholder="금액" style="text-align:center; width: 100px; height: 40px; border-radius: 10px;">
+	                    		<span style="font-size: large;">Price</span>
+	                    	</div>
+	                    	<div class="my-2 py-2">
+	                    		<p style="font-size: large; margin: 5px;">Category List</p>
+	                    		<select id="categoryNo" name="categoryNo" style="text-align:center; width: 250px; height: 40px; border-radius: 10px;">
+					    			<option value="">Select Category</option>
+					    			<c:forEach var="category" items="${categoryList}">
+					    				<option value="${category.categoryNo}">${category.categoryTitle}</option>
+					    			</c:forEach>
+					    		</select>
+	                    	</div>
+	                    	<div class="my-2 py-2">
+	                    		<p style="font-size: large; margin: 5px;">Description</p>
+	                    		<textarea rows="5" cols="60"></textarea>
+	                    	</div>
+	                    	<div style="height: 200px;"></div>
+	                    </div>
+	                </div>
+	            </div>
+            </form>
 		</div>
 	</div>
 </div>
@@ -218,5 +109,4 @@
 
 
 </body>
-
 </html>

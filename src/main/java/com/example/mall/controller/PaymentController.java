@@ -92,6 +92,8 @@ public class PaymentController {
 		log.debug(TeamColor.KMJ + "[PaymentController]");
 		log.debug(TeamColor.KMJ + "[GET - getPaymentList]");
 		
+		page.setRowPerPage(3);
+		
 		// 직원용 paymentList 가져오기
 		List<Map<String,Object>> paymentList = paymentService.getPaymentList(page);
 		log.debug(TeamColor.KMJ + "paymentList : "+ paymentList.toString() + TeamColor.RESET);
@@ -110,10 +112,36 @@ public class PaymentController {
 		
 		model.addAttribute("paymentList", paymentList);
 		
+		// lastpage 
+		Integer lastPage = paymentService.getlastPageOnPaymentList(page);
+		page.setLastPage(lastPage);
+		model.addAttribute("page", page);
+		
+		
 		return "/staff/getPaymentList";
 	}
 	
 	
+	// modifyPaymentStatus : getPaymentList - '결제완료' => '배송중' or '결제취소'로 변경
+	@GetMapping("/staff/modifyPaymentStatus")
+	public String modifyPaymentStatus(Payment payment) {
+		log.debug(TeamColor.KMJ + "[PaymentController]");
+		log.debug(TeamColor.KMJ + "[GET - modifyPaymentStatus]");
+		
+		log.debug(TeamColor.KMJ + "payment : "+ payment.toString() + TeamColor.RESET);	
+
+		
+		Integer result = paymentService.modifyPaymentStatus(payment);
+		
+		log.debug(TeamColor.KMJ + "result : "+ result + TeamColor.RESET);	
+		
+		if(result == 0) {
+			
+			return "redirect:/staff/getPaymentList";
+		}
+	
+		return "redirect:/staff/getPaymentList";
+	}
 	
 	
 	
