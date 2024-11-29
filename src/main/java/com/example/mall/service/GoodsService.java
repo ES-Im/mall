@@ -59,6 +59,7 @@ public class GoodsService {
 		
 	}
 	
+	// 김동현
 	// getGoodsList.jsp
 	public Map<String, Object> getGoodsListByStaff(Page page, String searchWord) {
 		
@@ -74,7 +75,7 @@ public class GoodsService {
 		// boardList
 		List<Map<String, Object>> goodsList = goodsMapper.selectGoodsListByStaff(paramMap);
 		
-		Integer totalCount = goodsMapper.selectCountGoods();
+		Integer totalCount = goodsMapper.selectCountGoods(searchWord);
 		
 		Integer lastPage = totalCount / rowPerPage;
 		if(totalCount % rowPerPage != 0) {
@@ -91,10 +92,14 @@ public class GoodsService {
 		return goodsListMap;
 	}
 	
+	// 김동현
+	// getGoodsList.jsp → removeGoods
+	public Integer removeGoods(Goods goods) {
+		return goodsMapper.deleteGoods(goods);
+	}
 	
 	
-	
-	
+	// 김문정
 	// home : 메인 페이지 상품 리스트 출력
 	public Map<String, Object> getGoodsList(Page page, String searchWord){
 		log.debug( TeamColor.KMJ + "[GoodsService - getGoodsList]" + TeamColor.RESET );
