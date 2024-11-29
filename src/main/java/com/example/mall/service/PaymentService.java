@@ -56,7 +56,7 @@ public class PaymentService {
 	
 	// # payment 기준 리스트 출력시 사용 (결제번호 리스트 간략 출력)
 		// (1) 직원용 : /staff/getPaymentList : 파라미터값(map)에 customerEmail가 없으면 스태프용 PaymentList 출력
-	public List<Payment> getPaymentList(Page page) {
+	public List<Map<String,Object>> getPaymentList(Page page) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("beginRow", page.getBeginRow());
 		paramMap.put("rowPerPage", page.getRowPerPage());
@@ -66,7 +66,7 @@ public class PaymentService {
 
 		
 		// (2) 고객용 : 파라미터값(map)에 customerEmail가 있으면 /customer/getPaymentList 에서 사용
-	public List<Payment> getPaymentList(Page page, String customerEmail) {
+	public List<Map<String,Object>> getPaymentList(Page page, String customerEmail) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("beginRow", page.getBeginRow());
 		paramMap.put("rowPerPage", page.getRowPerPage());

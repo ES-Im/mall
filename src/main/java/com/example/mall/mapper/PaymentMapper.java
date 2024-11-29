@@ -22,7 +22,7 @@ public interface PaymentMapper {
 	// payment 기준 리스트 출력시 사용 (결제번호 리스트 간략 출력)
 		// 1) 파라미터값(Customer)에 customerEmail가 있으면 /customer/getPaymentList 에서 사용
 		// 2) 파라미터값(Customer)에 customerEmail가 없으면 /staff/getPaymentListByStaff 에서 사용
-	List<Payment> selectPaymentList(Map<String, Object> paramMap);
+	List<Map<String,Object>> selectPaymentList(Map<String, Object> paramMap);
 	
 	// paymentList의 마지막 페이지 구하기 : map이 빈객체면 직원용 / 메일이 있으면 고객용
 	Integer selectTotalRowOnPaymentList(Map<String, Object> Email);
