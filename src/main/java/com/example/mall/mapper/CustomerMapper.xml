@@ -6,4 +6,9 @@
 		FROM Customer 
 		WHERE customer_email=#{customerEmail} and customer_pw=#{customerPw}
 	</select> 
+	
+	<update id="updateCustomerPw" parameterType="map">
+		UPDATE customer SET customer_pw = #{newPw} 
+		WHERE customer_email = #{customerEmail} AND customer_pw = #{prePw};
+	</update>
 </mapper>
