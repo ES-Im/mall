@@ -21,5 +21,34 @@ public class AddressService {
 		address.setCustomerEmail(customerEmail);
 		return addressMapper.selectAddressList(address);
 	}
+	
+	
+	// /customer/addAddress : 배송지 등록 전 현재 등록된 배송지의 수 확인
+	public Integer getAddressCount(String customerEmail) {
+		
+		Integer addressCount = addressMapper.selectAddressCount(customerEmail);
+		
+		return addressCount;
+	}
+	
+	// /customer/addAddress : 배송지 등록  
+	public Integer addAddress(Address address) {
+		
+		Integer result = addressMapper.insertAddress(address);
+		
+		return result;
+	}
+	
+	// /customer/addAddress : 배송지 삭제 
+	public Integer removeAddress(Integer addressNo) {
+		
+		Integer result = addressMapper.deleteAddress(addressNo);
+		
+		return result;
+	}
+	
+	
+	
+	
 }
 
