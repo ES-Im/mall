@@ -20,7 +20,7 @@ public class CartService {
 	// /customer/getCartListByCustomerId 에서 장바구니 리스트 출력시 사용
 	public List<Map<String, Object>> getCartList(String CustomerEmail) {
 		Cart cart = new Cart();
-		cart.setCustomerEamil(CustomerEmail);
+		cart.setCustomerEmail(CustomerEmail);
 		return cartMapper.selectCartList(cart);
 	}
 	
@@ -54,9 +54,11 @@ public class CartService {
 		return cartMapper.insertCart(cart);
 	}
 	
-	// /customer/removeCart : 장바구니에서 선택한 리스트 삭제
+	// /customer/removeCart : 장바구니에서 선택한 리스트 삭제 
 	public int removeCart(Integer cartNo) {
-		return cartMapper.deleteCart(cartNo);
+		Cart cart = new Cart();
+		cart.setCartNo(cartNo);
+		return cartMapper.deleteCart(cart);
 	}
 	
 

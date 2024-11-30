@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.mall.vo.Address;
 import com.example.mall.vo.Customer;
 // Author : 김문정, 김은서
 @Mapper
@@ -21,6 +22,9 @@ public interface CustomerMapper {
 	Integer updateCustomerPw(Map<String, String> customerInfoAndNewPw);
 	
 	// Author : 김은서
-	// /customer/modifyCustomerPw 에서 회원 비밀번호 확인 후 비밀번호 변경
-	Integer deleteCustomerByCustomer(String customerPw);
+	// /customer/deleteCustomer 회원 삭제
+	Integer deleteCustomer(Customer customer);
+	
+	// 임시 -> Address.Mapper 동적쿼리변경 필요
+	Integer deleteAddress(Address address);
 }

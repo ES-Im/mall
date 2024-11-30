@@ -19,5 +19,5 @@ public interface CartMapper {
 	// customer/addCart : cart에 상품 추가시 사용
 	int insertCart(Cart cart);
 	 
-	int deleteCart(Integer cartNo);
+	int deleteCart(Cart cart);
 }

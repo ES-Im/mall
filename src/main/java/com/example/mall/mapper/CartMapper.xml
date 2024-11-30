@@ -39,12 +39,21 @@
 		INSERT INTO cart(
 			customer_email, goods_no, cart_amount
 		) VALUES(
-			#{customerEamil}, #{goodsNo}, #{cartAmount}
+			#{customerEmail}, #{goodsNo}, #{cartAmount}
 		);
 	</insert>
 	 
-	<delete id="deleteCart" parameterType="Integer">
-		DELETE FROM cart WHERE cart_no = #{cartNo};
+	<delete id="deleteCart" parameterType="com.example.mall.vo.Cart">
+		DELETE FROM cart 
+		<where>
+			<if test="cartNo != null">
+				cart_no = #{cartNo}	
+			</if>
+			<if test="customerEmail != null">
+				customer_email = #{customerEmail}
+			</if>
+		</where>
+		
 	</delete>
 </mapper>
 
