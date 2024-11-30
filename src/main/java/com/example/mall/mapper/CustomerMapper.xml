@@ -7,8 +7,44 @@
 		WHERE customer_email=#{customerEmail} and customer_pw=#{customerPw}
 	</select> 
 	
+	<select id="selectCustomerOne" parameterType="String" resultType="com.example.mall.vo.Customer">
+		SELECT 
+			customer_email customerEmail
+			, customer_pw customerPw
+			, customer_birth customerBirth
+			, customer_gender customerGender
+			, create_date createDate
+			, update_date updateDate
+		FROM customer WHERE customer_email= #{customerEmail};
+	</select>
+	
 	<update id="updateCustomerPw" parameterType="map">
 		UPDATE customer SET customer_pw = #{newPw} 
 		WHERE customer_email = #{customerEmail} AND customer_pw = #{prePw};
 	</update>
+	
+	<delete id="deleteCustomer" parameterType="com.example.mall.vo.Customer">
+		DELETE FROM customer 
+		<where>
+			customer_email = #{customerEmail}
+			<if test="customerPw != null">
+				AND customer_pw = #{prePw}
+			</if>
+		</where>
+	</delete>
+	
+	<!-- /customer/addAddress : 배송지 삭제 -->
+	<update id="deleteAddress" parameterType="com.example.mall.vo.Address">
+		UPDATE address 
+		SET customer_email = '-1'
+		<where>
+			<if test="addressNo != null"> 
+				address_no = #{addressNo}
+			</if>
+			<if test="customerEmail != null">
+				customer_email = #{customerEmail}
+			</if>
+		</where>
+	</update>
+	
 </mapper>

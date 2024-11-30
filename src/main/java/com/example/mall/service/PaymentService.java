@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.mall.mapper.CartMapper;
 import com.example.mall.mapper.PaymentMapper;
 import com.example.mall.util.TeamColor;
+import com.example.mall.vo.Cart;
 import com.example.mall.vo.Customer;
 import com.example.mall.vo.Page;
 import com.example.mall.vo.Payment;
@@ -48,7 +49,9 @@ public class PaymentService {
 		
 		// (3) cart delete
 		for(Integer c : cartNo) {
-			checkDeleteCartQuery += cartMapper.deleteCart(c);
+			Cart cart = new Cart();
+			cart.setCartNo(c);
+			checkDeleteCartQuery += cartMapper.deleteCart(cart);
 		}
 		log.debug(TeamColor.KES + "트랜잭션(cart) 결과로그 : checkDeleteCartQuery" + checkDeleteCartQuery);
 				
