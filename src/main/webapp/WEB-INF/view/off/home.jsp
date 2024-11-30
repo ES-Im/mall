@@ -76,11 +76,43 @@
 		  border-bottom-right-radius: 5px;
 		}
 	</style>
+	<script>
+	$(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 실행.
+		
+		/*  category가 선택된 항목의 value(categoryNo)가져오기 */
+		$('#btnCategoryView').click(function() {
+			/* 디버깅용 페이지 이동 막기 */
+			// event.preventDefault();
+			
+			const category = $('input[name="category"]:checked');
+			
+			const categoryValues = category.map(function() {
+							            return $(this).val(); /* 각 체크박스의 value 값을 반환 */
+							        }).get(); /* 배열로 변환 */
+			
+			console.log("선택 값 : "+categoryValues);
+							        
+			if(categoryValues.length > 0) {
+				
+	            const categoryParam = categoryValues.join(','); /* ','로 연결 */
+	            console.log("categoryParam : "+categoryParam);
+	            
+	            const nowUrl = `${pageContext.request.contextPath}/home?category=`;
+	            
+	            const url = nowUrl +categoryParam;
+	      
+	            $('#categoryUrl').attr('href', url); /* href 속성 동적으로 변경 */
+	            console.log("최종 : "+url);
 	
-    
-    
-    
-    
+	        } else {
+	        	/*  category 유효성 검사 */
+	            alert('카테고리를 선택해주세요.');
+	        }
+			
+			
+		 });
+	})
+	</script>
     
     <body>
     	
@@ -95,7 +127,7 @@
     	</c:if>
        
         <!-- Header-->
-
+		<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
 <!-- Carousel -->
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
 
@@ -145,21 +177,26 @@
         <section class="py-5">
         		
         		<!-- 카테고리 -->
-<!--        		<div class="card col-sm-1 m-3" id="category">
+        		<div class="card col-sm-2 m-3" id="category">
         			<div class="card-body">
-        			 	CATEGORY
-        			 	<br>
-        			 	<div class="form-check" id="checkbox">
-        			 		<c:forEach var="c" items="${categoryList }" varStatus="status">
-								<input class="form-check-input" type="checkbox" name="category" value="${c.categoryNo }" id="status.count">
-								<label class="form-check-label">${c.categoryTitle }</label>  
-							</c:forEach>			 	
-        			 	</div>		 
+        			    <div class="mb-3 d-flex justify-content-between">
+        			 		<span class="h4">CATEGORY</span>
+        			 		<div class="">
+							   <a href="${pageContext.request.contextPath}/home?category=" id="categoryUrl"> 
+							    	<button class="btnRemoveBoard btn btn-sm btn-outline-danger" id="btnCategoryView">VIEW</button>
+							    </a>
+						    </div>
+						</div>
+						<c:forEach var="c" items="${categoryList }" varStatus="status">
+        			 		<div class="form-check" id="checkbox">
+							    <input class="form-check-input" type="checkbox" name="category" value="${c.categoryNo }">
+							    <label class="form-check-label">${c.categoryTitle }</label>   	
+        			 		</div>
+        			 	</c:forEach>	
+		 
         			 </div>
         		</div>
--->        		
-        
-        	
+
         	
 				<div class="container px-4 px-lg-5 mt-5">
 					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
