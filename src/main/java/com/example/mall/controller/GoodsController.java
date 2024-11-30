@@ -84,7 +84,7 @@ public class GoodsController {
 		}
 
 		log.debug(TeamColor.KMJ + "eligibleReviewer : " + isEligibleReviewer + TeamColor.RESET );
-		
+
 		model.addAttribute("goodsNo", goodsNo);
 		model.addAttribute("goods", goods);
 		model.addAttribute("boardList", boardList);
@@ -188,10 +188,22 @@ public class GoodsController {
 	
 	// home : 메인 페이지 상품 리스트 출력
 	@GetMapping("/home")
-	public String home(Page page, Model model, @RequestParam(required = false) String searchWord) {
+	public String home(Page page, Model model, @RequestParam(required = false) String searchWord, @RequestParam(required = false) String category) {
 		
 		log.debug( TeamColor.KMJ + "GET[GoodsController - home]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "searchWord : " + searchWord + TeamColor.RESET );
+		
+		// categoryList 가져오기
+		List<Category> categoryList = categoryService.getCategoryList();
+		
+		log.debug(TeamColor.KMJ + "categoryList : " + categoryList + TeamColor.RESET );
+		model.addAttribute("categoryList", categoryList);
+
+		// 선택된 category
+		log.debug(TeamColor.KMJ + "category : " + category + TeamColor.RESET );	
+		
+		// split으로 ',' 분리 후 배열에 담아 쿼리에 어떻게 조회할 것인지..?
+		
 
 		// 상품리스트 
 		Map<String, Object> goodsList = goodsService.getGoodsList(page, searchWord);
