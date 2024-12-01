@@ -41,8 +41,8 @@ public class CustomerService {
 	
 	//Author : 김은서 
 	// /customer/modifyCustomerPw 고객 비밀번호 변경 시 사용
-	public int modifyCustomerPw(String customerEmail, String prePw, String newPw) {
-		log.debug("prePw = " + prePw);
+	public Integer modifyCustomerPw(String customerEmail, String prePw, String newPw) {
+		log.debug(TeamColor.KES + "prePw = " + prePw + TeamColor.RESET);
 		Map<String, String> customerInfoAndNewPw = new HashMap<>();
 		customerInfoAndNewPw.put("customerEmail", customerEmail);
 		customerInfoAndNewPw.put("prePw", prePw);
@@ -52,32 +52,45 @@ public class CustomerService {
 	
 	//Author : 김은서 
 	// /customer/deleteCustomer 회원삭제 : (1)고객에 매칭되는 Address 정보 수정 (customerEmail = '-1') (2) 고객에 매칭되는 Cart 정보 삭제 (3) 고객 삭제
-	public int removeCustomer(Customer customer) {
+	public Integer removeCustomer(Customer customer) {
 		Cart cart = new Cart();
 		cart.setCustomerEmail(customer.getCustomerEmail());
 		Address address = new Address();
 		address.setCustomerEmail(customer.getCustomerEmail());
 		
-		int checkCartDelete = cartMapper.deleteCart(cart);
+		Integer checkCartDelete = cartMapper.deleteCart(cart);
 //		// 트랜잭션 디버깅
 //		if(checkCartDelete != 2) {
 //			throw new RuntimeException("Cart 쿼리에서 오류 checkCartDelete = " + checkCartDelete);
 //		}
 		
 		//addressMapper.deleteAddress(customerEmail);		// deleteAddress -> where 동적쿼리 변경 필요
-		int checkAddressDelete = customerMapper.deleteAddress(address);
+		Integer checkAddressDelete = customerMapper.deleteAddress(address);
 //		// 트랜잭션 디버깅
 //		if(checkAddressDelete != 9) {
 //			throw new RuntimeException("Address 쿼리에서 오류 checkAddressDelete = " + checkAddressDelete);
 //		}
 		
-		int checkSuccess = customerMapper.deleteCustomer(customer);
+		Integer checkSuccess = customerMapper.deleteCustomer(customer);
 //		// 트랜잭션 디버깅
 //		if(checkSuccess != 1) {
 //			throw new RuntimeException("deleteCustomer 쿼리에서 오류 checkSuccess = " + checkSuccess);
 //		}
 		
 		return checkSuccess;
+	}
+	
+	//Author : 김은서 
+	// /customer/addCustomer 고객 회원 가입시 사용
+	public Integer addCustomer(Customer customer) {
+		log.debug(TeamColor.KES + "customer = " + customer + TeamColor.RESET);
+		return customerMapper.insertCustomer(customer);
+	}
+	
+	//Author : 김은서 
+	// /customer/modifyCustomerPw 고객 비밀번호 변경 시 사용 (1이면 중복 이메일, 0이면 사용 가능)
+	public Integer getCustomerEmail(String email) {
+		return customerMapper.selectCustomerEmail(email);
 	}
 	
 	

@@ -38,6 +38,7 @@ public class CustomerController {
 	    return "redirect:/customer/modifyCustomerPw";
 	}
 	
+	// 고객 비밀번호 변경 폼 
 	@GetMapping("/customer/modifyCustomerPw")
 	public String modifyCustomerPw(Model model, @ModelAttribute("prePw") String prePw) {
 		//log.debug(TeamColor.KES + "받아온 값 : prePw : "+ prePw + TeamColor.RESET);
@@ -45,6 +46,7 @@ public class CustomerController {
 		return "customer/modifyCustomerPw"; 
 	}
 	
+	// 고객 비밀번호 변경
 	@PostMapping("/customer/modifyCustomerPw")
 	public String modifyCustomerPw(Model model, HttpSession session, @RequestParam String newPw, @RequestParam String prePw) {
 		String alertFailedMsg = null;
@@ -60,8 +62,9 @@ public class CustomerController {
 		return "redirect:/customer/getCustomerOne";
 	}
 	
+	// 회원 탈퇴
 	@PostMapping("/customer/removeCustomer")
-	public String removeCustomer(Model model, Customer customer) {
+	public String removeCustomer(Model model, HttpSession session, Customer customer) {
 		String alertFailedMsg = null;
 		Integer checkSuccess = customerService.removeCustomer(customer);
 		
@@ -71,17 +74,53 @@ public class CustomerController {
 			return "redirect:/customer/getCustomerOne";
 		}
 		
+		session.invalidate();
+		
 		return "redirect:/customer/getCustomerOne";
 	}
 	
+	// 회원가입
 	@GetMapping("/off/addCustomer")
 	public String addCustomer() {
 		return "off/addCustomer";
 	}
 	
+	// 회원가입
 	@PostMapping("/off/addCustomer")
-	public String addCustomer(Customer customer) {
+	public String addCustomer(Model model, Customer customer) {
+		String alertFailedMsg = null;
+		Integer checkSuccess = customerService.addCustomer(customer);
+		
+		if(checkSuccess != 1) {
+			alertFailedMsg = "회원 가입에 실패하였습니다.";
+			model.addAttribute("alertFailedMsg", alertFailedMsg);
+		}
 		
 		return "redirect:/off/login";
 	}
+	
+	// 회원가입시 아이디 중복 검사 폼
+	@GetMapping("/off/getCustomerEmail") 
+	public String getCustomerEmail(Model model, @RequestParam(required=false) String email) {
+		Integer checkSuccess = 1;	 // 0으로 바뀌면 사용 가능한 아이디
+		String formResult = null;
+		
+		// 폼 제출시 사용되는 로직 
+		if(email != null && email != "") {	// 중복검사 이메일 쿼리 실행
+			checkSuccess = customerService.getCustomerEmail(email);
+			
+			if(checkSuccess == 1) {	// 중복 아이디 있을때
+				formResult = "중복된 이메일입니다, 다른 이메일을 입력해주세요.";
+				model.addAttribute("formResult", formResult);
+				return "off/getCustomerEmail";
+			}
+			
+			formResult = "사용가능한 이메일 입니다."; // 중복 아이디 없을때
+			model.addAttribute("formResult", formResult);
+		}
+		
+		return "off/getCustomerEmail";
+	}
+	
+
 }

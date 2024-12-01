@@ -10,9 +10,69 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-    	
-		$('#btnAddStaff').click(function(){
+		
+    	// 이메일 중복 검사 버튼 클릭시 팝업창 연결
+		$('#checkEmail').click(function() {
+			// 이메일 유효성 검사
+			const emailTest = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
 			
+			if(emailTest.test($('#customerEmail').val()) == false){
+				alert('E-Mail을 입력해주세요.');
+				$('#customerEmail').focus();
+				return;
+			}
+			
+			// 결과 팝업창으로 알려주기
+			window.open('${pageContext.request.contextPath}/off/getCustomerEmail', '_blank', 'width=450, height=200, top=10, left=200');
+		});
+		
+		$('#btnAddCustomer').click(function() {
+			const today = new Date();
+			const birthDay = new Date($('#customerBirth').val());
+			
+			// 아이디 중복 검사 했는지 체크
+			if(!$('#customerEmail').attr('readonly')) {
+				alert('아이디 중복검사를 해주세요.');
+				return;
+			}
+			
+			// 비밀번호 유효성 검사
+			if($('#customerPw').val().trim() === ''){
+				alert('password를 입력해주세요.');
+				$('#customerPw').focus();
+				return;
+			}
+			// 비밀번호 확인
+			if($('#customerPw').val() !== $('#reCustomerPw').val()){
+				alert('password가 일치하지 않습니다.');
+				$('#customerPw').focus();
+				return;
+			}
+			
+			if(!$("input[name='customerGender']:checked").val()){
+				alert('성별을 선택해주세요');
+				return;
+			}
+			
+			// 생일 유효성 검사
+			if($('#customerBirth').val().trim() === '') {
+				alert('생일을 입력해주세요');
+				return;
+			} 
+			if(today < birthDay) {
+				alert('생일은 미래 날짜가 될 수 없습니다.');
+				return;
+			}
+			
+			$('#formAddcustomer').submit();
+			
+		});
+		
+
+		// 만약, 회원등록 쿼리가 실패했다면( = #formResult != null), alert창 출력
+		if($("#formResult").val()) {
+			alert($("#formResult").val());
+		}
 	      
     });
 </script>
@@ -33,34 +93,37 @@
 			<h3>Add customer</h3>
 		</div>
 		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-2 align-items-center" style="margin-left: 110px; margin-top: 25px;">
-           <form id="formAddcustomer" method="post" action="${pageContext.request.contextPath}/customer/addcustomer" style="border: 1px solid #000; padding: 20px; border-radius: 10px; width: 400px;">
+           <form id="formAddcustomer" method="post" action="${pageContext.request.contextPath}/off/addCustomer" style="border: 1px solid #000; padding: 20px; border-radius: 10px; width: 400px;">
 			    <div class="mb-3 mt-3">
 			        <label for="customerEmail" class="form-label">Email :</label> 
-			        <input type="text" class="form-control" id="customerEmail" placeholder="Enter customer Email" name="customerEmail">
+			        <input id="customerEmail" name="customerEmail" type="text" class="form-control" placeholder="check email duplication first">
 			    </div>
+			    <button type="button" id="checkEmail" class="btn btn-sm btn-outline-primary">이메일 중복 검사</button>
+			    
 			    <div class="mb-3">
 			        <label for="customerPw" class="form-label">Password :</label> 
-			        <input type="password" class="form-control" id="customerPw" placeholder="Enter Password" name="customerPw">
+			        <input id="customerPw" name="customerPw" type="password" class="form-control" placeholder="Enter Password">
 			    </div>
 			    <div class="mb-3">
 			        <label for="reCustomerPw" class="form-label">Confirm Password :</label> 
-			        <input type="password" class="form-control" id="reCustomerPw" placeholder="Confirm Password" name="reCustomerPw">
+			        <input id="reCustomerPw" name="reCustomerPw" type="password" class="form-control" placeholder="Confirm Password">
 			    </div>
 			    
 			    <div class="mb-3 mt-3">
 			        <label for="customerGender" class="form-label">Gender :</label> 
-			        <input type="radio" class="" id="customerGender" placeholder="Enter customer ID" name="customerGender" value="남자">남자
-			        <input type="radio" class="" id="customerGender" placeholder="Enter customer ID" name="customerGender" value="여자">여자
+			        <br>
+			        <input name="customerGender" type="radio" class="" placeholder="Enter customer ID" value="남자"> 남자
+			        <input name="customerGender" type="radio" class="" placeholder="Enter customer ID" value="여자"> 여자
 			    </div>
 			    <div class="mb-3 mt-3">
 			        <label for="customerBirth" class="form-label">Birth :</label> 
-			        <input type="date" class="form-control" id="customerBirth" placeholder="Enter customer ID" name="customerBirth">
+			        <input name="customerBirth" type="date" class="form-control" id="customerBirth" placeholder="Enter customer ID">
 			    </div>
+		        	<button id="btnAddCustomer" type="button" class="btn btn-sm btn-outline-primary">Join</button>
+		       	
+		       	<input id="formResult" type="hidden" value="${alertFailedMsg}">
 			</form>
     	</div>
-        <div class="d-flex justify-content-end" style="margin-top:5px; width: 535px;">
-        	<button type="button" id="btnAddCustomer" class="btn btn-sm btn-outline-primary">Join</button>
-       	</div>
 	</div>
 </div>
 <!-- footer -->

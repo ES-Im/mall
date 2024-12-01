@@ -48,72 +48,80 @@
 				<h3>Payment List</h3>
 			</div>
 			
-			
 			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
-		  		<div class="list-group">
-		  		
- 					<c:forEach var="p" items="${paymentList}">
- 					
-					    <div class="card mb-2" id="paymentCard${p.paymentNo}" style="width: 750px">
-					        <!-- Collapse Header -->
-					        <div class="card-header">
-					            <a class="btn" data-bs-toggle="collapse" href="#payInfo${p.paymentNo}"">
-					                    <div class="d-flex gap-2 w-100 justify-content-between">
-					                        <div>
-					                            <i class="bi">No.${p.paymentNo}</i>
-					                            <p class="mb-1">결제 상태: ${p.paymentStatus}</p>
-					                        </div>
-					                        
-					                        <div>
-					                            <c:if test="${p.paymentStatus.equals('배송중')}">
-					                                <div style="text-align: right;">
-					                                    <a href="${pageContext.request.contextPath}/customer/modifyPaymentStatus?paymentStatus=배송완료&paymentNo=${p.paymentNo}" class="btn btn-sm btn-outline-danger">배송완료</a>
-					                                </div>
-					                            </c:if>
-					                            <c:if test="${p.paymentStatus.equals('결제완료')}">
-					                                <div style="text-align: right;">
-					                                     <a href="${pageContext.request.contextPath}/customer/modifyPaymentStatus?paymentStatus=결제취소&paymentNo=${p.paymentNo}" class="btn btn-sm btn-outline-danger">결제취소</a>
-					                                </div>
-					                            </c:if>
-					                            <small class="opacity-75 text-nowrap">결제일: ${p.createDate}</small>
-					                        </div>
-					                        
-					                    </div>
-					            </a>
-					        </div>
-					
-					        <!-- Collapse Body -->
-					        <div id="payInfo${p.paymentNo}" class="collapse" data-bs-parent="#paymentCard${p.paymentNo}">
-					            <div class="card-body">
-					                    <c:forEach var="i" items="${PayInfoListByPaymentNo}">
-					                    	 <div class="mb-1">Orders No: ${i.ordersNo}</div>
-					                    	 <div class="mb-1">Goods File Name: ${i.goodsFileName}</div>
-					                    	 <div class="mb-1">Goods No: ${i.goodsNo}</div>
-					                    	 <div class="mb-1">category No: ${i.categoryNo}</div>
-					                    	 <div class="mb-1">category Title: ${i.categoryTitle}</div>
-					                    	 <div class="mb-1">Goods Title: ${fn:substring(i.goodsTitle,0,5)}</div>
-					                    	 <div class="mb-1">Goods Memo:  ${fn:substring(i.goodsMemo,0,5)}</div>
-					                    	 <div class="mb-1">수량: ${i.ordersAmount}</div>
-					                    	 <div class="mb-1">단가: ${i.goodsPrice}</div>
-					                    	 <hr>
-					                    </c:forEach>
-					            </div>
-					            <hr>
-					            <h3>합 계 : ${p.paymentPrice} </h3> 
-					        </div>
-					    </div>
-					    
-					</c:forEach>
-
-		  		</div>
+			    <c:if test="${empty paymentList}">
+			    	<div>주문한 상품이 없습니다.</div>  
+			   	</c:if>
+				<c:if test="${not empty paymentList}">
+			  		<div class="list-group">
+			  			
+	 					<c:forEach var="p" items="${paymentList}">
+	 					
+						    <div class="card mb-2" id="paymentCard${p.paymentNo}" style="width: 750px">
+						        <!-- Collapse Header -->
+						        <div class="card-header">
+						            <a class="btn" data-bs-toggle="collapse" href="#payInfo${p.paymentNo}"">
+						                    <div class="d-flex gap-2 w-100 justify-content-between">
+						                        <div>
+						                            <i class="bi">No.${p.paymentNo}</i>
+						                            <p class="mb-1">결제 상태: ${p.paymentStatus}</p>
+						                        </div>
+						                        
+						                        <div>
+						                            <c:if test="${p.paymentStatus.equals('배송중')}">
+						                                <div style="text-align: right;">
+						                                    <a href="${pageContext.request.contextPath}/customer/modifyPaymentStatus?paymentStatus=배송완료&paymentNo=${p.paymentNo}" class="btn btn-sm btn-outline-danger">배송완료</a>
+						                                </div>
+						                            </c:if>
+						                            <c:if test="${p.paymentStatus.equals('결제완료')}">
+						                                <div style="text-align: right;">
+						                                     <a href="${pageContext.request.contextPath}/customer/modifyPaymentStatus?paymentStatus=결제취소&paymentNo=${p.paymentNo}" class="btn btn-sm btn-outline-danger">결제취소</a>
+						                                </div>
+						                            </c:if>
+						                            <small class="opacity-75 text-nowrap">결제일: ${p.createDate}</small>
+						                        </div>
+						                        
+						                    </div>
+						            </a>
+						        </div>
+						
+						        <!-- Collapse Body -->
+						        <div id="payInfo${p.paymentNo}" class="collapse" data-bs-parent="#paymentCard${p.paymentNo}">
+						            <div class="card-body">
+						                    <c:forEach var="i" items="${PayInfoListByPaymentNo}">
+						                    	 <div class="mb-1">Orders No: ${i.ordersNo}</div>
+						                    	 <div class="mb-1">Goods File Name: ${i.goodsFileName}</div>
+						                    	 <div class="mb-1">Goods No: ${i.goodsNo}</div>
+						                    	 <div class="mb-1">category No: ${i.categoryNo}</div>
+						                    	 <div class="mb-1">category Title: ${i.categoryTitle}</div>
+						                    	 <div class="mb-1">Goods Title: ${fn:substring(i.goodsTitle,0,5)}</div>
+						                    	 <div class="mb-1">Goods Memo:  ${fn:substring(i.goodsMemo,0,5)}</div>
+						                    	 <div class="mb-1">수량: ${i.ordersAmount}</div>
+						                    	 <div class="mb-1">단가: ${i.goodsPrice}</div>
+						                    	 <hr>
+						                    </c:forEach>
+						            </div>
+						            <hr>
+						            <h3>합 계 : ${p.paymentPrice} </h3> 
+						        </div>
+						    </div>
+						    
+						</c:forEach>
+						
+			  		</div>
+		  		</c:if>
 		  		
 			</div>
+			
 		</div>
 	</div>
+
       <!-- PAGINATION -->
- 	<div>
-		<c:import url="/WEB-INF/view/inc/pagination/customerGetCartList.jsp"></c:import>
-	</div>
+    <c:if test="${not empty paymentList}">  
+	 	<div>
+			<c:import url="/WEB-INF/view/inc/pagination/customerGetCartList.jsp"></c:import>
+		</div>
+	</c:if>
 			
 	<!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
