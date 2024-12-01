@@ -58,7 +58,7 @@ public class PaymentController {
 		for(Map<String, Object> p : paymentList) {
 			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo( Integer.parseInt(String.valueOf(p.get("paymentNo"))));
 		}
-		log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제 상세 정보 리스트 : " + PayInfoListByPaymentNo.get(0).toString() + TeamColor.RESET);
+		//log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제 상세 정보 리스트 : " + PayInfoListByPaymentNo.get(0).toString() + TeamColor.RESET);
 		//log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제리스트 : " + paymentList.toString() + TeamColor.RESET);
 		
 		model.addAttribute("page", page);

@@ -27,4 +27,12 @@ public interface CustomerMapper {
 	
 	// 임시 -> Address.Mapper 동적쿼리변경 필요
 	Integer deleteAddress(Address address);
+	
+	// Author : 김은서
+	// /customer/deleteCustomer 회원 삭제
+	Integer insertCustomer(Customer customer);
+	
+	// Author : 김은서
+	// /customer/getCustomerEmail 팝업창에서 회원가입-이메일 중복 검사
+	Integer selectCustomerEmail(String email);
 }
