@@ -142,7 +142,7 @@
 	
 	<!-- insertGoods Query : 상품 추가 -->
 	<insert id="insertGoods" parameterType="com.example.mall.vo.Goods">
-		<selectKey resultType="Integer" keyProperty="actorId" order="AFTER">
+		<selectKey resultType="Integer" keyProperty="goodsNo" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO goods(goods_title, goods_memo, goods_price, goods_status) VALUES(#{goodsTitle}, #{goodsMemo}, #{goodsPrice}, #{goodsStatus})

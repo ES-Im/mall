@@ -18,7 +18,7 @@
 	        var result = confirm("이 상품을 판매중지 하시겠습니까?");
 	        if (result) {
 	        	window.location.href = $(this).attr('href');
-	        	alert('이 상품은 판매중지 입니다.');
+	        	alert('이 상품은 판매중지 되었습니다.');
 	        } else {
 	            return false;
 	        }
@@ -157,7 +157,7 @@
  						<div class="d-flex justify-content-center align-items-center">
  							<!-- 파일 있을 때 -->
  							<c:if test="${not empty goods.goodsFileNo}">
- 								<img src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsExt}" alt="${goods.goodsOriginName}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+ 								<img src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsFileExt}" alt="${goods.goodsOriginName}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
  							</c:if>
  							<!-- 파일 없을 때 -->
  							<c:if test="${empty goods.goodsFileNo}">
@@ -194,8 +194,8 @@
       							</div>
       							<p class="mt-2 mb-0"><small>Category : ${goods.categoryTitle}</small></p>
       							<div class="d-flex justify-content-between">
-								    <div style="flex-grow: 1;"> 
-								        <p class="mt-2 mb-0"><small>Description : ${goods.goodsMemo}</small></p>
+								    <div style="flex-grow: 1;">
+								        <p class="mt-2 mb-0" style="min-width: 750px; max-width: 750px; min-height: 80px;"><small>Description : ${goods.goodsMemo}</small></p>
 								        <div class="d-flex justify-content-between mt-2 align-items-center">
 								        	<div>
 								        		<small class="opacity-75">UpdateDate : ${goods.updateDate}</small>
