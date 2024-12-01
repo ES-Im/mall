@@ -15,7 +15,7 @@
 		ON go.goods_no = c.goods_no
 		LEFT OUTER JOIN goods_file gf
 		ON go.goods_no = gf.goods_no
-		WHERE c.customer_email = #{customerEamil}
+		WHERE c.customer_email = #{customerEmail}
 	</select>
 	
 	<select id="selectCartListByChecked" parameterType="com.example.mall.vo.Cart" resultType="map">

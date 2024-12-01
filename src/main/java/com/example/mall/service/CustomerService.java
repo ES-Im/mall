@@ -59,23 +59,23 @@ public class CustomerService {
 		address.setCustomerEmail(customer.getCustomerEmail());
 		
 		int checkCartDelete = cartMapper.deleteCart(cart);
-		// 트랜잭션 디버깅
-		if(checkCartDelete != 2) {
-			throw new RuntimeException("Cart 쿼리에서 오류 checkCartDelete = " + checkCartDelete);
-		}
+//		// 트랜잭션 디버깅
+//		if(checkCartDelete != 2) {
+//			throw new RuntimeException("Cart 쿼리에서 오류 checkCartDelete = " + checkCartDelete);
+//		}
 		
 		//addressMapper.deleteAddress(customerEmail);		// deleteAddress -> where 동적쿼리 변경 필요
 		int checkAddressDelete = customerMapper.deleteAddress(address);
-		// 트랜잭션 디버깅
-		if(checkAddressDelete != 9) {
-			throw new RuntimeException("Address 쿼리에서 오류 checkAddressDelete = " + checkAddressDelete);
-		}
+//		// 트랜잭션 디버깅
+//		if(checkAddressDelete != 9) {
+//			throw new RuntimeException("Address 쿼리에서 오류 checkAddressDelete = " + checkAddressDelete);
+//		}
 		
 		int checkSuccess = customerMapper.deleteCustomer(customer);
-		// 트랜잭션 디버깅
-		if(checkSuccess != 1) {
-			throw new RuntimeException("deleteCustomer 쿼리에서 오류 checkSuccess = " + checkSuccess);
-		}
+//		// 트랜잭션 디버깅
+//		if(checkSuccess != 1) {
+//			throw new RuntimeException("deleteCustomer 쿼리에서 오류 checkSuccess = " + checkSuccess);
+//		}
 		
 		return checkSuccess;
 	}

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-<!-- 탬플릿 : 김문정 & JS : 김은서 -->
+<!-- 탬플릿, CSS : 김문정 & HTML : 김은서 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,38 +9,7 @@
 <title>Cart</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<style>
-		.pagination {
-		  display: flex;
-  		  justify-content: center;
-		}
-		
-		.pagination a {
-		  color: #5D5D5D;
-		  float: left;
-		  padding: 6px 12px;
-		  text-decoration: none;
-		  border: 1px solid #ddd;
-		}
-		
-		.pagination a.active {
-		  background-color: #5D5D5D;
-		  color: white;
-		  border: 1px solid #5D5D5D;
-		}
-		
-		.pagination a:hover:not(.active) {background-color: #ddd;}
-		
-		.pagination a:first-child {
-		  border-top-left-radius: 5px;
-		  border-bottom-left-radius: 5px;
-		}
-		
-		.pagination a:last-child {
-		  border-top-right-radius: 5px;
-		  border-bottom-right-radius: 5px;
-		}
-</style>
+
 
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -141,61 +110,10 @@
 			</div>
 		</div>
 	</div>
-    <section class="py-5">
       <!-- PAGINATION -->
-		<div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
-						
-		    <!-- 첫 페이지 -->
-		    <c:if test="${!(page.currentPage > 1)}">
-		        <a href="" style="pointer-events: none;">&laquo;</a>
-		    </c:if>
-		    <c:if test="${page.currentPage > 1}">
-		        <a href="${pageContext.request.contextPath}/customer/getPaymentList?currentPage=1">&laquo;</a>
-		    </c:if>
-		    
-		    <!-- 이전 페이지 -->
-            <c:if test="${!(page.currentPage - page.numPerPage > 0)}">
-               <a href="${pageContext.request.contextPath}/customer/getPaymentList?currentPage=1">
-                  Previous
-               </a>
-            </c:if>
-
-            <c:if test="${page.currentPage - page.numPerPage > 0}">
-               <a href="${pageContext.request.contextPath}/customer/getPaymentList?currentPage=${(page.currentPage - page.numPerPage) - (page.currentPage % page.numPerPage) + 1}">
-                  Previous
-               </a>
-            </c:if>
-
-		    
-		    <!-- 페이지 번호 링크 -->
-		    <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
-		        <c:if test= "${num == page.currentPage}">
-		            <a class="active">${num}</a>
-		        </c:if>
-		        <c:if test= "${num != page.currentPage}">
-		            <a href="${pageContext.request.contextPath}/customer/getPaymentList?currentPage=${num}">${num}</a>
-		        </c:if>
-		    </c:forEach>
-		    
-		
-		    
-		    
-		    <!-- 다음 페이지 -->
-		    <c:if test="${(page.lastPage - (page.lastPage)%page.numPerPage + 1) > page.currentPage}">
-		        <a href="${pageContext.request.contextPath}/customer/getPaymentList?currentPage=${page.lastPage - (page.lastPage)%page.numPerPage + 1}">
-		            Next
-		        </a>
-		    </c:if>
-		    
-		    <!-- 마지막 페이지 -->
-		    <c:if test="${!(page.currentPage < page.lastPage)}">
-		        <a href="" style="pointer-events: none;">&raquo;</a>
-		    </c:if>
-		    <c:if test="${page.currentPage < page.lastPage}">
-		        <a href="${pageContext.request.contextPath}/customer/getPaymentList?currentPage=${page.lastPage}">&raquo;</a>
-		    </c:if>
-		</div>
-    </section>
+ 	<div>
+		<c:import url="/WEB-INF/view/inc/pagination/customerGetCartList.jsp"></c:import>
+	</div>
 			
 	<!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
