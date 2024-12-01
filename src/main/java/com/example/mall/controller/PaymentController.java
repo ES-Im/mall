@@ -44,7 +44,7 @@ public class PaymentController {
 	// 고객용 : /customer/getPaymentList에서 '결제이력' 리스팅 출력
 	@GetMapping("/customer/getPaymentList")
 	public String getPaymentList(Model model, HttpSession session, Page page) {
-		page.setRowPerPage(3);
+		page.setRowPerPage(1);
 		// 1) 로그인한 고객의 paymentList 출력
 		List<Map<String,Object>> paymentList = paymentService.getPaymentList(page ,(String) session.getAttribute("loginCustomer"));
 
