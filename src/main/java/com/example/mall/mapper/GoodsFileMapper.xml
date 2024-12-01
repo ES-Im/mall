@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mall.mapper.GoodsFileMapper">
+
+	<!-- insertGoodsFile Query : addGoods → 사진 파일 추가 -->
+	<insert id="insertGoodsFile" parameterType="com.example.mall.vo.GoodsFile">
+		INSERT INTO goods_file(goods_no, goods_file_name, goods_file_origin_name, goods_file_ext, goods_file_type, goods_file_size) 
+		VALUES(#{goodsNo}, #{goodsFileName}, #{goodsFileOriginName}, #{goodsFileExt}, #{goodsFileType}, #{goodsFileSize})
+	</insert>
+
+</mapper>

@@ -14,6 +14,7 @@ public class GoodsForm { // 김동현
 	private String goodsMemo;
 	private Integer goodsPrice;
 	private String goodsStatus;
+	private Integer categoryNo;
 	private List<MultipartFile> goodsFile;
 	
 	

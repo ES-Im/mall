@@ -1,6 +1,5 @@
 package com.example.mall.controller;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.mall.service.CategoryService;
 import com.example.mall.service.GoodsService;
@@ -154,38 +154,54 @@ public class GoodsController {
 	@PostMapping("/staff/addGoods")
 	public String addGoods(Model model, GoodsForm goodsForm, HttpSession session) {
 		
+		log.debug(TeamColor.KDH + "goodsForm : " + goodsForm.toString() + TeamColor.RESET); // debug
 		
-//		/*
-//		log.debug("actorForm.getFirstName() : " + actorForm.getFirstName());
-//		log.debug("actorForm.getLastName() : " + actorForm.getLastName());
-//		log.debug("actorForm.getActorFile() : " + actorForm.getActorFile());
-//		if(actorForm.getActorFile() != null) {
-//			log.debug("actorForm.getActorFile().size() : " + actorForm.getActorFile().size());
-//		}
-//		*/
-//		List<MultipartFile> list = actorForm.getActorFile();
-//		
-//		// 배우 정보만 입력하고 사진은 첨부 안했을 때
-//		if(list == null || list.isEmpty()) {
-//			String path = null;	
-//			actorService.addActor(actorForm, path);
-//			return "redirect:/on/actorList";
-//		}
-//		
-//		// 이미지파일은 *.jpg or *png만 가능
-//		for(MultipartFile f : list) { 
-//			if(!(f.getContentType().equals("image/jpeg") || f.getContentType().equals("image/png"))) {
-//				model.addAttribute("imageMsg", "jpeg, png 파일만 입력이 가능합니다");
-//				return "on/addActor";
-//			} 
-//		}
-//		
-//		String path = session.getServletContext().getRealPath("/upload/");
-//		actorService.addActor(actorForm, path);
+		if(goodsForm.getGoodsFile() != null) {
+			log.debug(TeamColor.KDH + "goodsForm.getGoodsFile().size() : " + goodsForm.getGoodsFile().size() + TeamColor.RESET); // debug
+		}
 		
-		goodsService.addGoods(goodsForm);
+		List<MultipartFile> goodsFileList = goodsForm.getGoodsFile();
 		
-		return "redirect:/getGoodsListByStaff";
+		// 상품정보만 입력하고 File은 첨부 안했을 때
+		if(goodsFileList == null || goodsFileList.isEmpty()) {
+			String path = null;
+			goodsService.addGoods(goodsForm, path);
+			return "redirect:/staff/getGoodsListByStaff";
+		}
+		
+		// 이미지파일은 *.jpg or *png만 가능
+		for(MultipartFile f : goodsFileList) { 
+			if(!(f.getContentType().equals("image/jpeg") || f.getContentType().equals("image/png"))) {
+				model.addAttribute("imageMsg", "jpeg, png 파일만 입력이 가능합니다");
+				return "on/addGoods";
+			} 
+		}
+		
+		String path = session.getServletContext().getRealPath("/goodsFile/");
+		goodsService.addGoods(goodsForm, path);
+		
+		return "redirect:/staff/getGoodsListByStaff";
+	}
+	
+	// 김동현
+	// modifyGoods Form
+	@GetMapping("/staff/modifyGoods")
+	public String modifyGoods(Model model, @RequestParam Integer goodsNo) {
+		Goods goods = goodsService.getGoodsOne(goodsNo);
+		List<Category> categoryList = categoryService.getCategoryList();
+		log.debug(TeamColor.KDH + "goods : " +goods.toString() + TeamColor.RESET); // debug
+		model.addAttribute("goods", goods);
+		model.addAttribute("categoryList", categoryList);
+		return "staff/modifyGoods";
+	}
+	
+	// 김동현
+	// modifyGoods Action
+	@PostMapping("/staff/modifyGoods")
+	public String modifyGoods(Goods goods) {
+		log.debug(TeamColor.KDH + "goods : " +goods.toString() + TeamColor.RESET); // debug
+		// int modifyGoodsRow = goodsService.modifyGoods(goods);
+		return "redirect:/staff/getGoodsOne?goodsNo=" + goods.getGoodsNo();
 	}
 
 	

@@ -1,16 +1,23 @@
 package com.example.mall.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.mall.mapper.CategoryMapper;
+import com.example.mall.mapper.GoodsFileMapper;
 import com.example.mall.mapper.GoodsMapper;
 import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Goods;
+import com.example.mall.vo.GoodsCategory;
+import com.example.mall.vo.GoodsFile;
 import com.example.mall.vo.GoodsForm;
 import com.example.mall.vo.Page;
 
@@ -22,6 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 public class GoodsService {
 	
 	@Autowired GoodsMapper goodsMapper;
+	@Autowired GoodsFileMapper goodsFileMapper;
+	@Autowired CategoryMapper categoryMapper;
 	
 	// Author : 김문정
 	// getGoodsOne : 상품 상세보기 
@@ -101,7 +110,7 @@ public class GoodsService {
 	
 	// 김동현
 	// addGoods.jsp
-	public void addGoods(GoodsForm goodsForm) {
+	public void addGoods(GoodsForm goodsForm, String path) {
 		Goods goods = new Goods();
 		goods.setGoodsTitle(goodsForm.getGoodsTitle());
 		goods.setGoodsMemo(goodsForm.getGoodsMemo());
@@ -111,53 +120,43 @@ public class GoodsService {
 		int addGoodsRow = goodsMapper.insertGoods(goods);
 		log.debug( TeamColor.KDH + "addGoodsRow : " + addGoodsRow + TeamColor.RESET ); // debug
 		
+		GoodsCategory goodsCategory = new GoodsCategory();
+		goodsCategory.setGoodsNo(goods.getGoodsNo());
+		goodsCategory.setCategoryNo(goodsForm.getCategoryNo());
+		int addGoodsCateogryRow = categoryMapper.insertGoodsCateogry(goodsCategory);
+		
 		Integer goodsNo = goods.getGoodsNo(); // selectKet 값
 		if(addGoodsRow == 1 && goodsForm.getGoodsFile() != null) {
 			// GoodsFile 입력
+			List<MultipartFile> goodsFileList = goodsForm.getGoodsFile();
+			for (MultipartFile mf : goodsFileList) {
+				GoodsFile goodsFile = new GoodsFile();
+				int dotIdx = mf.getOriginalFilename().lastIndexOf(".");
+				String orginName = mf.getOriginalFilename().substring(0, dotIdx);
+				String fileName = UUID.randomUUID().toString().replace("-", "");
+				String ext = mf.getOriginalFilename().substring(dotIdx + 1);
+				
+				goodsFile.setGoodsNo(goodsNo);
+				goodsFile.setGoodsFileOriginName(orginName);
+				goodsFile.setGoodsFileName(fileName);
+				goodsFile.setGoodsFileExt(ext);
+				goodsFile.setGoodsFileType(mf.getContentType());
+				goodsFile.setGoodsFileSize(String.valueOf(mf.getSize()));
+				
+				int addGoodsFileRow = goodsFileMapper.insertGoodsFile(goodsFile);
+				if(addGoodsFileRow == 1) {
+					// 물리적 파일 저장
+					try {
+						mf.transferTo(new File(path + fileName + "." + ext));
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException();
+					}
+				}
+			}
 		}
 	}
 	
-	
-//	public void addActor(ActorForm actorForm, String path) {
-//		Actor actor = new Actor();
-//		actor.setFirstName(actorForm.getFirstName());
-//		actor.setLastName(actorForm.getLastName());
-//
-//		int insertActorRow = actorMapper.insertActor(actor);
-//		int actorId = actor.getActorId(); // mybatis selectKey의 값
-//
-//		if (insertActorRow == 1 && actorForm.getActorFile() != null) {
-//			// 파일 입력, ActorFile 입력
-//			List<MultipartFile> fileList = actorForm.getActorFile();
-//			for (MultipartFile mf : fileList) {
-//				ActorFile actorFile = new ActorFile();
-//				int dotIdx = mf.getOriginalFilename().lastIndexOf(".");
-//				String originname = mf.getOriginalFilename().substring(0, dotIdx);
-//				String filename = UUID.randomUUID().toString().replace("-", "");
-//				String ext = mf.getOriginalFilename().substring(dotIdx + 1);
-//
-//				actorFile.setActorId(actorId);
-//				actorFile.setOriginname(originname);
-//				actorFile.setFilename(filename);
-//				actorFile.setExt(ext);
-//				actorFile.setType(mf.getContentType());
-//				actorFile.setSize(mf.getSize());
-//
-//				int insertActorFileRow = actorFileMapper.insertActorFile(actorFile);
-//				if (insertActorFileRow == 1) {
-//					// 물리적 파일 저장
-//					try {
-//						mf.transferTo(new File(path + filename + "." + ext));
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//						// 예외 발생하고 예외처리 하지 않아야지 @Transactional이 작동한다.
-//						// RuntimeException을 인위적으로 발생
-//						throw new RuntimeException();
-//					}
-//				}
-//			}
-//		}
-//	}
 	
 	
 	// 김문정

@@ -24,17 +24,17 @@
 	});
 	</script>
 	<style>
-		.customer-link {
+		.goods-link {
         	color: black;
         	text-decoration: none;
         }
         
-        .customer-link:hover {
+        .goods-link:hover {
             color: #D8D8D8;
             text-decoration: none;
         }
         
-        .customer-link:visited {
+        .goods-link:visited {
         	color: black;
         	text-decoration: none;
         }
@@ -101,7 +101,9 @@
 						        <div>
 	      							<i class="bi bi-chat-right-text-fill">&nbsp;&nbsp;${board.customerEmail}</i>
 	      							<p class="mb-1">OrderNo : ${board.ordersNo}</p>
-						        	<p class="mb-1">Goods : [${board.goodsNo}] ${board.goodsTitle}</p>
+	      							<p class="mb-1"><a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${board.goodsNo}" class="goods-link">
+						        		Goods : [${board.goodsNo}] ${board.goodsTitle}
+						        	</a></p>
 						        	<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
 					        		<p class="mb-1">BoardContent : ${board.boardContent}</p>
 						        </div>
