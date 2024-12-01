@@ -162,7 +162,7 @@ public class GoodsService {
 	
 	// 김문정
 	// home : 메인 페이지 상품 리스트 출력
-	public Map<String, Object> getGoodsList(Page page, String searchWord){
+	public Map<String, Object> getGoodsList(Page page, String searchWord, List<String> categoryNoList){
 		log.debug( TeamColor.KMJ + "[GoodsService - getGoodsList]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "searchWord : " + searchWord + TeamColor.RESET );
 		
@@ -173,12 +173,13 @@ public class GoodsService {
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("searchWord", searchWord);
+		paramMap.put("categoryNoList", categoryNoList);
 		
 		// goodsList.
-		List<Goods> goodsList = goodsMapper.selectGoodsList(paramMap);
+		List<Map<String, Object>> goodsList = goodsMapper.selectGoodsList(paramMap);
 		
 		// goodsList의 마지막 페이지 구하기
-		Integer totalRow = goodsMapper.selectGoodsListLastPage(searchWord);
+		Integer totalRow = goodsMapper.selectGoodsListLastPage(paramMap);
 		
 		Integer goodsListLastPage = totalRow / rowPerPage;
 		if(totalRow % rowPerPage != 0) {

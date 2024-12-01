@@ -22,10 +22,10 @@ public interface GoodsMapper {
 	List<Map<String, Object>> selectEligibleReviewers(Map<String, Object> paramMap);
 	
 	// home : 메인 페이지 상품 리스트 출력
-	List<Goods> selectGoodsList(Map<String, Object> paramMap);
+	List<Map<String, Object>> selectGoodsList(Map<String, Object> paramMap);
 	
 	// home : lastpage
-	Integer selectGoodsListLastPage(String searchWord);
+	Integer selectGoodsListLastPage(Map<String, Object> paramMap);
 	
 	// getGoodsListByStaff : 관리자 페이지 상품 리스트
 	List<Map<String, Object>> selectGoodsListByStaff(Map<String, Object> parmaMap);

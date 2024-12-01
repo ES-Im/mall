@@ -150,31 +150,56 @@
 
 
 	<!-- home : 메인 페이지 상품 리스트 출력 -->
-	<select id="selectGoodsList" parameterType="String" resultType="com.example.mall.vo.Goods">
-		SELECT goods_no goodsNo
-			, goods_title goodsTitle
-			, goods_memo goodsMemo
-			, goods_price goodsPrice
-			, goods_status goodsStatus
-			, update_date updateDate
-			, create_date createDate
-		FROM goods
+	<select id="selectGoodsList" parameterType="map" resultType="map">
+		SELECT g.goods_no goodsNo  
+				, g.goods_title goodsTitle  
+				, g.goods_memo goodsMemo  
+				, g.goods_price goodsPrice  
+				, g.goods_status goodsStatus  
+				, g.update_date updateDate  
+				, g.create_date createDate 
+				, cgc.category_no categoryNo
+				, cgc.category_title categoryTitle
+		FROM goods g INNER JOIN (SELECT c.category_no
+											, c.category_title
+											, gc.goods_no
+									FROM category c INNER JOIN goods_category gc
+									ON c.category_no = gc.category_no) cgc
+		ON g.goods_no = cgc.goods_no
 		<where>
 			<if test="searchWord != null">
-				goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
+				g.goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
+			</if>
+			<if test="categoryNoList != null">
+				cgc.category_no IN
+			    <foreach item="categoryNo" index="index" collection="categoryNoList" open="(" separator="," close=")">
+			        #{categoryNo}
+	  			 </foreach>
 			</if>
 		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- home : paging을 위한 lastPage -->
-	<select id="selectGoodsListLastPage" parameterType="String" resultType="Integer">
+	<select id="selectGoodsListLastPage" parameterType="map" resultType="Integer">
 		SELECT COUNT(*)
-		FROM goods
+		FROM goods g INNER JOIN (SELECT c.category_no
+											, c.category_title
+											, gc.goods_no
+									FROM category c INNER JOIN goods_category gc
+									ON c.category_no = gc.category_no) cgc
+		ON g.goods_no = cgc.goods_no
 		<where>
 			<if test="searchWord != null">
-				goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
+				g.goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
 			</if>
+			<if test="categoryNoList != null">
+				cgc.category_no IN
+			    <foreach item="categoryNo" index="index" collection="categoryNoList" open="(" separator="," close=")">
+			        #{categoryNo}
+	  			 </foreach>
+			</if>
+
 		</where>
 	</select>
 

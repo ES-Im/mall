@@ -1,5 +1,8 @@
 package com.example.mall.controller;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -202,17 +205,24 @@ public class GoodsController {
 		// 선택된 category
 		log.debug(TeamColor.KMJ + "category : " + category + TeamColor.RESET );	
 		
-		// split으로 ',' 분리 후 배열에 담아 쿼리에 어떻게 조회할 것인지..?
-		
+		// split으로 ',' 분리 후 List에 담기	
+		String[] categoryNos = null;
+		List<String> categoryNoList = new ArrayList<>();
+		if(category != null) {
+			categoryNos = category.split(",");		
+			categoryNoList = Arrays.asList(categoryNos);
+		}
+		log.debug(TeamColor.KMJ + "categoryNoList : " + categoryNoList.toString() + TeamColor.RESET );	
 
 		// 상품리스트 
-		Map<String, Object> goodsList = goodsService.getGoodsList(page, searchWord);
+		Map<String, Object> goodsListMap = goodsService.getGoodsList(page, searchWord, categoryNoList);
 		
 		log.debug( TeamColor.KMJ + "page : " + page.toString() + TeamColor.RESET );
 		
-		model.addAttribute("goodsList", goodsList.get("goodsList"));
-		model.addAttribute("page", goodsList.get("page"));
+		model.addAttribute("goodsList", goodsListMap.get("goodsList"));
+		model.addAttribute("page", goodsListMap.get("page"));
 		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("categoryNoList", categoryNoList);
 
 		return "off/home";
 	}
