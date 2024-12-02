@@ -162,6 +162,7 @@ public class GoodsService {
 	public Integer modifyGoods(GoodsForm goodsForm) {
 		
 		Goods goods = new Goods();
+		goods.setGoodsNo(goodsForm.getGoodsNo());
 		goods.setGoodsTitle(goodsForm.getGoodsTitle());
 		goods.setGoodsMemo(goodsForm.getGoodsMemo());
 		goods.setGoodsPrice(goodsForm.getGoodsPrice());

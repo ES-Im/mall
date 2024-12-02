@@ -193,6 +193,7 @@
 									</div>
       							</div>
       							<p class="mt-2 mb-0"><small>Category : ${goods.categoryTitle}</small></p>
+      							<p class="mt-2 mb-0"><small>Price : $ ${goods.goodsPrice}</small></p>
       							<div class="d-flex justify-content-between">
 								    <div style="flex-grow: 1;">
 								        <p class="mt-2 mb-0" style="min-width: 750px; max-width: 750px; min-height: 80px;"><small>Description : ${goods.goodsMemo}</small></p>
