@@ -94,6 +94,7 @@ public class CustomerController {
 		if(checkSuccess != 1) {
 			alertFailedMsg = "회원 가입에 실패하였습니다.";
 			model.addAttribute("alertFailedMsg", alertFailedMsg);
+			return "off/addCustomer";
 		}
 		
 		return "redirect:/off/login";
@@ -117,6 +118,7 @@ public class CustomerController {
 			
 			formResult = "사용가능한 이메일 입니다."; // 중복 아이디 없을때
 			model.addAttribute("formResult", formResult);
+			return "off/getCustomerEmail";
 		}
 		
 		return "off/getCustomerEmail";

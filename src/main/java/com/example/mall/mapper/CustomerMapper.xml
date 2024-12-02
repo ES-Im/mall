@@ -33,20 +33,6 @@
 		</where>
 	</delete>
 	
-	<!-- /customer/addAddress : 배송지 삭제 : Address Mapper 동적쿼리 변경 해서 합치기 필요-->
-	<update id="deleteAddress" parameterType="com.example.mall.vo.Address">
-		UPDATE address 
-		SET customer_email = '-1'
-		<where>
-			<if test="addressNo != null"> 
-				address_no = #{addressNo}
-			</if>
-			<if test="customerEmail != null">
-				customer_email = #{customerEmail}
-			</if>
-		</where>
-	</update>
-	
 	<insert id="insertCustomer" parameterType="com.example.mall.vo.Customer">
 		INSERT customer(
 			customer_email, customer_pw, customer_birth, customer_gender

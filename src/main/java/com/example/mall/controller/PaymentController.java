@@ -19,7 +19,7 @@ import com.example.mall.vo.Payment;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-//Author : 김동현, 김은서
+//Author : 김문정, 김은서
 @Controller
 @Slf4j
 public class PaymentController {
@@ -44,7 +44,7 @@ public class PaymentController {
 	// 고객용 : /customer/getPaymentList에서 '결제이력' 리스팅 출력
 	@GetMapping("/customer/getPaymentList")
 	public String getPaymentList(Model model, HttpSession session, Page page) {
-		page.setRowPerPage(1);
+		page.setRowPerPage(3);
 		// 1) 로그인한 고객의 paymentList 출력
 		List<Map<String,Object>> paymentList = paymentService.getPaymentList(page ,(String) session.getAttribute("loginCustomer"));
 
@@ -85,7 +85,7 @@ public class PaymentController {
 		return "redirect:/customer/getPaymentList";
 	}
 	
-
+	// Author : 김문정
 	// getPaymentList
 	@GetMapping("/staff/getPaymentList")
 	public String getPaymentList(Model model, Page page) {
@@ -121,7 +121,7 @@ public class PaymentController {
 		return "/staff/getPaymentList";
 	}
 	
-	
+	// Author : 김문정
 	// modifyPaymentStatus : getPaymentList - '결제완료' => '배송중' or '결제취소'로 변경
 	@GetMapping("/staff/modifyPaymentStatus")
 	public String modifyPaymentStatus(Payment payment) {

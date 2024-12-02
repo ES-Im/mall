@@ -41,8 +41,9 @@ public class AddressService {
 	
 	// /customer/addAddress : 배송지 삭제 
 	public Integer removeAddress(Integer addressNo) {
-		
-		Integer result = addressMapper.deleteAddress(addressNo);
+		Address address = new Address();
+		address.setAddressNo(addressNo);
+		Integer result = addressMapper.deleteAddress(address);
 		
 		return result;
 	}
