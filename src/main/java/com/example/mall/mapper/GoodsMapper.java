@@ -6,14 +6,14 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.mall.vo.Goods;
-import com.example.mall.vo.Page;
+import com.example.mall.vo.GoodsForm;
 
 @Mapper
 public interface GoodsMapper {
 	
 	// Author : 김문정
 	// getGoodsOne : 상품 상세보기 
-	Goods selectGoodsOne(Integer goodsNo);
+	Map<String, Object> selectGoodsOne(Integer goodsNo);
 	
 	// getGoodsOne : 후기 리스트
 	List<Map<String, Object>> selectBoardListByGoodsNo(Integer goodsNo);
@@ -38,6 +38,9 @@ public interface GoodsMapper {
 	
 	// addGoods : 상품 추가
 	Integer insertGoods(Goods goods);
+	
+	// modifyGoods : 상품 수정
+	Integer updateGoods(Goods goods);
 
 	
 

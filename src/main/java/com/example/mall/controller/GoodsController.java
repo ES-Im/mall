@@ -54,7 +54,7 @@ public class GoodsController {
 		
 
 		// goodsOne : 상품 상세보기
-		Goods goods = goodsService.getGoodsOne(goodsNo);
+		Map<String, Object> goods = goodsService.getGoodsOne(goodsNo);
 		log.debug(TeamColor.KMJ + "goods : " + goods.toString() + TeamColor.RESET );
 		
 		// boardList : 후기 리스트
@@ -187,9 +187,10 @@ public class GoodsController {
 	// modifyGoods Form
 	@GetMapping("/staff/modifyGoods")
 	public String modifyGoods(Model model, @RequestParam Integer goodsNo) {
-		Goods goods = goodsService.getGoodsOne(goodsNo);
+		Map<String, Object> goods = goodsService.getGoodsOne(goodsNo);
 		List<Category> categoryList = categoryService.getCategoryList();
 		log.debug(TeamColor.KDH + "goods : " +goods.toString() + TeamColor.RESET); // debug
+		
 		model.addAttribute("goods", goods);
 		model.addAttribute("categoryList", categoryList);
 		return "staff/modifyGoods";
@@ -198,16 +199,16 @@ public class GoodsController {
 	// 김동현
 	// modifyGoods Action
 	@PostMapping("/staff/modifyGoods")
-	public String modifyGoods(Goods goods) {
-		log.debug(TeamColor.KDH + "goods : " +goods.toString() + TeamColor.RESET); // debug
-		// int modifyGoodsRow = goodsService.modifyGoods(goods);
-		return "redirect:/staff/getGoodsOne?goodsNo=" + goods.getGoodsNo();
+	public String modifyGoods(GoodsForm GoodsForm) {
+		log.debug(TeamColor.KDH + "goods : " +GoodsForm.toString() + TeamColor.RESET); // debug
+		int modifyGoodsRow = goodsService.modifyGoods(GoodsForm);
+		return "redirect:/staff/getGoodsOne?goodsNo=" + GoodsForm.getGoodsNo();
 	}
 
 	
 	// home : 메인 페이지 상품 리스트 출력
 	@GetMapping("/home")
-	public String home(Page page, Model model, @RequestParam(required = false) String searchWord, @RequestParam(required = false) String category) {
+	public String home(Page page, Model model, @RequestParam(required = false) String searchWord, @RequestParam(required = false) String[] categoryNo) {
 		
 		log.debug( TeamColor.KMJ + "GET[GoodsController - home]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "searchWord : " + searchWord + TeamColor.RESET );
@@ -219,15 +220,23 @@ public class GoodsController {
 		model.addAttribute("categoryList", categoryList);
 
 		// 선택된 category
-		log.debug(TeamColor.KMJ + "category : " + category + TeamColor.RESET );	
+		log.debug(TeamColor.KMJ + "categoryNo : " + categoryNo + TeamColor.RESET );	
 		
 		// split으로 ',' 분리 후 List에 담기	
-		String[] categoryNos = null;
-		List<String> categoryNoList = new ArrayList<>();
-		if(category != null) {
-			categoryNos = category.split(",");		
-			categoryNoList = Arrays.asList(categoryNos);
+		List<Integer> categoryNoList = new ArrayList<>();
+		
+		if(categoryNo != null ) {
+			
+//			String[] categoryNoArr = null;
+//			Integer[] categoryNoIntArr = null;
+//			categoryNoArr = categoryNo.split(",");
+			
+//			for(int i=0; i<categoryNoArr.length; i++) {
+//				categoryNoIntArr[i] = Integer.parseInt(categoryNoArr[i]);
+//				categoryNoList.add(categoryNoIntArr[i]);
+//			}
 		}
+		
 		log.debug(TeamColor.KMJ + "categoryNoList : " + categoryNoList.toString() + TeamColor.RESET );	
 
 		// 상품리스트 
@@ -239,9 +248,12 @@ public class GoodsController {
 		model.addAttribute("page", goodsListMap.get("page"));
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("categoryNoList", categoryNoList);
-
+		// pagination용
+		model.addAttribute("categoryNo", categoryNo);
+		
 		return "off/home";
 	}
+
 	
 	
 	

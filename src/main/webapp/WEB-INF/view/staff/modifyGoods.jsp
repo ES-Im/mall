@@ -122,7 +122,7 @@
 	                    	<div class="my-2 py-2">
 	                    		<i style="font-size: x-large;" class="bi bi-bookmarks"></i><span style="font-size: large; margin: 5px;">Category List</span><br>
 	                    		<select id="categoryNo" name="categoryNo" style="text-align:center; width: 250px; height: 30px; border-radius: 10px;">
-					    			<option selected="selected" value="">Select Category</option>
+					    			<option selected="selected" value="${goods.categoryNo}">${goods.categoryTitle}</option>
 					    			<c:forEach var="category" items="${categoryList}">
 					    				<option value="${category.categoryNo}">${category.categoryTitle}</option>
 					    			</c:forEach>
@@ -143,7 +143,7 @@
 	                    	</div>
 	                    	<br>
 	                    	<div>
-		                    	<button id="btnModifyGoods" type="button" class="btn btn-sm btn-success" style="width: 475px;">Modify</button>
+		                    	<button id="btnModifyGoods" type="button" class="btn btn-success" style="width: 475px;">Modify</button>
 	                    	</div><br><br>
 	                    </div>
 	                </div>

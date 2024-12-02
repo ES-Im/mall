@@ -135,7 +135,7 @@
 	                    	</div>
 	                    	<br>
 	                    	<div>
-		                    	<button id="btnAddGoods" type="button" class="btn btn-sm btn-primary" style="width: 475px;">Submit</button>
+		                    	<button id="btnAddGoods" type="button" class="btn btn-primary" style="width: 475px;">Submit</button>
 	                    	</div><br><br>
 	                    </div>
 	                </div>

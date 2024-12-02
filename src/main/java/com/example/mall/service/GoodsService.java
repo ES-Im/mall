@@ -34,13 +34,13 @@ public class GoodsService {
 	
 	// Author : 김문정
 	// getGoodsOne : 상품 상세보기 
-	public Goods getGoodsOne(Integer goodsNo){
+	public Map<String, Object> getGoodsOne(Integer goodsNo){
 		log.debug( TeamColor.KMJ + "[GoodsService - getGoodsOne]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "goodsNo : " + goodsNo + TeamColor.RESET );
 		
-		Goods goods = goodsMapper.selectGoodsOne(goodsNo);
+		Map<String, Object> getGoodsOne = goodsMapper.selectGoodsOne(goodsNo);
 		
-		return goods;
+		return getGoodsOne;
 	}
 	
 	// getGoodsOne : 후기 리스트
@@ -157,11 +157,32 @@ public class GoodsService {
 		}
 	}
 	
+	// 김동현
+	// modifyGoods.jsp : 상품 수정 페이지
+	public Integer modifyGoods(GoodsForm goodsForm) {
+		
+		Goods goods = new Goods();
+		goods.setGoodsTitle(goodsForm.getGoodsTitle());
+		goods.setGoodsMemo(goodsForm.getGoodsMemo());
+		goods.setGoodsPrice(goodsForm.getGoodsPrice());
+		goods.setGoodsStatus(goodsForm.getGoodsStatus());
+		
+		int modifyGoodsRow = goodsMapper.updateGoods(goods);
+		
+		GoodsCategory goodsCategory = new GoodsCategory();
+		goodsCategory.setGoodsNo(goods.getGoodsNo());
+		goodsCategory.setCategoryNo(goodsForm.getCategoryNo());
+		
+		// int modifyGoodsCateogryRow = categoryMapper.updateGoodsCategory(goodsCategory);
+		
+		return 1;
+	}
+	
 	
 	
 	// 김문정
 	// home : 메인 페이지 상품 리스트 출력
-	public Map<String, Object> getGoodsList(Page page, String searchWord, List<String> categoryNoList){
+	public Map<String, Object> getGoodsList(Page page, String searchWord, List<Integer> categoryNoList){
 		log.debug( TeamColor.KMJ + "[GoodsService - getGoodsList]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "searchWord : " + searchWord + TeamColor.RESET );
 		

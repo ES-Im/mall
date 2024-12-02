@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.mall.service.CustomerService;
 import com.example.mall.service.StaffService;
 import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Customer;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StaffController { // Author : 김동현
 	
 	@Autowired StaffService staffService;
+	@Autowired CustomerService customerService;
 	
 	// addStaff Form
 	@GetMapping("/staff/addStaff") 
@@ -86,10 +88,11 @@ public class StaffController { // Author : 김동현
 	
 	// removeCustomerByStaff
 		@GetMapping("/staff/removeCustomerByStaff")
-		public String removeCustomerByStaff(@RequestParam String customerEmail) {
+		public String removeCustomerByStaff(Customer customer) {
 			
-			log.debug(TeamColor.KDH + "removeCustomerEmail : " + customerEmail + TeamColor.RESET); // debug
-			int removeCustomerRow = staffService.removeCustomerByStaff(customerEmail);
+			log.debug(TeamColor.KDH + "removeCustomerEmail : " + customer.getCustomerEmail() + TeamColor.RESET); // debug
+			
+			int removeCustomerRow = customerService.removeCustomer(customer);
 			if(removeCustomerRow == 0) {
 				return "redirect:/staff/getCustomerListByStaff";
 			}
