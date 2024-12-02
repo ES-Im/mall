@@ -247,6 +247,7 @@
 										<h5 class="fw-bolder">${goods.goodsTitle}</h5>
 										<!-- Product price-->
 										$ ${goods.goodsPrice}
+										 ${goods.categoryTitle}
 									</div>
 								</div>
 								<!-- Product actions-->
