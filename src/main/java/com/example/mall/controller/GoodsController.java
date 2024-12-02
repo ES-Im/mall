@@ -271,18 +271,10 @@ public class GoodsController {
 		
 		// split으로 ',' 분리 후 List에 담기	
 		List<String> categoryNoList = new ArrayList<>();
-//		List<Integer> categoryNoList = new ArrayList<>();
+
 		if(categoryNo != null ) {
-//			Integer[] categoryNoIntArr = null;
-			
-			
+
 			categoryNoList = Arrays.asList(categoryNo.split(","));
-		
-			
-//			for(int i=0; i<categoryNoArr.length; i++) {
-//				categoryNoIntArr[i] = Integer.parseInt(categoryNoArr[i]);
-//				categoryNoList.add(categoryNoIntArr[i]);
-//			}
 		}
 		
 		log.debug(TeamColor.KMJ + "categoryNoList : " + categoryNoList.toString() + TeamColor.RESET );	
