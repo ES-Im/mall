@@ -22,6 +22,9 @@ public interface CategoryMapper { // Author : 김동현
 	// staff/addGoods.jsp → addGoodsCategory
 	Integer insertGoodsCateogry(GoodsCategory goodsCateogry);
 	
+	// modifyGoods : 상품 수정에서 카테고리 수정
+	Integer updateGoodsCategory(GoodsCategory goodsCateogry);
+	
 	
 
 }

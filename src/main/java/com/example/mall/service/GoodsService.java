@@ -173,7 +173,7 @@ public class GoodsService {
 		goodsCategory.setGoodsNo(goods.getGoodsNo());
 		goodsCategory.setCategoryNo(goodsForm.getCategoryNo());
 		
-		// int modifyGoodsCateogryRow = categoryMapper.updateGoodsCategory(goodsCategory);
+		int modifyGoodsCateogryRow = categoryMapper.updateGoodsCategory(goodsCategory);
 		
 		return 1;
 	}

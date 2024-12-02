@@ -91,7 +91,7 @@
 			<div>
 				<h3>Modify Goods</h3>
 			</div>
-			<form id="formModifyGoods" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/staff/modifyGoods">
+				<form id="formModifyGoods" method="post" action="${pageContext.request.contextPath}/staff/modifyGoods">
 				<div class="container px-4 px-lg-1 my-5">
 	                <div class="row gx-4 gx-lg-5 align-items-center">
 	                	<!-- 이미지 ~ 상품 상세설명 -->

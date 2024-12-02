@@ -21,5 +21,14 @@
 	<insert id="insertGoodsCateogry" parameterType="com.example.mall.vo.GoodsCategory">
 		INSERT INTO goods_category(goods_no, category_no) VALUES(#{goodsNo}, #{categoryNo})
 	</insert>
+	
+	<!-- updateGoodsCategory Query : 상품 수정 시 카테고리 값 같이 수정 -->
+	<update id="updateGoodsCategory" parameterType="com.example.mall.vo.GoodsCategory">
+		UPDATE goods_category
+		<set>
+			<if test="categoryNo != null and categoryNo != ''">category_no = #{categoryNo}</if>
+		</set>
+		WHERE goods_no = #{goodsNo}
+	</update>
 
 </mapper>

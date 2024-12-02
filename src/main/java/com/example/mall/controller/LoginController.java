@@ -178,7 +178,7 @@ public class LoginController {
 				
 		session.setAttribute("loginStaff", staffId);		
 		
-		return "redirect:/staff/getGoodsList";
+		return "redirect:/staff/getGoodsListByStaff";
 	
 	}
 	
