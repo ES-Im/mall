@@ -212,18 +212,19 @@
 									ON c.category_no = gc.category_no) cgc
 		ON g.goods_no = cgc.goods_no
 		<where>
-			<if test="searchWord != null">
-				g.goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
-			</if>
-			AND 
-			<if test="categoryNoList != null and categoryNoList.size() > 0">
-				cgc.category_no IN
-			    <foreach item="categoryNo" index="index" collection="categoryNoList" open="(" separator="," close=")">
-			        #{categoryNo}
-	  			 </foreach>
-			</if>
-
-		</where>
+	        <if test="searchWord != null and searchWord != ''">
+	            g.goods_title LIKE CONCAT('%', #{searchWord}, '%')
+	        </if>
+	        <if test="categoryNoList != null and categoryNoList.size() > 0">
+	            <if test="searchWord != null and searchWord != ''">
+	                AND
+	            </if>
+	            cgc.category_no IN
+	            <foreach item="categoryNo" collection="categoryNoList" open="(" separator="," close=")">
+	                #{categoryNo}
+	            </foreach>
+	        </if>
+	    </where>
 	</select>
 
 

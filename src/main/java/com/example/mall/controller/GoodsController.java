@@ -202,7 +202,7 @@ public class GoodsController {
 	public String modifyGoods(GoodsForm GoodsForm) {
 		log.debug(TeamColor.KDH + "goods : " +GoodsForm.toString() + TeamColor.RESET); // debug
 		int modifyGoodsRow = goodsService.modifyGoods(GoodsForm);
-		return "redirect:/staff/getGoodsOne?goodsNo=" + GoodsForm.getGoodsNo();
+		return "redirect:/getGoodsOne?goodsNo=" + GoodsForm.getGoodsNo();
 	}
 
 	

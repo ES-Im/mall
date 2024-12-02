@@ -21,7 +21,7 @@ public class StaffInterceptor implements HandlerInterceptor {
 		// 직원 세션이 있는 경우 다른 세션고유 URL에 접근시, 직원 전용 마이페이지로 이동  
 		if(session.getAttribute("loginStaff") != null) {
 			log.debug(request.getRequestURL().toString() + ", Staff session exist");
-			response.sendRedirect(request.getContextPath() + "/staff/getGoodsList");
+			response.sendRedirect(request.getContextPath() + "/staff/getGoodsListByStaff");
 			return false;
 		}
 		
