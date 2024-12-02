@@ -159,7 +159,7 @@ public class GoodsService {
 	
 	// 김동현
 	// modifyGoods.jsp : 상품 수정 페이지
-	public Integer modifyGoods(GoodsForm goodsForm) {
+	public Integer modifyGoods(GoodsForm goodsForm, String path) {
 		
 		Goods goods = new Goods();
 		goods.setGoodsNo(goodsForm.getGoodsNo());
@@ -168,14 +168,43 @@ public class GoodsService {
 		goods.setGoodsPrice(goodsForm.getGoodsPrice());
 		goods.setGoodsStatus(goodsForm.getGoodsStatus());
 		
-		int modifyGoodsRow = goodsMapper.updateGoods(goods);
+		Integer modifyGoodsRow = goodsMapper.updateGoods(goods);
 		
 		GoodsCategory goodsCategory = new GoodsCategory();
 		goodsCategory.setGoodsNo(goods.getGoodsNo());
 		goodsCategory.setCategoryNo(goodsForm.getCategoryNo());
 		
-		int modifyGoodsCateogryRow = categoryMapper.updateGoodsCategory(goodsCategory);
+		Integer modifyGoodsCateogryRow = categoryMapper.updateGoodsCategory(goodsCategory);
 		
+		if(goodsForm.getGoodsFile() != null) {
+			// GoodsFile 입력
+			List<MultipartFile> goodsFileList = goodsForm.getGoodsFile();
+			for (MultipartFile mf : goodsFileList) {
+				GoodsFile goodsFile = new GoodsFile();
+				int dotIdx = mf.getOriginalFilename().lastIndexOf(".");
+				String orginName = mf.getOriginalFilename().substring(0, dotIdx);
+				String fileName = UUID.randomUUID().toString().replace("-", "");
+				String ext = mf.getOriginalFilename().substring(dotIdx + 1);
+				
+				goodsFile.setGoodsNo(goodsForm.getGoodsNo());
+				goodsFile.setGoodsFileOriginName(orginName);
+				goodsFile.setGoodsFileName(fileName);
+				goodsFile.setGoodsFileExt(ext);
+				goodsFile.setGoodsFileType(mf.getContentType());
+				goodsFile.setGoodsFileSize(String.valueOf(mf.getSize()));
+				
+				int addGoodsFileRow = goodsFileMapper.insertGoodsFile(goodsFile);
+				if(addGoodsFileRow == 1) {
+					// 물리적 파일 저장
+					try {
+						mf.transferTo(new File(path + fileName + "." + ext));
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException();
+					}
+				}
+			}
+		}
 		return 1;
 	}
 	

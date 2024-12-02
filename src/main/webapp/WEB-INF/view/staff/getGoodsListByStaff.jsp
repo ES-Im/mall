@@ -136,7 +136,7 @@
                 <c:set var="formattedDate" value="${fn:substring(goods.updateDate, 0, 10)}" />
                 
                 <!-- 요일을 추출 -->
-                <fmt:parseDate var="date" value="${goods.updateDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
+                <fmt:parseDate var="date" value="${goods.updateDate}" pattern="yyyy-MM-dd'T'HH:mm" />
                 <fmt:formatDate value="${date}" pattern="E" var="dayOfWeek" />
  				
  				<!-- 새로운 날짜 그룹 시작 -->

@@ -106,23 +106,25 @@
 	
 	<!-- selectGoodsListByStaff Query : 관리자 페이지 상품 리스트 -->
 	<select id="selectGoodsListByStaff" parameterType="Map" resultType="Map">
-		SELECT 
-			g.goods_no goodsNo, g.goods_title goodsTitle, g.goods_memo goodsMemo, g.goods_price goodsPrice, 
-			g.goods_status goodsStatus, g.update_date updateDate, g.create_date createDate,
-		 	c.category_title categoryTitle, gf.goods_file_no goodsFileNo, gf.goods_file_name goodsFileName, 
-		 	gf.goods_file_origin_name goodsOriginName, gf.goods_file_ext goodsFileExt,
-		 	gf.goods_file_type goodsFileType, gf.goods_file_size goodsFileSize
+		WITH ranked_files AS (SELECT gf.goods_no, gf.goods_file_no, gf.goods_file_name, 
+								  gf.goods_file_origin_name, gf.goods_file_ext, gf.goods_file_type,  gf.goods_file_size,
+								  ROW_NUMBER() OVER (PARTITION BY gf.goods_no ORDER BY gf.goods_file_no) row_num FROM goods_file gf)
+		SELECT g.goods_no goodsNo, g.goods_title goodsTitle, g.goods_memo goodsMemo, g.goods_price goodsPrice, g.goods_status goodsStatus, 
+		       g.update_date updateDate, g.create_date createDate, c.category_title categoryTitle,
+		       rf.goods_file_no goodsFileNo, rf.goods_file_name goodsFileName, rf.goods_file_origin_name goodsOriginName, 
+		       rf.goods_file_ext goodsFileExt, rf.goods_file_type goodsFileType, rf.goods_file_size goodsFileSize
 		FROM goods g
 		INNER JOIN goods_category gc ON g.goods_no = gc.goods_no
 		INNER JOIN category c ON gc.category_no = c.category_no
-		LEFT JOIN goods_file gf ON g.goods_no = gf.goods_no
+		LEFT JOIN ranked_files rf ON g.goods_no = rf.goods_no AND rf.row_num = 1
 		<where>
-	        <if test="searchWord != null and searchWord != ''">
-            	g.goods_title LIKE CONCAT('%', #{searchWord}, '%')
-            	OR 
-            	g.goods_memo LIKE CONCAT('%', #{searchWord}, '%')
-	        </if>
-    	</where>
+			<if test="searchWord != null and searchWord != ''">
+				AND (
+				    g.goods_title LIKE CONCAT('%', #{searchWord}, '%')
+				    OR g.goods_memo LIKE CONCAT('%', #{searchWord}, '%')
+				)
+			</if>
+		</where>
 		ORDER BY g.update_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
