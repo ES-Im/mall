@@ -18,8 +18,14 @@
 	<!-- insertStaff Query : 스태프 추가 -->
 	<insert id="insertStaff" parameterType="com.example.mall.vo.Staff">
 	 	INSERT INTO staff(staff_id, staff_pw, first_name, last_name)
-	 	VALUES(#{staffId}, #{staffPw}, #{firstName}, #{lastName})
+		SELECT #{staffId}, #{staffPw}, #{firstName}, #{lastName}
+		WHERE NOT EXISTS (SELECT 1 FROM staff WHERE staff_id = #{staffId});
 	</insert>
+	
+	<!-- existsByStaffId Query : 스태프 ID 중복 확인 -->
+    <select id="existsByStaffId" resultType="boolean">
+        SELECT COUNT(*) > 0 FROM staff WHERE staff_id = #{staffId}
+    </select>
 	
 	<!-- deleteStaff Query : 스태프 삭제 -->
 	<delete id="deleteStaff" parameterType="Integer">

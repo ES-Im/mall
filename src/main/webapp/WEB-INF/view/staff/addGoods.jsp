@@ -44,6 +44,10 @@
 		        alert('가격은 숫자만 입력 가능합니다');
 		        $('#goodsPrice').focus();
 		        return;
+		    } else if (/^0/.test($('#goodsPrice').val())) {  // 첫 번째 숫자가 0인 경우
+		        alert('가격은 0으로 시작할 수 없습니다');
+		        $('#goodsPrice').focus();
+		        return;
 		    } else if($('#categoryNo').val() == null || $('#categoryNo').val() == '') {
 				alert('카테고리를 선택하세요');
 				$('#categoryNo').focus();

@@ -20,6 +20,9 @@ public interface StaffMapper { // Author : 김동현
 	// staff/addStaff.jsp
 	Integer insertStaff(Staff staff);
 	
+	// staff/addStaff.jsp → staffId 중복확인
+	Boolean existsByStaffId(String staffId);
+	
 	// staff/getStaffList.jsp → removeStaff
 	Integer deleteStaff(Integer staffNo);
 	

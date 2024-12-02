@@ -19,7 +19,7 @@
 	        const lastName = $('#lastName').val();
 	        const staffPw = $('#staffPw').val();
 	        const reStaffPw = $('#ReStaffPw').val();
-			
+	        
 			if (staffId == '' || staffId == null || staffId.length < 4) { // 아이디
 	            alert('Staff ID를 입력하세요 (4자이상)');
 	            $('#staffId').focus();
@@ -114,8 +114,11 @@
             </form>
     	</div>
         <div class="d-flex justify-content-end" style="margin-top:5px; width: 535px;">
-        	<a href="${pageContext.request.contextPath}/staff/getStaffList" class="btn btn-sm btn-outline-danger" style="margin-right: 7px;">Cancel</a>
-        	<button type="button" id="btnAddStaff" class="btn btn-sm btn-outline-primary">Add Staff</button>
+        		<c:if test="${not empty addStaffError}">
+        			<span style="margin-right: 20px; align-content: center; color: red;">* ${addStaffError}</span>
+        		</c:if>
+        		<a href="${pageContext.request.contextPath}/staff/getStaffList" class="btn btn-sm btn-outline-danger" style="margin-right: 7px;">Cancel</a>
+        		<button type="button" id="btnAddStaff" class="btn btn-sm btn-outline-primary">Add Staff</button>
        	</div>
 	</div>
 </div>

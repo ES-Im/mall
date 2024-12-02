@@ -162,7 +162,7 @@
  							<!-- 파일 없을 때 -->
  							<c:if test="${empty goods.goodsFileNo}">
  								<div style="align-items: center;">
- 									<img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+ 									<img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_goods_img.jpg" alt="Preparing the goods Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
  								</div>
  							</c:if>
  						</div>
@@ -227,152 +227,296 @@
  					<a href="${pageContext.request.contextPath}/staff/addGoods" class="btn btn-sm btn-outline-primary">상품추가</a>
  				</div>
  				
- 				<!-- PAGINATION -->
- 				<!-- searchWord 없을 때 PAGINATION -->
- 				<c:if test="${empty searchWord}">
- 				<div class="pagination justify-content-center" style="text-align: center; margin-top: 15px; ">
-					<!-- 첫 페이지 -->
-					<c:if test="${!(page.currentPage > 1)}">
-						<a href="" style="pointer-events: none;">&laquo;</a>
-					</c:if>
-					<c:if test="${page.currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=1">&laquo;</a>
-					</c:if>
-					
-					<!-- 페이지 - 10 -->
-					<c:if test="${!(page.currentPage > 10)}">
-						<a href="" style="pointer-events: none;">&lt;</a>
-					</c:if>
-					<c:if test="${page.currentPage > 10}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage - 10}">
-							&lt;
-						</a>
-					</c:if>
-					
-					<!-- 이전 페이지 -->
-					<c:if test="${!(page.currentPage > 1)}">
-						<a href="" style="pointer-events: none;">Previous</a>
-					</c:if>
-					<c:if test="${page.currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage - 1}">
-							Previous
-						</a>
+				<!-- pagination -->	
+				<section class="py-5">
+				
+				<!-- 검색어 ⭕, 카테고리 ⭕ -->
+				<c:if test="${(not empty searchWord && not empty categoryNo)}">
+			    <div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+			                    
+			        <!-- 첫 페이지 -->
+			        <c:if test="${!(page.currentPage > 1)}">
+			            <a href="#" style="pointer-events: none;">&laquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage > 1}">		        
+			            <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=1&searchWord=${searchWord}&categoryNo=${categoryNo}">&laquo;</a>
+			        </c:if>
+			        
+			        <!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
+			        <c:set var="previousGroupEnd" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage)}"></c:set>
+			        
+					<c:if test="${page.currentPage <= page.numPerPage}">
+					   <a href="#" style="pointer-events: none;">
+					      Previous
+					   </a>
 					</c:if>
 					
-					<!-- 페이지 번호 링크 -->
-					<c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
-						<c:if test= "${num == page.currentPage}">
-							<a class="active">${num}</a>
-						</c:if>
-						<c:if test= "${num != page.currentPage}">
-							<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${num}">${num}</a>
-						</c:if>
-					</c:forEach>
-					
-					<!-- 다음 페이지 -->
-					<c:if test="${!(page.currentPage < page.lastPage)}">
-						<a href="" style="pointer-events: none;">Next</a>
+					<c:if test="${page.currentPage > page.numPerPage}">
+					   <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${previousGroupEnd}&searchWord=${searchWord}&categoryNo=${categoryNo}">
+					      Previous
+					   </a>
 					</c:if>
 					
-					<c:if test="${page.currentPage < page.lastPage}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage + 1}">
-							Next
-						</a>
+			        <!-- 페이지 번호 링크 -->
+			        <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+			            <c:if test= "${num == page.currentPage}">
+			                <a class="active">${num}</a>
+			            </c:if>
+			            <c:if test= "${num != page.currentPage}">
+			                <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${num}&searchWord=${searchWord}&categoryNo=${categoryNo}">${num}</a>
+			            </c:if>
+			        </c:forEach>
+			        
+			    
+			        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
+			        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
+			        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1}"></c:set>
+			        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
+			        
+			        <c:if test="${lastGroupStart > nextGroupStart}">
+					    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${nextGroupStart}&searchWord=${searchWord}&categoryNo=${categoryNo}">
+					        Next
+					    </a>
 					</c:if>
 					
-					<!-- 페이지 + 10 -->
-					<c:if test="${!(page.currentPage < page.lastPage)}">
-						<a href="" style="pointer-events: none;">&gt;</a>
+					<c:if test="${(lastGroupStart <= nextGroupStart) && (lastGroupStart > page.currentPage)}">
+					    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${lastGroupStart}&searchWord=${searchWord}&categoryNo=${categoryNo}">
+					        Next
+					    </a>
 					</c:if>
 					
-					<c:if test="${page.currentPage < page.lastPage}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage + 10}">
-							&gt;
-						</a>
+					<c:if test="${lastGroupStart <= page.currentPage}">
+					    <a href="#" style="pointer-events: none;">
+					        Next
+					    </a>
+					</c:if>
+			        
+			        <!-- 마지막 페이지 -->
+			        <c:if test="${!(page.currentPage < page.lastPage)}">
+			            <a href="#" style="pointer-events: none;">&raquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage < page.lastPage}">
+			            <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.lastPage}&searchWord=${searchWord}&categoryNo=${categoryNo}">&raquo;</a>
+			        </c:if>
+			    </div>
+			    </c:if>	
+			    
+			    
+				<!-- 검색어 ⭕, 카테고리 X -->
+				<c:if test="${(not empty searchWord) && (empty categoryNo)}">
+			    <div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+			                    
+			        <!-- 첫 페이지 -->
+			        <c:if test="${!(page.currentPage > 1)}">
+			            <a href="#" style="pointer-events: none;">&laquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage > 1}">		        
+			            <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=1&searchWord=${searchWord}">&laquo;</a>
+			        </c:if>
+			        
+			        <!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
+			        <c:set var="previousGroupEnd" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage)}"></c:set>
+			        
+					<c:if test="${page.currentPage <= page.numPerPage}">
+					   <a href="#" style="pointer-events: none;">
+					      Previous 
+					   </a>
 					</c:if>
 					
-					<!-- 마지막 페이지 -->
-					<c:if test="${!(page.currentPage < page.lastPage)}">
-						<a href="" style="pointer-events: none;">&raquo;</a>
-					</c:if>
-					<c:if test="${page.currentPage < page.lastPage}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.lastPage}">&raquo;</a>
-					</c:if>
-				</div>
- 				</c:if>
- 				
- 				<!-- searchWord 있을 때 PAGINATION -->
- 				<c:if test="${not empty searchWord}">
-   				<div class="pagination justify-content-center" style="text-align: center; margin-top: 15px; ">
-					<!-- 첫 페이지 -->
-					<c:if test="${!(page.currentPage > 1)}">
-						<a href="" style="pointer-events: none;">&laquo;</a>
-					</c:if>
-					<c:if test="${page.currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=1&searchWord=${searchWord}">&laquo;</a>
+					<c:if test="${page.currentPage > page.numPerPage}">
+					   <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${previousGroupEnd}&searchWord=${searchWord}">
+					      Previous
+					   </a>
 					</c:if>
 					
-					<!-- 페이지 - 10 -->
-					<c:if test="${!(page.currentPage > 10)}">
-						<a href="" style="pointer-events: none;">&lt;</a>
-					</c:if>
-					<c:if test="${page.currentPage > 10}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage - 10}&searchWord=${searchWord}">
-							&lt;
-						</a>
-					</c:if>
-					
-					<!-- 이전 페이지 -->
-					<c:if test="${!(page.currentPage > 1)}">
-						<a href="" style="pointer-events: none;">Previous</a>
-					</c:if>
-					<c:if test="${page.currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage - 1}&searchWord=${searchWord}">
-							Previous
-						</a>
-					</c:if>
-					
-					<!-- 페이지 번호 링크 -->
-					<c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
-						<c:if test= "${num == page.currentPage}">
-							<a class="active">${num}</a>
-						</c:if>
-						<c:if test= "${num != page.currentPage}">
-							<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${num}&searchWord=${searchWord}">${num}</a>
-						</c:if>
-					</c:forEach>
-					
-					<!-- 다음 페이지 -->
-					<c:if test="${!(page.currentPage < page.lastPage)}">
-						<a href="" style="pointer-events: none;">Next</a>
+			        <!-- 페이지 번호 링크 -->
+			        <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+			            <c:if test= "${num == page.currentPage}">
+			                <a class="active">${num}</a>
+			            </c:if>
+			            <c:if test= "${num != page.currentPage}">
+			                <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${num}&searchWord=${searchWord}">${num}</a>
+			            </c:if>
+			        </c:forEach>
+			        
+			    
+			        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
+			        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
+			        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1}"></c:set>
+			        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
+			        
+			        <c:if test="${lastGroupStart > nextGroupStart}">
+					    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${nextGroupStart}&searchWord=${searchWord}">
+					        Next
+					    </a>
 					</c:if>
 					
-					<c:if test="${page.currentPage < page.lastPage}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage + 1}&searchWord=${searchWord}">
-							Next
-						</a>
+					<c:if test="${(lastGroupStart <= nextGroupStart) && (lastGroupStart > page.currentPage)}">
+					    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${lastGroupStart}&searchWord=${searchWord}">
+					        Next
+					    </a>
 					</c:if>
 					
-					<!-- 페이지 + 10 -->
-					<c:if test="${!(page.currentPage < page.lastPage)}">
-						<a href="" style="pointer-events: none;">&gt;</a>
+					<c:if test="${lastGroupStart <= page.currentPage}">
+					    <a href="#" style="pointer-events: none;">
+					        Next
+					    </a>
+					</c:if>
+			        
+			        <!-- 마지막 페이지 -->
+			        <c:if test="${!(page.currentPage < page.lastPage)}">
+			            <a href="#" style="pointer-events: none;">&raquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage < page.lastPage}">
+			            <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.lastPage}&searchWord=${searchWord}">&raquo;</a>
+			        </c:if>
+			    </div>
+			    </c:if>	
+			    
+				<!-- 검색어 ❌, 카테고리 ⭕ -->
+				<c:if test="${(empty searchWord) && (not empty categoryNo)}">
+			    <div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+			                    
+			        <!-- 첫 페이지 -->
+			        <c:if test="${!(page.currentPage > 1)}">
+			            <a href="#" style="pointer-events: none;">&laquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage > 1}">		        
+			            <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=1&categoryNo=${categoryNo}">&laquo;</a>
+			        </c:if>
+			        
+			        <!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
+			        <c:set var="previousGroupEnd" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage)}"></c:set>
+			        
+					<c:if test="${page.currentPage <= page.numPerPage}">
+					   <a href="#" style="pointer-events: none;">
+					      Previous
+					   </a>
 					</c:if>
 					
-					<c:if test="${page.currentPage < page.lastPage}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.currentPage + 10}&searchWord=${searchWord}">
-							&gt;
-						</a>
+					<c:if test="${page.currentPage > page.numPerPage}">
+					   <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${previousGroupEnd}&categoryNo=${categoryNo}">
+					      Previous
+					   </a>
 					</c:if>
 					
-					<!-- 마지막 페이지 -->
-					<c:if test="${!(page.currentPage < page.lastPage)}">
-						<a href="" style="pointer-events: none;">&raquo;</a>
+			        <!-- 페이지 번호 링크 -->
+			        <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+			            <c:if test= "${num == page.currentPage}">
+			                <a class="active">${num}</a>
+			            </c:if>
+			            <c:if test= "${num != page.currentPage}">
+			                <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${num}&categoryNo=${categoryNo}">${num}</a>
+			            </c:if>
+			        </c:forEach>
+			        
+			    
+			        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
+			        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
+			        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1}"></c:set>
+			        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
+			        
+			        <c:if test="${lastGroupStart > nextGroupStart}">
+					    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${nextGroupStart}&categoryNo=${categoryNo}">
+					        Next
+					    </a>
 					</c:if>
-					<c:if test="${page.currentPage < page.lastPage}">
-						<a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.lastPage}&searchWord=${searchWord}">&raquo;</a>
+					
+					<c:if test="${(lastGroupStart <= nextGroupStart) && (lastGroupStart > page.currentPage)}">
+					    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${lastGroupStart}&categoryNo=${categoryNo}">
+					        Next
+					    </a>
 					</c:if>
-				</div>
-				</c:if>
+					
+					<c:if test="${lastGroupStart <= page.currentPage}">
+					    <a href="#" style="pointer-events: none;">
+					        Next
+					    </a>
+					</c:if>
+			        
+			        <!-- 마지막 페이지 -->
+			        <c:if test="${!(page.currentPage < page.lastPage)}">
+			            <a href="#" style="pointer-events: none;">&raquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage < page.lastPage}">
+			            <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.lastPage}&categoryNo=${categoryNo}">&raquo;</a>
+			        </c:if>
+			    </div>
+			    </c:if>	
+		
+				<!-- 검색어 ❌, 카테고리 ❌ -->
+				<c:if test="${(empty searchWord) && (empty categoryNo)}">	
+			    <div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+			                    
+			        <!-- 첫 페이지 -->
+			        <c:if test="${!(page.currentPage > 1)}">
+			            <a href="" style="pointer-events: none;">&laquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage > 1}">		        
+			            <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=1">&laquo;</a>
+			        </c:if>
+			        
+			        <!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
+			        <c:set var="previousGroupEnd" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage)}"></c:set>
+			        
+					<c:if test="${page.currentPage <= page.numPerPage}">
+					   <a href="#" style="pointer-events: none;">
+					      Previous
+					   </a>
+					</c:if>
+					
+					<c:if test="${page.currentPage > page.numPerPage}">
+					   <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${previousGroupEnd}">
+					      Previous
+					   </a>
+					</c:if>
+					
+			        <!-- 페이지 번호 링크 -->
+			        <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+			            <c:if test= "${num == page.currentPage}">
+			                <a class="active">${num}</a>
+			            </c:if>
+			            <c:if test= "${num != page.currentPage}">
+			                <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${num}">${num}</a>
+			            </c:if>
+			        </c:forEach>
+			        
+			    
+			        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
+			        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
+			        <c:set var="nextGroupStart" value="${((page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1) > page.lastPage ? page.lastPage : ((page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1)}" />
+			        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
+			        <!--<c:set var="lastGroupStart" value="${(page.lastPage - 1) - ((page.lastPage - 1) % page.numPerPage) + 1}"></c:set>-->
+			        
+			        
+			        <c:if test="${lastGroupStart > nextGroupStart}">
+					    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${nextGroupStart}">
+					        Next
+					    </a>
+					</c:if>
+					
+					<c:if test="${(lastGroupStart <= nextGroupStart) && (lastGroupStart > page.currentPage)}">
+					    <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${lastGroupStart}">
+					        Next
+					    </a>
+					</c:if>
+					
+					<c:if test="${lastGroupStart <= page.currentPage}">
+					    <a href="#" style="pointer-events: none;">
+					        Next
+					    </a>
+					</c:if>
+			        
+			        <!-- 마지막 페이지 -->
+			        <c:if test="${!(page.currentPage < page.lastPage)}">
+			            <a href="" style="pointer-events: none;">&raquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage < page.lastPage}">
+			            <a href="${pageContext.request.contextPath}/staff/getGoodsListByStaff?currentPage=${page.lastPage}">&raquo;</a>
+			        </c:if>
+			    </div>
+			    </c:if>		
+				</section>
 	  		</div>
 		</div>
 	</div>

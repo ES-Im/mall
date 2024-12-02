@@ -81,8 +81,20 @@
 	});
 	</script>
 	<style>
-		
-	</style>
+	    /* 왼쪽 정렬을 더욱 강화 (col-md-5만 밀기) */
+	    .container {
+	        margin-left: -30px; /* 더 왼쪽으로 밀기 */
+	    }
+	    .row {
+	        margin-left: -30px; /* 더 왼쪽으로 밀기 */
+	    }
+	    .col-md-5 {
+	        margin-left: -50px; /* 왼쪽 여백을 더 줄여서 밀기 */
+	    }
+	    .col-md-6 {
+	        margin-left: 100px; /* 왼쪽 여백을 더 줄여서 밀기 */
+	    }
+</style>
 <meta charset="UTF-8">
 <title>Modify Goods</title>
 </head>
@@ -111,7 +123,7 @@
 	                <div class="row gx-4 gx-lg-5 align-items-center">
 	                	<!-- 이미지 ~ 상품 상세설명 -->
 	                    <div class="col-md-5">
-	                    	<div class="d-flex gap-1 py-1 bg-light" style="width: 500px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
+	                    	<div class="d-flex gap-1 py-3 bg-light" style="width: 650px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 20px;">
 	                    		<c:if test="${empty goodsFileList}">
 	                    			<div class="d-flex align-items-center justify-content-center" style="height: 100px; width: 100%;">
 									    <span>첨부된 파일이 없습니다.</span>
@@ -121,24 +133,27 @@
 								    <div>
 					    				<c:forEach var="gf" items="${goodsFileList}">
 										    <div class="d-flex mb-3"> 
-										        <div class="mr-3">
-										            <img src="${pageContext.request.contextPath}/goodsFile/${gf.goodsFileName}.${gf.goodsFileExt}" alt="${gf.goodsFileOriginName}" class="img-thumbnail" style="width: 200px; height: 150px; object-fit: cover;" />
+										        <div class="mr-3 d-flex align-items-center justify-content-center">
+										            <img src="${pageContext.request.contextPath}/goodsFile/${gf.goodsFileName}.${gf.goodsFileExt}" alt="${gf.goodsFileOriginName}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
 										        </div>
 										        <div class="d-flex flex-column justify-content-between" style="margin-left: 10px;">
 										            <small class="mt-1 mb-0">FileOriginName : ${gf.goodsFileOriginName}</small>
+										            <small class="mt-1 mb-0">FileName : ${gf.goodsFileName}</small>
 										            <small class="mt-1 mb-0">Ext : ${gf.goodsFileExt}</small>
-										            <p class="mt-1 mb-0"><small>Type : ${gf.goodsFileType}</small></p>
-										            <p class="mt-1 mb-0"><small>Size : $ ${gf.goodsFileSize}</small></p>
-										            <p class="mt-1 mb-0"><small>CreateDate : ${gf.createDate}</small></p>
-										            <a href="${pageContext.request.contextPath}/staff/removeGoodsFile?goodsFileNo=${gf.goodsFileNo}&goodsNo=${gf.goodsNo}" class="btnRemoveFile btn btn-sm btn-outline-danger">삭제</a>
+										            <small class="mt-1 mb-0">Type : ${gf.goodsFileType}</small>
+										            <small class="mt-1 mb-0">Size : ${gf.goodsFileSize} Byte</small>
+										            <small class="mt-1 mb-0">CreateDate : ${gf.createDate}</small>
+										            <div style="display: flex; justify-content: flex-start;">
+													    <a href="${pageContext.request.contextPath}/staff/removeGoodsFile?goodsFileNo=${gf.goodsFileNo}&goodsNo=${gf.goodsNo}" class="btnRemoveFile btn btn-sm btn-outline-danger" style="width: 50px; height: 	px;">삭제</a>
+													</div>
 										        </div>
 										    </div>
-										        <hr style="width: 100%;">
+										        <hr style="width: 610px;">
 										</c:forEach>
 									</div>
 								</c:if>
 	                    	</div>
-	                    	<div class="d-flex justify-content-end" style="margin-top: 10px; width: 500px;">
+	                    	<div class="d-flex justify-content-end" style="margin-top: 10px; width: 650px;">
 	                    		<button id="btnAddFile" type="button" class="btn btn-sm btn-outline-primary" style="margin-right: 7px;">파일 첨부</button>
 	                    		<button id="btnRemoveFile" type="button" class="btn btn-sm btn-outline-danger">파일 삭제</button>
 	                    	</div>
