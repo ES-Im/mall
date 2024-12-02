@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- 탬플릿 : 김문정 & JS : 김은서 -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-
+		.goods-link {
+       	color: black;
+       	text-decoration: none;
+       }
+       
+       .goods-link:hover {
+           color: #D8D8D8;
+           text-decoration: none;
+       }
+       
+       .goods-link:visited {
+       	color: black;
+       	text-decoration: none;
+       }
 </style>
 
 <!-- Latest compiled and minified CSS -->

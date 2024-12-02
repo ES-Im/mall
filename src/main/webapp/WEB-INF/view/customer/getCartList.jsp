@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 
 <!DOCTYPE html>
 <html>
@@ -54,6 +56,25 @@
 	});
 	
 </script>
+
+<style>
+		.goods-link {
+        	color: black;
+        	text-decoration: none;
+        }
+        
+        .goods-link:hover {
+            color: #D8D8D8;
+            text-decoration: none;
+        }
+        
+        .goods-link:visited {
+        	color: black;
+        	text-decoration: none;
+        }
+		
+	</style>
+
 </head>
 
 <body>
@@ -74,57 +95,89 @@
                         
             <!-- main -->
             <div style="margin-left: 80px;  margin-top: 30px;">
-                <h3>Personal_Info</h3>
+                <h3>Cart</h3>
             </div>
-                <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px; ">
-					<form id="selectCartNoForm" method="get" action="${pageContext.request.contextPath}/customer/getCartListByChecked">
-						
-						<div style="text-align: right">
-							<button id="selectAllBtn" type="button" class="btn btn-sm btn-light">전체선택</button>
-							<button id="deleteAllBtn" type="button" class="btn btn-sm btn-light">전체해제</button>
-							<button id="payOnCheckedBtn" type="button" class="btn btn-sm btn-light">결제하기</button>
-						</div>
-						
-						<table class="table">
-							<tr>
-								<th></th>
-								<th>goodsNo</th>
-								<th>fileName</th>
-								<th>goodTitle</th>
-								<th>cartAmount</th>
-								<th>Quantity</th>
-								<th>totalPrice</th>
-								<th></th>
-							</tr>
-							<!-- 반복문을 이용하여 출력 -->
-							<c:forEach items="${cartList}" var="c">
-								<tr>
-									<td>
-										<label>
-											<input name="cartNo" type="checkbox" class="checkbox" value="${c.cartNo}">
-										</label>
-									</td>
-									<td>${c.goodsNo}</td>
-									<td>
-										<img src="${pageContext.request.servletContext}/upload/${c.fileName}">
-									</td>
-									<td>${c.goodTitle}</td>
-									<td>${c.goodsPrice}</td>
-									<td>${c.cartAmount}</td>
-									<td>${c.totalPrice}</td>
-									<td style="text-align:right">
-										<a href="${pageContext.request.contextPath}/customer/removeCart?cartNo=${c.cartNo}" class="btn btn-sm btn-light">❌</a>
-										<br>
-										<!-- 선택한 cartNo 하나만 결제하기 페이지(getCartListByChecked)로 이동 -->
-										<a href="${pageContext.request.contextPath}/customer/getCartListByChecked?cartNo=${c.cartNo}" class="btn btn-sm btn-light">결제하기</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</table>
-						
-					</form>
-                </div>
-					
+
+
+
+
+			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px; ">
+			    <!-- 출력할 데이터가 없을 때 -->
+			    <c:if test="${empty cartList}">
+			        <div>NO DATA</div>
+			    </c:if>
+			    
+			    <!-- 출력할 데이터가 있을 때 -->
+			    <c:if test="${not empty cartList}">
+			        <form id="selectCartNoForm" method="get" action="${pageContext.request.contextPath}/customer/getCartListByChecked">
+			            <!-- 체크박스 전체 조작 및 선택한 체크박스선택하여 결제하기 버튼 -->
+			            <div style="text-align: right">
+			                <button id="selectAllBtn" type="button" class="btn btn-sm btn-outline-primary">전체선택</button>
+			                <button id="deleteAllBtn" type="button" class="btn btn-sm btn-outline-secondary">전체해제</button>
+			                <button id="payOnCheckedBtn" type="button" class="btn btn-sm btn-outline-primary">결제하기</button>
+			            </div>
+			
+			            
+			            <!-- 장바구니 정보 출력 -->
+                        <div class="list-group">
+
+                            <c:forEach items="${cartList}" var="c">
+                                <div style="width: 1000px; margin-top: 10px;">
+                            	<div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
+					                <div class="d-flex align-items-center justify-content-between" style="width: 100%; margin-left: 20px;">
+					                    <div class=" align-items-center">
+					                        <input name="cartNo" type="checkbox" class="checkbox" value="${c.cartNo}">
+					                        <span class="goods-link" style="margin-left: 5px;">
+      											<a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${c.goodsNo}" style="text-decoration: none; font-weight: bold;">
+	      											<i class="bi bi-box-seam"> Goods Name : ${c.goodTitle}</i>
+	      										</a>
+			                        		</span>
+					                  	</div>
+										<small>Create Date : ${fn:substring(c.createDate, 0, 10)}</small>
+					              	</div>
+					            </div>
+                                   
+                                    <div class="list-group card">
+
+                                    <div class="d-flex gap-2 w-100 justify-content-between">
+                                            
+                                        <div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <!-- 파일 있을 때 -->
+                                                <c:if test="${not empty c.goodsFileNo}">
+                                                    <img src="${pageContext.request.contextPath}/goodsFile/${c.goodsFileName}.${c.goodsFileExt}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+                                                </c:if>
+                                                <!-- 파일 없을 때 -->
+                                                <c:if test="${empty goods.goodsFileNo}">
+                                                    <div style="align-items: center;">
+                                                        <img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+                                                    </div>
+                                                </c:if>
+                                            </div>
+                                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                                <div style="flex-grow: 1; margin-left: 15px;"> 
+                                                    <p class="mt-2 mb-0"><small> Goods Name : ${c.goodTitle}</small></p>
+                                                    <p class="mt-2 mb-0"><small> Category : ${c.categoryTitle}</small></p>
+                                                    <p class="mt-2 mb-0"><small> Goods Price : $ <fmt:formatNumber value="${c.goodsPrice}" pattern="#,###"/></small></p>
+                                                    <p class="mt-2 mb-0"><small> Quantity : ${c.cartAmount}</small></p>
+                                                    <p class="mt-2 mb-0"><small> TOTAL PRICE : $ <fmt:formatNumber value="${c.totalPrice}" pattern="#,###"/></small></p>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-between">
+                                                    <a href="${pageContext.request.contextPath}/customer/removeCart?cartNo=${c.cartNo}" class="btn btn-sm btn-outline-danger">❌</a>
+                                                    <!-- 선택한 cartNo 하나만 결제하기 페이지(getCartListByChecked)로 이동 -->
+                                                    <a href="${pageContext.request.contextPath}/customer/getCartListByChecked?cartNo=${c.cartNo}" class="btn btn-outline-primary">결제하기</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </c:forEach>
+                    </form>
+                </c:if>
+            </div>
+			                
+
         </div>
     </div>
 </body>
