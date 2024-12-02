@@ -66,6 +66,10 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
                 	<div class="me-3">
 	                  	<form class="d-flex" action="${pageContext.request.contextPath }/home" method="get" id="searchWordForm">
 		 					<input type="text" class="form-control-sm" name="searchWord" id="searchWord">
+		 					<c:if test="${not empty categoryNo}">
+			 					<input type="hidden" class="form-control-sm" name="categoryNo" value="${categoryNo }" id="categoryNo">
+		 					</c:if>
+		 					
 		 					<button type="button" class="btn btn-sm btn-dark" id="btnSearchWord">검색</button>
 	                  	</form>
 					</div>
