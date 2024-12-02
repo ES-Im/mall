@@ -8,6 +8,20 @@
 <meta charset="UTF-8">
 <title>Add Staff</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<style>
+	#addCustomer{
+		font-family: Helvetica, Arial, sans-serif;
+	}
+
+</style>
+
+
 <script>
     $(document).ready(function() {
 		
@@ -83,47 +97,51 @@
 <body>
 <div class="row">
 	<!-- main -->
-	<div class="col-sm-10 p-0">
+	<div class="col-sm-12 p-2">
 		<!-- header -->
 		<div>
 			<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
 		</div>
+		
 		<!-- main -->
-		<div style="margin-left: 80px; margin-top: 30px;">
-			<h3>Add customer</h3>
-		</div>
-		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-2 align-items-center" style="margin-left: 110px; margin-top: 25px;">
-           <form id="formAddcustomer" method="post" action="${pageContext.request.contextPath}/off/addCustomer" style="border: 1px solid #000; padding: 20px; border-radius: 10px; width: 400px;">
-			    <div class="mb-3 mt-3">
-			        <label for="customerEmail" class="form-label">Email :</label> 
-			        <input id="customerEmail" name="customerEmail" type="text" class="form-control" placeholder="check email duplication first">
-			    </div>
-			    <button type="button" id="checkEmail" class="btn btn-sm btn-outline-primary">이메일 중복 검사</button>
-			    
-			    <div class="mb-3">
-			        <label for="customerPw" class="form-label">Password :</label> 
-			        <input id="customerPw" name="customerPw" type="password" class="form-control" placeholder="Enter Password">
-			    </div>
-			    <div class="mb-3">
-			        <label for="reCustomerPw" class="form-label">Confirm Password :</label> 
-			        <input id="reCustomerPw" name="reCustomerPw" type="password" class="form-control" placeholder="Confirm Password">
-			    </div>
-			    
-			    <div class="mb-3 mt-3">
-			        <label for="customerGender" class="form-label">Gender :</label> 
-			        <br>
-			        <input name="customerGender" type="radio" class="" placeholder="Enter customer ID" value="남자"> 남자
-			        <input name="customerGender" type="radio" class="" placeholder="Enter customer ID" value="여자"> 여자
-			    </div>
-			    <div class="mb-3 mt-3">
-			        <label for="customerBirth" class="form-label">Birth :</label> 
-			        <input name="customerBirth" type="date" class="form-control" id="customerBirth" placeholder="Enter customer ID">
-			    </div>
-		        	<button id="btnAddCustomer" type="button" class="btn btn-sm btn-outline-primary">Join</button>
-		       	
-		       	<input id="formResult" type="hidden" value="${alertFailedMsg}">
-			</form>
-    	</div>
+<div class="col-sm-12 p-2 d-flex justify-content-center align-items-center flex-column">
+    <h3 id="addCustomer">Join</h3>
+    <form id="formAddcustomer" method="post" action="${pageContext.request.contextPath}/off/addCustomer" 
+          style="border: 1px solid #000; padding: 20px; border-radius: 10px; width: 400px;">
+        <div class="mb-3 mt-3">
+            <label for="customerEmail" class="form-label">Email :</label>
+            <input id="customerEmail" name="customerEmail" type="text" class="form-control" placeholder="check email duplication first">
+        </div>
+        <button type="button" id="checkEmail" class="btn btn-sm btn-outline-primary">이메일 중복 검사</button>
+        
+        <div class="mb-3">
+            <label for="customerPw" class="form-label">Password :</label>
+            <input id="customerPw" name="customerPw" type="password" class="form-control" placeholder="Enter Password">
+        </div>
+        <div class="mb-3">
+            <label for="reCustomerPw" class="form-label">Confirm Password :</label>
+            <input id="reCustomerPw" name="reCustomerPw" type="password" class="form-control" placeholder="Confirm Password">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="customerGender" class="form-label">Gender :</label>
+            <br>
+            <input name="customerGender" type="radio" value="남자"> 남자
+            <input name="customerGender" type="radio" value="여자"> 여자
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="customerBirth" class="form-label">Birth :</label>
+            <input name="customerBirth" type="date" class="form-control" id="customerBirth" placeholder="Enter customer ID">
+        </div>
+        <div class="d-flex justify-content-end" >
+        	<button id="btnAddCustomer" type="button" class="btn btn-sm btn-outline-dark">Join</button>
+        </div>
+        <input id="formResult" type="hidden" value="${alertFailedMsg}">
+    </form>
+</div>
+
+    	
+    	
 	</div>
 </div>
 <!-- footer -->
