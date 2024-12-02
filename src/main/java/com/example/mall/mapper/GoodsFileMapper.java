@@ -16,6 +16,12 @@ public interface GoodsFileMapper {
 	// getGoodsOne : 사진 리스트
 	List<GoodsFile> selectGoodsFileList(Integer goodsNo);
 	
+	// modifyGoods.jsp →  selectGoodsFileOne : 파일 삭제할때 파일 정보 가져오기 
+	GoodsFile selectGoodsFileOne(Integer goodsFileNo);
+	
+	// modifyGoods.jsp → deleteGoodsFile : 파일 삭제하기
+	Integer deleteGoodsFile(Integer goodsFileNo);
+	
 	
 	
 }

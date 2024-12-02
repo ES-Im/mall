@@ -11,14 +11,28 @@
 	<!-- getGoodsOne : 사진 리스트 -->
 	<select id="selectGoodsFileList" parameterType="Integer" resultType="com.example.mall.vo.GoodsFile">
 		SELECT goods_file_no goodsFileNo
+			, goods_no goodsNo
 			, goods_file_name goodsFileName
-			, goods_file_origin_name goodsOriginName
+			, goods_file_origin_name goodsFileOriginName
 			, goods_file_ext goodsFileExt
 			, goods_file_type goodsFileType
 			, goods_file_size goodsFileSize
+			, create_date createDate
 		FROM goods_file
 		WHERE goods_no = #{goodsNo}
 	</select>
+	
+	<!-- selectGoodsFileOne Query : 파일 삭제할 때 파일 정보 가져오기 -->
+	<select id="selectGoodsFileOne" parameterType="Integer" resultType="com.example.mall.vo.GoodsFile">
+		SELECT goods_file_no goodsFileNo, goods_no goodsNo, goods_file_name goodsFileName, goods_file_origin_name goodsFileOriginName, 
+			   goods_file_ext goodsFileExt, goods_file_type goodsFileType, goods_file_size goodsFileSize, create_date createDate 
+		FROM goods_file WHERE goods_file_no = #{goodsFileNo}
+	</select>
+	
+	<!-- deleteGoodsFile Query : 파일 삭제 하기 -->
+	<delete id="deleteGoodsFile" parameterType="Integer">
+		DELETE FROM goods_file WHERE goods_file_no = #{goodsFileNo}
+	</delete>
 	
 	
 

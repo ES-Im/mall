@@ -155,6 +155,7 @@ public class GoodsController {
 		log.debug(TeamColor.KDH + "categoryList : " + categoryList + TeamColor.RESET); // debug
 		model.addAttribute("categoryList", categoryList);
 		
+		
 		return "staff/addGoods";
 	}
 	
@@ -200,6 +201,11 @@ public class GoodsController {
 		List<Category> categoryList = categoryService.getCategoryList();
 		log.debug(TeamColor.KDH + "goods : " +goods.toString() + TeamColor.RESET); // debug
 		
+		// goodsOne : 사진 리스트 가져오기
+		List<GoodsFile> goodsFileList = goodsFileService.getGoodsFileList(goodsNo);
+		log.debug(TeamColor.KDH + "goodsFileList : " +goodsFileList.toString() + TeamColor.RESET); // debug
+		
+		model.addAttribute("goodsFileList", goodsFileList);
 		model.addAttribute("goods", goods);
 		model.addAttribute("categoryList", categoryList);
 		return "staff/modifyGoods";
@@ -208,10 +214,42 @@ public class GoodsController {
 	// 김동현
 	// modifyGoods Action
 	@PostMapping("/staff/modifyGoods")
-	public String modifyGoods(GoodsForm GoodsForm) {
-		log.debug(TeamColor.KDH + "goods : " +GoodsForm.toString() + TeamColor.RESET); // debug
-		int modifyGoodsRow = goodsService.modifyGoods(GoodsForm);
+	public String modifyGoods(Model model, GoodsForm goodsForm, HttpSession session) {
+		log.debug(TeamColor.KDH + "goods : " +goodsForm.toString() + TeamColor.RESET); // debug
+		
+		if(goodsForm.getGoodsFile() != null) {
+			log.debug(TeamColor.KDH + "goodsForm.getGoodsFile().size() : " + goodsForm.getGoodsFile().size() + TeamColor.RESET); // debug
+		}
+		
+		List<MultipartFile> goodsFileList = goodsForm.getGoodsFile();
+		
+		// 상품정보만 입력하고 File은 첨부 안했을 때
+		if(goodsFileList == null || goodsFileList.isEmpty()) {
+			String path = null;
+			goodsService.addGoods(goodsForm, path);
+			return "redirect:/staff/getGoodsListByStaff";
+		}
+		
+		// 이미지파일은 *.jpg or *png만 가능
+		for(MultipartFile f : goodsFileList) { 
+			if(!(f.getContentType().equals("image/jpeg") || f.getContentType().equals("image/png"))) {
+				model.addAttribute("imageMsg", "jpeg, png 파일만 입력이 가능합니다");
+				return "on/addGoods";
+			} 
+		}
+		
+		String path = session.getServletContext().getRealPath("/goodsFile/");
+		int modifyGoodsRow = goodsService.modifyGoods(goodsForm, path);
 		return "redirect:/staff/getGoodsListByStaff";
+	}
+	
+	// 김동현
+	// removeGoodsFile Action
+	@GetMapping("/staff/removeGoodsFile")
+	public String removeGoodsFile(HttpSession session, @RequestParam Integer goodsFileNo, @RequestParam Integer goodsNo) {
+		String path = session.getServletContext().getRealPath("/goodsFile/");
+		goodsFileService.removeGoodsFile(goodsFileNo, path);
+		return "redirect:/staff/modifyGoods?goodsNo=" + goodsNo;
 	}
 
 	
@@ -233,18 +271,10 @@ public class GoodsController {
 		
 		// split으로 ',' 분리 후 List에 담기	
 		List<String> categoryNoList = new ArrayList<>();
-//		List<Integer> categoryNoList = new ArrayList<>();
+
 		if(categoryNo != null ) {
-//			Integer[] categoryNoIntArr = null;
-			
-			
+
 			categoryNoList = Arrays.asList(categoryNo.split(","));
-		
-			
-//			for(int i=0; i<categoryNoArr.length; i++) {
-//				categoryNoIntArr[i] = Integer.parseInt(categoryNoArr[i]);
-//				categoryNoList.add(categoryNoIntArr[i]);
-//			}
 		}
 		
 		log.debug(TeamColor.KMJ + "categoryNoList : " + categoryNoList.toString() + TeamColor.RESET );	

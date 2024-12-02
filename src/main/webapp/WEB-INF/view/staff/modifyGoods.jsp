@@ -59,6 +59,21 @@
 				$('#formModifyGoods').submit();
 			}
 		});
+		
+		// 파일 삭제 버튼 클릭
+	    $('.btnRemoveFile').click(function(event) {
+	        // 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
+	        event.preventDefault();
+	        
+	        // 삭제 확인 
+	        var result = confirm("정말로 삭제하시겠습니까?");
+	        if (result) {
+	        	window.location.href = $(this).attr('href');
+	        	alert('삭제 성공하였습니다.');
+	        } else {
+	            return false;
+	        }
+	    });
 
 	
 		
@@ -91,12 +106,38 @@
 			<div>
 				<h3>Modify Goods</h3>
 			</div>
-				<form id="formModifyGoods" method="post" action="${pageContext.request.contextPath}/staff/modifyGoods">
+				<form id="formModifyGoods" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/staff/modifyGoods">
 				<div class="container px-4 px-lg-1 my-5">
 	                <div class="row gx-4 gx-lg-5 align-items-center">
 	                	<!-- 이미지 ~ 상품 상세설명 -->
 	                    <div class="col-md-5">
-	                    	<img class="card-img-top mb-5 mb-md-0" style="width: 500px; height: 600px;" src="${pageContext.request.contextPath}/goodsFile/addGoodsImage.png" />
+	                    	<div class="d-flex gap-1 py-1 bg-light" style="width: 500px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
+	                    		<c:if test="${empty goodsFileList}">
+	                    			<div class="d-flex align-items-center justify-content-center" style="height: 100px; width: 100%;">
+									    <span>첨부된 파일이 없습니다.</span>
+									</div>
+	                    		</c:if>
+	                    		<c:if test="${not empty goodsFileList}">
+								    <div>
+					    				<c:forEach var="gf" items="${goodsFileList}">
+										    <div class="d-flex mb-3"> 
+										        <div class="mr-3">
+										            <img src="${pageContext.request.contextPath}/goodsFile/${gf.goodsFileName}.${gf.goodsFileExt}" alt="${gf.goodsFileOriginName}" class="img-thumbnail" style="width: 200px; height: 150px; object-fit: cover;" />
+										        </div>
+										        <div class="d-flex flex-column justify-content-between" style="margin-left: 10px;">
+										            <small class="mt-1 mb-0">FileOriginName : ${gf.goodsFileOriginName}</small>
+										            <small class="mt-1 mb-0">Ext : ${gf.goodsFileExt}</small>
+										            <p class="mt-1 mb-0"><small>Type : ${gf.goodsFileType}</small></p>
+										            <p class="mt-1 mb-0"><small>Size : $ ${gf.goodsFileSize}</small></p>
+										            <p class="mt-1 mb-0"><small>CreateDate : ${gf.createDate}</small></p>
+										            <a href="${pageContext.request.contextPath}/staff/removeGoodsFile?goodsFileNo=${gf.goodsFileNo}&goodsNo=${gf.goodsNo}" class="btnRemoveFile btn btn-sm btn-outline-danger">삭제</a>
+										        </div>
+										    </div>
+										        <hr style="width: 100%;">
+										</c:forEach>
+									</div>
+								</c:if>
+	                    	</div>
 	                    	<div class="d-flex justify-content-end" style="margin-top: 10px; width: 500px;">
 	                    		<button id="btnAddFile" type="button" class="btn btn-sm btn-outline-primary" style="margin-right: 7px;">파일 첨부</button>
 	                    		<button id="btnRemoveFile" type="button" class="btn btn-sm btn-outline-danger">파일 삭제</button>
