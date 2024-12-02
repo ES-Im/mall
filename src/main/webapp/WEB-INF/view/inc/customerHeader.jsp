@@ -23,6 +23,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="${pageContext.request.contextPath }/css/styles.css" rel="stylesheet" />
+    <script>
+	    $(document).ready(function() {
+	    	$("#btnCart").click(function() {
+	    		window.open("${pageContext.request.contextPath}/customer/getCartList", "_self");
+	    	});
+	    });
+    </script>
 </head>
 
 
@@ -51,9 +58,9 @@
                   	
                   	<!-- 장바구니 버튼 -->
                   	<form class="d-flex me-3 ">
-                        <button class="btn btn-outline-dark" type="submit">
+                        <button id="btnCart" class="btn btn-outline-dark" type="button">
                             <i class="bi-cart-fill me-1"></i>
-                            Cart
+                            	Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
