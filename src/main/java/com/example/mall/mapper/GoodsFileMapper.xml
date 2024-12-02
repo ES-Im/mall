@@ -7,5 +7,19 @@
 		INSERT INTO goods_file(goods_no, goods_file_name, goods_file_origin_name, goods_file_ext, goods_file_type, goods_file_size) 
 		VALUES(#{goodsNo}, #{goodsFileName}, #{goodsFileOriginName}, #{goodsFileExt}, #{goodsFileType}, #{goodsFileSize})
 	</insert>
+	
+	<!-- getGoodsOne : 사진 리스트 -->
+	<select id="selectGoodsFileList" parameterType="Integer" resultType="com.example.mall.vo.GoodsFile">
+		SELECT goods_file_no goodsFileNo
+			, goods_file_name goodsFileName
+			, goods_file_origin_name goodsOriginName
+			, goods_file_ext goodsFileExt
+			, goods_file_type goodsFileType
+			, goods_file_size goodsFileSize
+		FROM goods_file
+		WHERE goods_no = #{goodsNo}
+	</select>
+	
+	
 
 </mapper>

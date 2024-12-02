@@ -143,8 +143,18 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
 		
 		
 		$('#loginForm').submit();
-		
+
 	})
+	
+	// 'msg' 값 가져오기
+    const msg = '${loginMsg}';
+		
+	if(msg != ''){
+		alert(msg);
+		return;
+	}
+	
+	
 	
 
 	

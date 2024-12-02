@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.mall.service.CustomerService;
 import com.example.mall.service.StaffService;
@@ -38,7 +39,7 @@ public class LoginController {
 	
 	// 로그인 액션
 	@PostMapping("/off/login")
-	public String login(@RequestParam String id, @RequestParam String pw, Model model, HttpSession session) {
+	public String login(@RequestParam String id, @RequestParam String pw, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		
 		log.debug(TeamColor.KMJ + "POST[LoginController]" +TeamColor.RESET);
 		
@@ -55,11 +56,19 @@ public class LoginController {
 		
 		// 넘어온 id가 staffId인지 확인하기
 		String firstChar = ""+id.charAt(0);
-		
+		// staff 로그인
 		if(firstChar.equals("@")) {
 			
 			String staffId = staffService.staffLogin(id, pw);
-			
+
+			if(staffId == null) { // 로그인 실패시 
+
+				redirectAttributes.addFlashAttribute("loginMsg", "아이디 혹은 비밀번호가 일치하지 않습니다.");
+				log.debug(TeamColor.KMJ + "아이디 혹은 비밀번호가 일치하지 않습니다." + TeamColor.RESET);
+				
+				return "redirect:/off/login";
+			}
+
 			log.debug(TeamColor.KMJ + "staff" + staffId.toString() + TeamColor.RESET);
 					
 			session.setAttribute("loginStaff", staffId);		
@@ -72,6 +81,14 @@ public class LoginController {
 			// customer 로그인
 			String customerEmail = customerService.login(id, pw);
 			
+			if(customerEmail == null) { // 로그인 실패시 
+
+				redirectAttributes.addFlashAttribute("loginMsg", "아이디 혹은 비밀번호가 일치하지 않습니다.");
+				log.debug(TeamColor.KMJ + "아이디 혹은 비밀번호가 일치하지 않습니다." + TeamColor.RESET);
+				
+				return "redirect:/off/login";
+			}
+
 			log.debug(TeamColor.KMJ + "customer" + customerEmail.toString() + TeamColor.RESET);
 
 			

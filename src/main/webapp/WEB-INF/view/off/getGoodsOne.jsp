@@ -18,6 +18,8 @@
         <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath }/assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Latest compiled JavaScript -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="${pageContext.request.contextPath }//css/styles.css" rel="stylesheet" />
     </head>
@@ -72,8 +74,33 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                	<!-- 이미지 ~ 상품 상세설명 -->
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                	<!-- 이미지 --> 
+                    <div class="col-md-6">
+                    	<!-- <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /> -->
+                    	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+						  <div class="carousel-indicators">
+						    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+						    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+						  </div>
+						  <div class="carousel-inner">
+						  	<c:forEach var="gf" items="${goodsFileList}">
+							    <div class="carousel-item active">
+							      <img src="${pageContext.request.contextPath}/goodsFile/${gf.goodsFileName}.${gf.goodsFileExt}" class="d-block w-100" alt="...">
+							    </div>
+							</c:forEach>
+						  </div>
+						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    <span class="visually-hidden">Previous</span>
+						  </button>
+						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="visually-hidden">Next</span>
+						  </button>
+						</div>
+                    </div>
+                    <!--상품 상세설명 -->
                     <div class="col-md-6">
                         <div class="small mb-1">GOODSNO : ${goods.goodsNo }</div>
                         <h1 class="display-5 fw-bolder">${goods.goodsTitle }</h1>

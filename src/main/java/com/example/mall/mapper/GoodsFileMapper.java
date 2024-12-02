@@ -1,5 +1,7 @@
 package com.example.mall.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.mall.vo.GoodsFile;
@@ -11,4 +13,9 @@ public interface GoodsFileMapper {
 	// addGoods.jsp → 사진 파일 추가 
 	Integer insertGoodsFile(GoodsFile goodsFile);
 
+	// getGoodsOne : 사진 리스트
+	List<GoodsFile> selectGoodsFileList(Integer goodsNo);
+	
+	
+	
 }
