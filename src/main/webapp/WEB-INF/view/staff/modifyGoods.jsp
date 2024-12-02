@@ -108,7 +108,7 @@
 	                    <div class="col-md-6 px-lg-5">
 	                    	<div class="my-2 py-2">
 	                    		<i style="font-size: x-large;" class="bi bi-tags">&nbsp;</i> <span style="font-size: large;"> No : </span>  
-	                    		<input type="text" id="goodsNo" name="goodsNo" value="${goods.goodsNo}" style="color:blue; text-align:center; width: 100px; height: 30px; border-radius: 10px;">
+	                    		<input type="text" id="goodsNo" name="goodsNo" value="${goods.goodsNo}" readonly style="color:blue; text-align:center; width: 100px; height: 30px; border-radius: 10px;">
 	                    	</div>
 	                    	<div class="my-2 py-2">
 	                    		<i style="font-size: x-large;" class="bi bi-box-seam">&nbsp;</i> <span style="font-size: large;"> Title : </span>  
