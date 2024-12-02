@@ -242,6 +242,15 @@ public class GoodsController {
 		int modifyGoodsRow = goodsService.modifyGoods(goodsForm, path);
 		return "redirect:/staff/getGoodsListByStaff";
 	}
+	
+	// 김동현
+	// removeGoodsFile Action
+	@GetMapping("/staff/removeGoodsFile")
+	public String removeGoodsFile(HttpSession session, @RequestParam Integer goodsFileNo, @RequestParam Integer goodsNo) {
+		String path = session.getServletContext().getRealPath("/goodsFile/");
+		goodsFileService.removeGoodsFile(goodsFileNo, path);
+		return "redirect:/staff/modifyGoods?goodsNo=" + goodsNo;
+	}
 
 	
 	// home : 메인 페이지 상품 리스트 출력

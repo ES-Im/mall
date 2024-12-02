@@ -59,6 +59,21 @@
 				$('#formModifyGoods').submit();
 			}
 		});
+		
+		// 파일 삭제 버튼 클릭
+	    $('.btnRemoveFile').click(function(event) {
+	        // 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
+	        event.preventDefault();
+	        
+	        // 삭제 확인 
+	        var result = confirm("정말로 삭제하시겠습니까?");
+	        if (result) {
+	        	window.location.href = $(this).attr('href');
+	        	alert('삭제 성공하였습니다.');
+	        } else {
+	            return false;
+	        }
+	    });
 
 	
 		
@@ -115,7 +130,7 @@
 										            <p class="mt-1 mb-0"><small>Type : ${gf.goodsFileType}</small></p>
 										            <p class="mt-1 mb-0"><small>Size : $ ${gf.goodsFileSize}</small></p>
 										            <p class="mt-1 mb-0"><small>CreateDate : ${gf.createDate}</small></p>
-										            <a href="${pageContext.request.contextPath}/on/removeGoodsFile?goodsFileNo=${gf.goodsFileNo}&goodsNo=${gf.goodsNo}" class="btn btn-sm btn-outline-danger">삭제</a>
+										            <a href="${pageContext.request.contextPath}/staff/removeGoodsFile?goodsFileNo=${gf.goodsFileNo}&goodsNo=${gf.goodsNo}" class="btnRemoveFile btn btn-sm btn-outline-danger">삭제</a>
 										        </div>
 										    </div>
 										        <hr style="width: 100%;">

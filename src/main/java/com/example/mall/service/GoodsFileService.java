@@ -1,5 +1,6 @@
 package com.example.mall.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,19 @@ public class GoodsFileService {
 		return goodsFileMapper.selectGoodsFileList(goodsNo);
 	}
 	
+	// modifyGoods.jsp → removeGoodsFile : 파일 삭제 하기
+	public Integer removeGoodsFile(Integer goodsFileNo, String path) {
+		GoodsFile goodsFile = goodsFileMapper.selectGoodsFileOne(goodsFileNo);
+		
+		Integer removeGoodsFileRow = goodsFileMapper.deleteGoodsFile(goodsFileNo);
+		
+		if(removeGoodsFileRow == 1) {
+			String fullname = path + goodsFile.getGoodsFileName() + "." + goodsFile.getGoodsFileExt();
+			File file = new File(fullname);
+			file.delete();
+		}
+		
+		return 1;
+	}
 	
 }
