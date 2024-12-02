@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.mall.service.CategoryService;
+import com.example.mall.service.GoodsFileService;
 import com.example.mall.service.GoodsService;
 import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Category;
 import com.example.mall.vo.Goods;
+import com.example.mall.vo.GoodsFile;
 import com.example.mall.vo.GoodsForm;
 import com.example.mall.vo.Page;
 
@@ -31,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GoodsController {
 	
 	@Autowired GoodsService goodsService;
+	@Autowired GoodsFileService goodsFileService;
 	@Autowired CategoryService categoryService;
 	
 	// Author : 김문정
@@ -56,6 +59,12 @@ public class GoodsController {
 		// goodsOne : 상품 상세보기
 		Map<String, Object> goods = goodsService.getGoodsOne(goodsNo);
 		log.debug(TeamColor.KMJ + "goods : " + goods.toString() + TeamColor.RESET );
+		
+		// goodsOne : 사진 리스트 가져오기
+		List<GoodsFile> fileList = goodsFileService.getGoodsFileList(goodsNo);
+		
+		model.addAttribute("goodsFileList", fileList);
+		
 		
 		// boardList : 후기 리스트
 		List<Map<String, Object>> boardList = goodsService.getBoardListByGoodsNo(goodsNo);
