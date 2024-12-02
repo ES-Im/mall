@@ -186,7 +186,7 @@
 			<if test="searchWord != null">
 				g.goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
 			</if>
-			<if test="categoryNoList != null">
+			<if test="categoryNoList != null and categoryNoList.size() > 0">
 				cgc.category_no IN
 			    <foreach item="categoryNo" index="index" collection="categoryNoList" open="(" separator="," close=")">
 			        #{categoryNo}
@@ -209,7 +209,7 @@
 			<if test="searchWord != null">
 				g.goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
 			</if>
-			<if test="categoryNoList != null">
+			<if test="categoryNoList != null and categoryNoList.size() > 0">
 				cgc.category_no IN
 			    <foreach item="categoryNo" index="index" collection="categoryNoList" open="(" separator="," close=")">
 			        #{categoryNo}

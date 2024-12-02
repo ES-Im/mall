@@ -182,7 +182,7 @@ public class GoodsService {
 	
 	// 김문정
 	// home : 메인 페이지 상품 리스트 출력
-	public Map<String, Object> getGoodsList(Page page, String searchWord, List<String> categoryNoList){
+	public Map<String, Object> getGoodsList(Page page, String searchWord, List<Integer> categoryNoList){
 		log.debug( TeamColor.KMJ + "[GoodsService - getGoodsList]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "searchWord : " + searchWord + TeamColor.RESET );
 		
