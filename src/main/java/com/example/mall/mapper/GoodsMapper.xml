@@ -4,16 +4,20 @@
 
 	<!-- Author : 김문정 --> 
 	<!-- getGoodsOne : 상품 상세보기 -->
-	<select id="selectGoodsOne" parameterType="Integer" resultType="com.example.mall.vo.Goods">
-		SELECT goods_no goodsNo
-			, goods_title goodsTitle
-			, goods_memo goodsMemo
-			, goods_price goodsPrice
-			, goods_status goodsStatus
-			, update_date updateDate
-			, create_date createDate
-		FROM goods
-		WHERE goods_no = #{goodsNo}
+	<select id="selectGoodsOne" parameterType="Integer" resultType="Map">
+		SELECT g.goods_no goodsNo
+			, g.goods_title goodsTitle
+			, g.goods_memo goodsMemo
+			, g.goods_price goodsPrice
+			, g.goods_status goodsStatus
+			, g.update_date updateDate
+			, g.create_date createDate
+			, c.category_no categoryNo
+			, c.category_title categoryTitle
+		FROM goods g 
+		INNER JOIN goods_category gc ON g.goods_no = gc.goods_no 
+		INNER JOIN category c ON gc.category_no = c.category_no
+		WHERE g.goods_no = #{goodsNo}
 	</select>
 	
 	<!-- getGoodsOne : 후기 리스트 -->
@@ -147,6 +151,18 @@
 		</selectKey>
 		INSERT INTO goods(goods_title, goods_memo, goods_price, goods_status) VALUES(#{goodsTitle}, #{goodsMemo}, #{goodsPrice}, #{goodsStatus})
 	</insert>
+	
+	<!-- updateGoods Query : 상품 수정 -->
+	<update id="updateGoods" parameterType="com.example.mall.vo.Goods">
+		UPDATE goods
+		<set>
+			<if test="goodsTitle != null and goodsTitle != ''">goods_title = #{goodsTitle},</if>
+			<if test="goodsMemo != null and goodsMemo != ''">goods_memo = #{goodsMemo},</if>
+			<if test="goodsPrice != null and goodsPrice != ''">goods_price = #{goodsPrice},</if>
+			<if test="goodsStatus != null and goodsStatus != ''">goods_status = #{goodsStatus},</if>
+		</set>
+		WHERE goods_no = #{goodsNo}
+	</update>
 
 
 	<!-- home : 메인 페이지 상품 리스트 출력 -->

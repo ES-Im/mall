@@ -54,7 +54,7 @@ public class GoodsController {
 		
 
 		// goodsOne : 상품 상세보기
-		Goods goods = goodsService.getGoodsOne(goodsNo);
+		Map<String, Object> goods = goodsService.getGoodsOne(goodsNo);
 		log.debug(TeamColor.KMJ + "goods : " + goods.toString() + TeamColor.RESET );
 		
 		// boardList : 후기 리스트
@@ -187,9 +187,10 @@ public class GoodsController {
 	// modifyGoods Form
 	@GetMapping("/staff/modifyGoods")
 	public String modifyGoods(Model model, @RequestParam Integer goodsNo) {
-		Goods goods = goodsService.getGoodsOne(goodsNo);
+		Map<String, Object> goods = goodsService.getGoodsOne(goodsNo);
 		List<Category> categoryList = categoryService.getCategoryList();
 		log.debug(TeamColor.KDH + "goods : " +goods.toString() + TeamColor.RESET); // debug
+		
 		model.addAttribute("goods", goods);
 		model.addAttribute("categoryList", categoryList);
 		return "staff/modifyGoods";
@@ -198,10 +199,10 @@ public class GoodsController {
 	// 김동현
 	// modifyGoods Action
 	@PostMapping("/staff/modifyGoods")
-	public String modifyGoods(Goods goods) {
-		log.debug(TeamColor.KDH + "goods : " +goods.toString() + TeamColor.RESET); // debug
-		// int modifyGoodsRow = goodsService.modifyGoods(goods);
-		return "redirect:/staff/getGoodsOne?goodsNo=" + goods.getGoodsNo();
+	public String modifyGoods(GoodsForm GoodsForm) {
+		log.debug(TeamColor.KDH + "goods : " +GoodsForm.toString() + TeamColor.RESET); // debug
+		int modifyGoodsRow = goodsService.modifyGoods(GoodsForm);
+		return "redirect:/staff/getGoodsOne?goodsNo=" + GoodsForm.getGoodsNo();
 	}
 
 	
