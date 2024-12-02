@@ -114,10 +114,6 @@ public class GoodsController {
 		Map<String, Object> goodsList = goodsService.getGoodsListByStaff(page, searchWord);
 		log.debug(TeamColor.KDH + "goodsList" + goodsList.toString() + TeamColor.RESET); // debug
 		
-		if(page.getCurrentPage() > page.getLastPage()) {
-			return "redirect:/staff/getGoodsListByStaff?currentPage=" + page.getLastPage();
-		}
-		
 		model.addAttribute("goodsList", goodsList.get("goodsList"));
 		model.addAttribute("page", goodsList.get("page"));
 		log.debug(TeamColor.KDH + "searchWord : " + searchWord + TeamColor.RESET); // debug
@@ -226,7 +222,7 @@ public class GoodsController {
 		// 상품정보만 입력하고 File은 첨부 안했을 때
 		if(goodsFileList == null || goodsFileList.isEmpty()) {
 			String path = null;
-			goodsService.addGoods(goodsForm, path);
+			goodsService.modifyGoods(goodsForm, path);
 			return "redirect:/staff/getGoodsListByStaff";
 		}
 		

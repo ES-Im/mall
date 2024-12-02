@@ -162,6 +162,7 @@
 			<if test="goodsMemo != null and goodsMemo != ''">goods_memo = #{goodsMemo},</if>
 			<if test="goodsPrice != null and goodsPrice != ''">goods_price = #{goodsPrice},</if>
 			<if test="goodsStatus != null and goodsStatus != ''">goods_status = #{goodsStatus},</if>
+			update_date = NOW()
 		</set>
 		WHERE goods_no = #{goodsNo}
 	</update>

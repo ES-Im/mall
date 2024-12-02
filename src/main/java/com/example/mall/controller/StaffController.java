@@ -34,11 +34,18 @@ public class StaffController { // Author : 김동현
 	
 	// addStaff Action
 	@PostMapping("/staff/addStaff")
-	public String addStaff(Staff staff) {
+	public String addStaff(Model model, Staff staff) {
+		
+		// staffId 가 중복일 경우
+		if (staffService.isStaffIdExists(staff.getStaffId())) {
+            model.addAttribute("addStaffError", "이미 사용 중인 Staff ID입니다.");
+            return "staff/addStaff";
+        }
 		
 		log.debug(TeamColor.KDH + "addStaffInfo : " + staff.toString() + TeamColor.RESET); // debug
 		int addStaffRow = staffService.addStaff(staff);
 		if(addStaffRow == 0) {
+			model.addAttribute("addStaffError", "스태프 등록 실패!");
 			return "staff/addStaff";
 		}
 		
