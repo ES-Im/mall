@@ -208,7 +208,7 @@ public class GoodsController {
 	
 	// home : 메인 페이지 상품 리스트 출력
 	@GetMapping("/home")
-	public String home(Page page, Model model, @RequestParam(required = false) String searchWord, @RequestParam(required = false) String[] categoryNo) {
+	public String home(Page page, Model model, @RequestParam(required = false) String searchWord, @RequestParam(required = false) String categoryNo) {
 		
 		log.debug( TeamColor.KMJ + "GET[GoodsController - home]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "searchWord : " + searchWord + TeamColor.RESET );
@@ -223,13 +223,14 @@ public class GoodsController {
 		log.debug(TeamColor.KMJ + "categoryNo : " + categoryNo + TeamColor.RESET );	
 		
 		// split으로 ',' 분리 후 List에 담기	
-		List<Integer> categoryNoList = new ArrayList<>();
-		
+		List<String> categoryNoList = new ArrayList<>();
+//		List<Integer> categoryNoList = new ArrayList<>();
 		if(categoryNo != null ) {
-			
-//			String[] categoryNoArr = null;
 //			Integer[] categoryNoIntArr = null;
-//			categoryNoArr = categoryNo.split(",");
+			
+			
+			categoryNoList = Arrays.asList(categoryNo.split(","));
+		
 			
 //			for(int i=0; i<categoryNoArr.length; i++) {
 //				categoryNoIntArr[i] = Integer.parseInt(categoryNoArr[i]);
@@ -238,7 +239,8 @@ public class GoodsController {
 		}
 		
 		log.debug(TeamColor.KMJ + "categoryNoList : " + categoryNoList.toString() + TeamColor.RESET );	
-
+		
+		model.addAttribute("categoryNoList", categoryNoList);
 		// 상품리스트 
 		Map<String, Object> goodsListMap = goodsService.getGoodsList(page, searchWord, categoryNoList);
 		
@@ -247,7 +249,6 @@ public class GoodsController {
 		model.addAttribute("goodsList", goodsListMap.get("goodsList"));
 		model.addAttribute("page", goodsListMap.get("page"));
 		model.addAttribute("searchWord", searchWord);
-		model.addAttribute("categoryNoList", categoryNoList);
 		// pagination용
 		model.addAttribute("categoryNo", categoryNo);
 		

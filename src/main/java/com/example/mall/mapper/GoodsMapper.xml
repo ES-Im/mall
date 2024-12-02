@@ -167,34 +167,40 @@
 
 	<!-- home : 메인 페이지 상품 리스트 출력 -->
 	<select id="selectGoodsList" parameterType="map" resultType="map">
-		SELECT g.goods_no goodsNo  
-				, g.goods_title goodsTitle  
-				, g.goods_memo goodsMemo  
-				, g.goods_price goodsPrice  
-				, g.goods_status goodsStatus  
-				, g.update_date updateDate  
-				, g.create_date createDate 
-				, cgc.category_no categoryNo
-				, cgc.category_title categoryTitle
-		FROM goods g INNER JOIN (SELECT c.category_no
-											, c.category_title
-											, gc.goods_no
-									FROM category c INNER JOIN goods_category gc
-									ON c.category_no = gc.category_no) cgc
-		ON g.goods_no = cgc.goods_no
-		<where>
-			<if test="searchWord != null">
-				g.goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
-			</if>
-			<if test="categoryNoList != null and categoryNoList.size() > 0">
-				cgc.category_no IN
-			    <foreach item="categoryNo" index="index" collection="categoryNoList" open="(" separator="," close=")">
-			        #{categoryNo}
-	  			 </foreach>
-			</if>
-		</where>
-		LIMIT #{beginRow}, #{rowPerPage}
+	    SELECT g.goods_no AS goodsNo  
+	           , g.goods_title AS goodsTitle  
+	           , g.goods_memo AS goodsMemo  
+	           , g.goods_price AS goodsPrice  
+	           , g.goods_status AS goodsStatus  
+	           , g.update_date AS updateDate  
+	           , g.create_date AS createDate 
+	           , cgc.category_no AS categoryNo
+	           , cgc.category_title AS categoryTitle
+	    FROM goods g 
+	    INNER JOIN (
+	        SELECT c.category_no
+	               , c.category_title
+	               , gc.goods_no
+	        FROM category c 
+	        INNER JOIN goods_category gc ON c.category_no = gc.category_no
+	    ) cgc ON g.goods_no = cgc.goods_no
+	    <where>
+	        <if test="searchWord != null and searchWord != ''">
+	            g.goods_title LIKE CONCAT('%', #{searchWord}, '%')
+	        </if>
+	        <if test="categoryNoList != null and categoryNoList.size() > 0">
+	            <if test="searchWord != null and searchWord != ''">
+	                AND
+	            </if>
+	            cgc.category_no IN
+	            <foreach item="categoryNo" collection="categoryNoList" open="(" separator="," close=")">
+	                #{categoryNo}
+	            </foreach>
+	        </if>
+	    </where>
+	    LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+
 	
 	<!-- home : paging을 위한 lastPage -->
 	<select id="selectGoodsListLastPage" parameterType="map" resultType="Integer">
@@ -209,6 +215,7 @@
 			<if test="searchWord != null">
 				g.goods_title LIKE CONCAT( '%', #{searchWord} ,'%' )
 			</if>
+			AND 
 			<if test="categoryNoList != null and categoryNoList.size() > 0">
 				cgc.category_no IN
 			    <foreach item="categoryNo" index="index" collection="categoryNoList" open="(" separator="," close=")">
