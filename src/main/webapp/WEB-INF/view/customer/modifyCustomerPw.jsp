@@ -56,36 +56,37 @@
 			<h3>Personal_Info</h3>
 		</div>
 		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
-	  		<div class="card" style="width: 1000px;">
+	  		<div class="card" style="width: 800px; height: 400px;">
 				<div style="margin-left: 80px; margin-top: 30px;">
 					<h3>${fn:substringBefore(sessionScope.loginCustomer, "@")} 님 안녕하세요.</h3>
 				</div>
 				
-				<div class="card-body d-flex flex-column flex-md-row p-4 gap-4 py-md-2 align-items-center" style="margin-left: 110px; margin-top: 25px;">
-		                <div class="mb-3 mt-3">
-		                    <a href="${pageContext.request.contextPath}/customer/getCustomerOne" class="btn btn-sm btn-outline-primary">뒤로가기</a>
-		                    
-		                    <!-- 비밀번호가 맞는지 확인 및 쿼리 실행결과가 1이 아닐때(쿼리실행실패 = 비밀번호 불일치), alert 창 출력 -->
-		                    <div class="row" style="margin-top:5px; width: 535px;">
-			                    <form id="modifyPw" method="post" action="${pageContext.request.contextPath}/customer/modifyCustomerPw">
-				                    <label class="form-label">PassWord :</label> 
-				                    <input id="newPw" name="newPw" type="password" class="form-control" placeholder="새로운 비밀번호">
-				                    <label class="form-label">Confirm PassWord :</label> 
-				                    <input id="checkPw" name="checkPw" type="password" class="form-control" placeholder="새로운 비밀번호 확인">
-				                    
+				<div class="card-body d-flex flex-column flex-md-row p-4 gap-4 py-md-2 " style="margin-left: 90px;">
+	                <div class="mb-3 mt-3">
+	                	<div class="d-flex justify-content-end">
+	                    	<a href="${pageContext.request.contextPath}/customer/getCustomerOne" class="btn btn-sm btn-outline-primary">뒤로가기</a>
+	                    </div>
+	                    <!-- 비밀번호가 맞는지 확인 및 쿼리 실행결과가 1이 아닐때(쿼리실행실패 = 비밀번호 불일치), alert 창 출력 -->
+	                    <div class="row" style="margin-top:5px; width: 535px;">
+                               <!-- 비밀번호 변경 폼 -->
+		                    <form id="modifyPw" method="post" action="${pageContext.request.contextPath}/customer/modifyCustomerPw">
+			                    <label class="form-label" style="margin-top: 15px;">PassWord :</label> 
+			                    <input id="newPw" name="newPw" type="password" class="form-control" placeholder="새로운 비밀번호">
+			                    <label class="form-label" style="margin-top: 15px;">Confirm PassWord :</label> 
+			                    <input id="checkPw" name="checkPw" type="password" class="form-control" placeholder="새로운 비밀번호 확인">
+                 	            <div class="d-flex justify-content-end">
 				                    <input id="prePw" name="prePw" type="hidden" value="${prePw}">
-				                    <button id="modifyCustomerPwBtn" type="button" class="btn btn-sm btn-outline-primary" style="margin-right: 7px;">비밀번호 변경</button>
-			                    
-			                    	<input id="formResult" type="hidden" value="${alertFailedMsg}">
-			                    </form>
-		                    </div>
-		                </div>
-    			</div>
-    			
-	  		</div>
+				                    <button id="modifyCustomerPwBtn" type="button" class="btn btn-sm btn-outline-primary" style="margin-top: 15px;">비밀번호 변경</button>
+                               	</div>  
+                                   <!-- 서버 결과 메세지를 hidden input 창으로 받기 -> alert 창 알림 -->
+		                    	<input id="formResult" type="hidden" value="${alertFailedMsg}">
+		                    </form>
+	                     </div>
+   					</div>
+	  			</div>
+			</div>
 		</div>
 	</div>
-</div>
 <!-- footer -->
 
 </body>

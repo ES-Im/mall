@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- 탬플릿 : 김문정 & JS : 김은서 -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,29 +57,26 @@
 </head>
 
 <body>
-	<div class="justify-content-center">
-		<div class="col-sm-8">
-			<div class="row">
-		
-				<!-- leftbar -->
-				<div class="col-sm-2 p-0">
-					<div >
-						<c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
-					</div>
-				</div>
-			
-			
-				<!-- main -->
-				<div class="col-sm-10 p-0">
-					<!-- header -->
-					<div>
-						<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
-					</div>
-					
-					<span class="display-3">CART</span>
-					<hr>
-					
-					<!-- 체크한 CartNo을 결제하기 페이지(getCartListByChecked)로 넘기는 form -->
+    <div class="row">
+        <!-- leftbar -->
+        <div class="col-sm-2 p-0">
+            <div >
+                <c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
+            </div>
+        </div>
+        
+        <!-- main -->
+        <div class="col-sm-10 p-0">
+            <!-- header -->
+            <div>
+                <c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
+            </div>
+                        
+            <!-- main -->
+            <div style="margin-left: 80px;  margin-top: 30px;">
+                <h3>Personal_Info</h3>
+            </div>
+                <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px; ">
 					<form id="selectCartNoForm" method="get" action="${pageContext.request.contextPath}/customer/getCartListByChecked">
 						
 						<div style="text-align: right">
@@ -126,11 +123,10 @@
 						</table>
 						
 					</form>
+                </div>
 					
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
 </body>
 
 
