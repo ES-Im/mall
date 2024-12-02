@@ -25,9 +25,6 @@ public interface CustomerMapper {
 	// /customer/deleteCustomer 회원 삭제
 	Integer deleteCustomer(Customer customer);
 	
-	// 임시 -> Address.Mapper 동적쿼리변경 필요
-	Integer deleteAddress(Address address);
-	
 	// Author : 김은서
 	// /customer/deleteCustomer 회원 삭제
 	Integer insertCustomer(Customer customer);

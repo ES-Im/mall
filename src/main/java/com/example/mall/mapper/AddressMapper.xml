@@ -25,13 +25,19 @@
 		VALUES(#{customerEmail}, #{addressDetail})
 	</select>
 	
-	<!-- /customer/addAddress : 배송지 삭제 -->
-	<update id="deleteAddress" parameterType="Integer">
+	<!-- /customer/addAddress : 배송지 삭제(-1로 수정) -->
+	<update id="deleteAddress" parameterType="com.example.mall.vo.Address">
 		UPDATE address 
 		SET customer_email = '-1'
-		WHERE address_no = #{addressNo}
+		<where>
+			<if test= "addressNo != null">
+				address_no = #{addressNo}
+			</if>
+			<if test= "customerEmail != null">
+				customer_email = #{customerEmail}
+			</if>
+		</where>
 	</update>
-	
 	
 
 </mapper>

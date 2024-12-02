@@ -19,8 +19,8 @@ public interface AddressMapper {
 	// /customer/addAddress : 배송지 등록
 	Integer insertAddress(Address address);
 	
-	// /customer/addAddress : 배송지 삭제
-	Integer deleteAddress(Integer addressNo);
-	
+	// /customer/removeAddress : 배송지 -1로 변경
+	Integer deleteAddress(Address address);
+
 	
 }

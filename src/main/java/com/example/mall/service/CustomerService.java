@@ -57,7 +57,6 @@ public class CustomerService {
 		cart.setCustomerEmail(customer.getCustomerEmail());
 		Address address = new Address();
 		address.setCustomerEmail(customer.getCustomerEmail());
-		
 		Integer checkCartDelete = cartMapper.deleteCart(cart);
 //		// 트랜잭션 디버깅
 //		if(checkCartDelete != 2) {
@@ -65,11 +64,11 @@ public class CustomerService {
 //		}
 		
 		//addressMapper.deleteAddress(customerEmail);		// deleteAddress -> where 동적쿼리 변경 필요
-		Integer checkAddressDelete = customerMapper.deleteAddress(address);
-//		// 트랜잭션 디버깅
-//		if(checkAddressDelete != 9) {
-//			throw new RuntimeException("Address 쿼리에서 오류 checkAddressDelete = " + checkAddressDelete);
-//		}
+		Integer checkAddressDelete = addressMapper.deleteAddress(address);
+		// 트랜잭션 디버깅
+		if(checkAddressDelete != 9) {
+			throw new RuntimeException("Address 쿼리에서 오류 checkAddressDelete = " + checkAddressDelete);
+		}
 		
 		Integer checkSuccess = customerMapper.deleteCustomer(customer);
 //		// 트랜잭션 디버깅
