@@ -139,6 +139,12 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
 	const emailTest = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
 	const isStaffTest = /^@[a-zA-Z0-9]+$/;
 	
+	$('#id, #pw').keydown(function(event) {
+        if (event.key === 'Enter') {
+            $('#btnLogin').click();  // 엔터키가 눌리면 로그인 버튼 클릭 이벤트 실행
+        }
+    });
+	
 	$('#btnLogin').click(function() {
 		
 		if($('#id').val() == null || $('#id').val() == ''){
