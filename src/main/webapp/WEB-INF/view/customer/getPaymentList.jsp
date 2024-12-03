@@ -146,6 +146,7 @@
 											<div class="d-flex justify-content-between">
 												<div style="flex-grow: 1;"> 
 													<p class="mt-2 mb-0"><small>주문 상품 : ${i.categoryTitle} / ${i.goodsTitle}</small></p>
+													<p class="mt-2 mb-0"><small>상품 번호 : ${i.goodsNo}</small></p>
 													<p class="mt-2 mb-0"><small>상품 가격 : $<fmt:formatNumber value="${i.goodsPrice}" pattern="#,###"/></small></p>
 													<p class="mt-2 mb-0"><small>주문 수량 : ${i.ordersAmount}개</small></p>
 												</div>
