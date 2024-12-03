@@ -212,13 +212,9 @@ $(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 
 		</form>
 	
 		<div class="d-flex justify-content-end pe-5">
-			<a href="#" class="pe-4" id="joinLink">회원가입</a>
+			<a href="${pageContext.request.contextPath}/off/addCustomer" class="pe-4" id="joinLink">회원가입</a>
 		</div>
-	
-	
 	</div>
-
-
 
 </body>
 

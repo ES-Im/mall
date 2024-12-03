@@ -97,23 +97,24 @@
 <body>
 <div class="row">
 	<!-- main -->
-	<div class="col-sm-12 p-2">
+	<div class="col-sm-12">
 		<!-- header -->
 		<div>
 			<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
 		</div>
 		
 		<!-- main -->
-<div class="col-sm-12 p-2 d-flex justify-content-center align-items-center flex-column">
-    <h3 id="addCustomer">Join</h3>
+<div class="col-sm-12 d-flex justify-content-center align-items-center flex-column">
+    <h3 id="addCustomer" style="margin-top:50px; margin-bottom: 30px; ">Join</h3>
     <form id="formAddcustomer" method="post" action="${pageContext.request.contextPath}/off/addCustomer" 
           style="border: 1px solid #000; padding: 20px; border-radius: 10px; width: 400px;">
         <div class="mb-3 mt-3">
             <label for="customerEmail" class="form-label">Email :</label>
-            <input id="customerEmail" name="customerEmail" type="text" class="form-control" placeholder="check email duplication first">
+            <input id="customerEmail" name="customerEmail" type="text" class="form-control" placeholder="Check email duplication first">
         </div>
-        <button type="button" id="checkEmail" class="btn btn-sm btn-outline-primary">이메일 중복 검사</button>
-        
+        <div class="d-flex justify-content-end mb-1">
+        	<button type="button" id="checkEmail" class="btn btn-sm btn-outline-primary">이메일 중복 검사</button>
+        </div>
         <div class="mb-3">
             <label for="customerPw" class="form-label">Password :</label>
             <input id="customerPw" name="customerPw" type="password" class="form-control" placeholder="Enter Password">
