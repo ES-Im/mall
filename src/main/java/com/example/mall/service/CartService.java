@@ -58,9 +58,14 @@ public class CartService {
 	public int removeCart(Integer cartNo) {
 		Cart cart = new Cart();
 		cart.setCartNo(cartNo);
+		
+		
 		return cartMapper.deleteCart(cart);
 	}
 	
-
+	// inc/header 에 표시되는 장바구니 수
+	public int getCountCartByCustomerEmail(String customerEmail) {
+		return cartMapper.selectCountCartByCustomerEmail(customerEmail);
+	}
 	
 }

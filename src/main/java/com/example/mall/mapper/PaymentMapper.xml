@@ -73,9 +73,9 @@
 			, gc.goods_price AS goodsPrice
 			, gc.goods_status AS goodsStatus
 			, gc.category_title AS categoryTitle
-			, gc.goodsFileName AS goodsFileName
-			, gc.goodsFileExt AS goodsFileExt
-			, gc.goodsFileNo AS goodsFileNo
+			, MAX(gc.goodsFileName) AS goodsFileName
+			, MAX(gc.goodsFileExt) AS goodsFileExt
+			, MAX(gc.goodsFileNo) AS goodsFileNo
 		FROM orders o
 		INNER JOIN 
 			(SELECT
@@ -83,8 +83,8 @@
 			   , g.goods_memo goods_memo
 			   , g.goods_price goods_price
 			   , g.goods_status goods_status
-				, gc.goods_no goods_no
-				, ct.category_no category_no
+			   , gc.goods_no goods_no
+			   , ct.category_no category_no
 			   , ct.category_title category_title
 			   , IFNULL(gf.goods_file_name, 'no file') goodsFileName
 			   , gf.goods_file_ext goodsFileExt
@@ -95,6 +95,10 @@
 			LEFT outer JOIN goods_file  gf ON gc.goods_no = gf.goods_no) gc
 		ON o.goods_no = gc.goods_no
 		WHERE o.payment_no = #{paymentNo}
+		GROUP BY 
+		    o.payment_no, o.orders_no, o.orders_amount
+			, gc.goods_no, gc.category_no, gc.goods_title
+			, gc.goods_memo, gc.goods_price, gc.goods_status, gc.category_title
 	</select>
 	
 	<update id="updatePaymentStatus" parameterType="com.example.mall.vo.Payment">

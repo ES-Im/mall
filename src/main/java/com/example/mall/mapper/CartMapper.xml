@@ -34,8 +34,8 @@
 			 c.cart_no AS cartNo
 			 ,c.create_date AS createDate
 			 , go.goods_No AS goodsNo
-			 , gf.goods_file_name AS goodsFileName
- 			 , gf.goods_file_ext AS goodsFileExt
+			 , MAX(gf.goods_file_name) AS goodsFileName
+ 			 , MAX(gf.goods_file_ext) AS goodsFileExt
 			 , go.goods_Title AS goodTitle
 			 , go.goods_Price AS goodsPrice
 			 , ca.category_title AS categoryTitle
@@ -51,6 +51,10 @@
 		LEFT OUTER JOIN goods_file gf
 		ON go.goods_no = gf.goods_no
 		WHERE c.cart_no = #{cartNo}
+		GROUP BY 
+		    c.cart_no, c.create_date, c.cart_amount, 
+		    go.goods_No, go.goods_Title, go.goods_Price, 
+		    ca.category_title
 	</select>
 	
 	<insert id="insertCart" parameterType="com.example.mall.vo.Cart">
@@ -71,7 +75,10 @@
 				customer_email = #{customerEmail}
 			</if>
 		</where>
-		
 	</delete>
+	
+	<select id="selectCountCartByCustomerEmail" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM cart WHERE customer_email = #{customerEmail}
+	</select>
 </mapper>
 

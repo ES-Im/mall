@@ -20,4 +20,7 @@ public interface CartMapper {
 	int insertCart(Cart cart);
 	 
 	int deleteCart(Cart cart);
+	
+	// header 에 표시되는 장바구니 수
+	int selectCountCartByCustomerEmail(String customerEmail);
 }

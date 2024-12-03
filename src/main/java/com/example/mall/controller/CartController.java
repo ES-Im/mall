@@ -35,6 +35,11 @@ public class CartController {
 		List<Map<String, Object>> cartList = cartService.getCartList(customerEmail);
 		log.debug(TeamColor.KES + "cartList = " + cartList.toString());
 		model.addAttribute("cartList", cartList);
+		
+		Integer countCart = cartService.getCountCartByCustomerEmail(customerEmail);
+		log.debug(TeamColor.KES + "회원 장바구니 = " + countCart  + TeamColor.RESET);
+		session.setAttribute("countCart", countCart);
+		
 		return "customer/getCartList";
 	}
 	
@@ -64,12 +69,11 @@ public class CartController {
 	// customer/removeCart : customer-Email, cart_no 매개변수를 받아서 카트 삭제
 	@GetMapping("/customer/removeCart")
 	public String removeCart(@RequestParam Integer cartNo) {
-		log.debug(TeamColor.KES + "삭제 대상 카드 넘버 = " + cartNo);
+		log.debug(TeamColor.KES + "삭제 대상 카드 넘버 = " + cartNo  + TeamColor.RESET);
 		int checkResult = cartService.removeCart(cartNo);
-		log.debug(TeamColor.KES + "삭제 Result = " + checkResult);
+		log.debug(TeamColor.KES + "삭제 Result = " + checkResult + TeamColor.RESET);
 		
 		return "redirect:/customer/getCartList";
 	}
-	
 
 }

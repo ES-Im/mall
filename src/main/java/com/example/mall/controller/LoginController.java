@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.mall.service.CartService;
 import com.example.mall.service.CustomerService;
 import com.example.mall.service.StaffService;
 import com.example.mall.util.TeamColor;
@@ -26,6 +27,7 @@ public class LoginController {
 	
 	@Autowired StaffService staffService;
 	@Autowired CustomerService customerService;
+	@Autowired CartService cartService;
 	
 	
 	// login.jsp로 이동
@@ -94,10 +96,16 @@ public class LoginController {
 			
 			session.setAttribute("loginCustomer", customerEmail);
 			
+			
+			Integer countCart = cartService.getCountCartByCustomerEmail(customerEmail);
+			log.debug(TeamColor.KES + "회원 장바구니 = " + countCart  + TeamColor.RESET);
+			session.setAttribute("countCart", countCart);
+			
 			return "redirect:/customer/getCartList";
 			
 		}
-
+		
+			
 
 	}
 	
