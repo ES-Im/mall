@@ -50,6 +50,9 @@
 		</div>
 		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
 	  		<div class="list-group">
+	  			<c:if test="${empty categoryList}">
+ 					<span>No Data</span>
+ 				</c:if>
  				<c:forEach var="category" items="${categoryList}">
  					<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 500px;">
       					<div class="d-flex gap-2 w-100 justify-content-between">

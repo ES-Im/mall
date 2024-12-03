@@ -77,10 +77,6 @@ public class BoardController {
 		Map<String, Object> boardList = boardService.getBoardListByStaff(page);
 		log.debug(TeamColor.KDH + "boardList" + boardList.toString() + TeamColor.RESET); // debug
 		
-		if(page.getCurrentPage() > page.getLastPage()) {
-			return "redirect:/staff/getBoardListByStaff?currentPage=" + page.getLastPage();
-		}
-		
 		model.addAttribute("boardList", boardList.get("boardList"));
 		model.addAttribute("page", boardList.get("page"));
 		
