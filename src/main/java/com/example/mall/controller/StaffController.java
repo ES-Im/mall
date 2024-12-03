@@ -83,10 +83,6 @@ public class StaffController { // Author : 김동현
 		Map<String, Object> customerList = staffService.getCustomerListByStaff(page);
 		log.debug(TeamColor.KDH + "CustomerList" + customerList.toString() + TeamColor.RESET); // debug
 		
-		if(page.getCurrentPage() > page.getLastPage()) {
-			return "redirect:/staff/getCustomerListByStaff?currentPage=" + page.getLastPage();
-		}
-		
 		model.addAttribute("customerList", customerList.get("customerList"));
 		model.addAttribute("page", customerList.get("page"));
 		
