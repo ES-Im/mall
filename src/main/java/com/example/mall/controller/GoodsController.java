@@ -26,8 +26,6 @@ import com.example.mall.vo.Page;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-
-
 @Controller
 @Slf4j
 public class GoodsController {
@@ -247,7 +245,6 @@ public class GoodsController {
 		goodsFileService.removeGoodsFile(goodsFileNo, path);
 		return "redirect:/staff/modifyGoods?goodsNo=" + goodsNo;
 	}
-
 	
 	// home : 메인 페이지 상품 리스트 출력
 	@GetMapping("/home")
@@ -282,6 +279,7 @@ public class GoodsController {
 		log.debug( TeamColor.KMJ + "page : " + page.toString() + TeamColor.RESET );
 		
 		model.addAttribute("goodsList", goodsListMap.get("goodsList"));
+		model.addAttribute("goodsFileList", goodsListMap.get("goodsFileList"));
 		model.addAttribute("page", goodsListMap.get("page"));
 		model.addAttribute("searchWord", searchWord);
 		// pagination용

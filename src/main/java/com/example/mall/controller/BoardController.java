@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.mall.service.BoardService;
 import com.example.mall.util.TeamColor;
@@ -44,8 +46,8 @@ public class BoardController {
 	
 	// 김문정
 	// getGoodsOne : 후기 등록
-	@GetMapping("/addBoardOne")
-	public String addBoardOne(@RequestParam Integer ordersNo, @RequestParam Integer goodsNo, @RequestParam String boardContent) {
+	@PostMapping("/addBoardOne")
+	public String addBoardOne(@RequestParam Integer ordersNo, @RequestParam Integer goodsNo, @RequestParam String boardContent, RedirectAttributes redirectAttributes) {
 		log.debug( TeamColor.KMJ + "GET[BoardController - getGoodsOne]" + TeamColor.RESET );
 		
 		log.debug( TeamColor.KMJ + "ordersNo : " + ordersNo + TeamColor.RESET );
@@ -56,20 +58,16 @@ public class BoardController {
 		Integer result = boardService.addBoardOne(ordersNo, boardContent);
 		log.debug( TeamColor.KMJ + "result : " + result + TeamColor.RESET );
 		
-		try {
-	        if (result == 0) { // 실패
-	            String msg = URLEncoder.encode("등록에 실패하셨습니다.", "UTF-8");
+	        if (result == 0) { // 실패    
+	            redirectAttributes.addFlashAttribute("boardMsg", "글쓰기 실패!");
+				log.debug(TeamColor.KMJ + "글쓰기 실패!" + TeamColor.RESET);
 
-	            return "redirect:/getGoodsOne?goodsNo=" + goodsNo + "&msg=" + msg;
+	            return "redirect:/getGoodsOne?goodsNo=" + goodsNo ;
 	        }
-	    } catch (UnsupportedEncodingException e) {
-	      
-	        log.debug( TeamColor.KMJ + "예외발생 : " + e + TeamColor.RESET );
-	        return "redirect:/getGoodsOne?goodsNo=" + goodsNo + "&msg=" + "등록에 실패하셨습니다.";
-	    }
-		
-		return "redirect:/getGoodsOne?goodsNo=" +  goodsNo;
+	
+		return "redirect:/getGoodsOne?goodsNo=" + goodsNo;
 	}
+	
 	
 	// 김동현
 	// getBoardListByStaff Form : 관리자 전용 BoardList

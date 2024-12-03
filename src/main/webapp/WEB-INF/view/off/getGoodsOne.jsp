@@ -5,6 +5,8 @@
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<!-- jQuery 추가 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,20 +45,22 @@
     </style>
     <script>
 	$(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 실행.
-		// URL 파라미터 값을 가져오는 함수
-        function getMsg(param) {
-            const urlMsg = new URLSearchParams(window.location.search);
-            let value = urlMsg.get(param);  // 'msg' 파라미터 값 가져오기
+		
+		$('#btnWrite').click(function() {
+			if($('#comment').val() == null || $('#comment').val() == ''){
+				alert('후기를 작성해주세요.');
+				$('#comment').focus();
+				return;
+			}
+			
+			
+			$('#commentForm').submit();
+		})
+				
+		
 
-            // 한글 디코딩
-            if (value) {
-                value = decodeURIComponent(value);  // URL 디코딩
-            }
-            return value;
-        }
-
-        // 'msg' 값 가져오기
-        const msg = getMsg('msg');
+        // 'boardMsg' 값 가져오기
+        const msg = getMsg('boardMsg');
 		
 		if(msg != null){
 			alert(msg);
@@ -105,7 +109,7 @@
                         <div class="small mb-1">GOODSNO : ${goods.goodsNo }</div>
                         <h1 class="display-5 fw-bolder">${goods.goodsTitle }</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$450000</span>
+                            <span class="text-decoration-line-through">450,000</span>
                             <span>${goods.goodsPrice }</span>
                         </div>
                         <p class="lead">${goods.goodsMemo }</p>
@@ -126,9 +130,7 @@
 	                              	SOLD OUT😂
 	                            </button>
                         	</c:if>	
-                        
-                        
-                            
+
                         </div>
                     </div>
                 </div>
@@ -138,23 +140,23 @@
         <!-- 후기 작성 : 수정하기 -->
         <section class="py-5 bg-light">
         <div>
-			<div class="d-flex justify-content-center"><p class="h2"> 후기 </p></div>
+			<div class="d-flex justify-content-center"><p class="h2"> REVIEW </p></div>
       
       	  <!-- 후기 작성 폼 -->
       	  <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
       	  	<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;" id="boardForm">
 				
-				<c:if test="${isEligibleReviewer == true || loginStaff != null }">
+				<c:if test="${isEligibleReviewer == true }">
 					<div class="d-flex gap-2 w-100 justify-content-between">
-						<div class="${pageContext.request.contextPath }/addBoardOne" >
-							<form action="#" method="post">
+						<div class="" >
+							<form action="${pageContext.request.contextPath }/addBoardOne" method="post" id="commentForm">
 								<input type="hidden" name="ordersNo" value="${orderNo}">
 								<input type="hidden" name="goodsNo" value="${goodsNo}">
 								
 								<label for="comment" class="mb-2">후기 작성 </label>
-								<textarea class="form-control" rows="5" cols="90" id="comment" name="boardContent"></textarea>
+								<textarea class="form-control" rows="5" cols="90" id="comment" name="boardContent" placeholder="후기를 작성해주세요"></textarea>
 								<div class="d-flex justify-content-end">
-									<button type="button" class="btn btn-sm btn-dark mt-3" > WRITE </button>
+									<button type="button" class="btn btn-sm btn-dark mt-3" id="btnWrite" > WRITE </button>
 								</div>	
 							</form>
 						</div>
@@ -165,12 +167,7 @@
       	  
       	  </div>
         
-        
-        
-			
-			
-			
-			
+	
 			<div
 				class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
 				<div class="list-group">
@@ -208,6 +205,77 @@
 						<br>
 					</c:forEach>
 				</div>
+				
+				<!-- review pagination -->
+				<div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+			                    
+			        <!-- 첫 페이지 -->
+			        <c:if test="${!(page.currentPage > 1)}">
+			            <a href="" style="pointer-events: none;">&laquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage > 1}">		        
+			            <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=1">&laquo;</a>
+			        </c:if>
+			        
+			        <!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
+			        <c:set var="previousGroupEnd" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage)}"></c:set>
+			        
+					<c:if test="${page.currentPage <= page.numPerPage}">
+					   <a href="" style="pointer-events: none;">
+					      Previous
+					   </a>
+					</c:if>
+					
+					<c:if test="${page.currentPage > page.numPerPage}">
+					   <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${previousGroupEnd}">
+					      Previous
+					   </a>
+					</c:if>
+					
+			        <!-- 페이지 번호 링크 -->
+			        <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+			            <c:if test= "${num == page.currentPage}">
+			                <a class="active">${num}</a>
+			            </c:if>
+			            <c:if test= "${num != page.currentPage}">
+			                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${num}">${num}</a>
+			            </c:if>
+			        </c:forEach>
+
+			        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
+			        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
+			        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage }"></c:set>
+			        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
+			        
+			        <c:if test="${lastGroupStart > nextGroupStart}">
+					    <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${nextGroupStart}">
+					        Next
+					    </a>
+					</c:if>
+					
+					<c:if test="${(lastGroupStart <= nextGroupStart) && (lastGroupStart > page.currentPage)}">
+					    <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${lastGroupStart}">
+					        Next
+					    </a>
+					</c:if>
+					
+					<c:if test="${lastGroupStart <= page.currentPage}">
+					    <a href="" style="pointer-events: none;">
+					        Next
+					    </a>
+					</c:if>
+			        
+			        <!-- 마지막 페이지 -->
+			        <c:if test="${!(page.currentPage < page.lastPage)}">
+			            <a href="" style="pointer-events: none;">&raquo;</a>
+			        </c:if>
+			        <c:if test="${page.currentPage < page.lastPage}">
+			            <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.lastPage}">&raquo;</a>
+			        </c:if>
+		   	 	</div>
+				
+				
+				
 			</div>
 		</div>
 	</section>
