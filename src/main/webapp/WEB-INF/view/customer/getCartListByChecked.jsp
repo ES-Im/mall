@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -55,83 +56,124 @@
 
 
 <body>
-	<div class="justify-content-center">
-		<div class="col-sm-8">
-			<div class="row">
-		
-				<!-- leftbar -->
-				<div class="col-sm-2 p-0">
-					<div >
-						<c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
-					</div>
-				</div>
-			
-			
-				<!-- main -->
-				<div class="col-sm-10 p-0">
-					<!-- header -->
-					<div>
-						<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
-					</div>
-					
-					<span class="display-3">Pay</span>
-					<hr>
-					
-					<!-- cartNo[], Payment(paymentPrice, paymentMethod, addressNo) 전달폼 (paymentController : addPayment)  -->
-					<form id="selectCartNoForm" method="post" action="${pageContext.request.contextPath}/customer/addPayment">
-						<table class="table">
-							<tr>
-								<th>cartNo</th>
-								<th>goodsNo</th>
-								<th>fileName</th>
-								<th>goodTitle</th>
-								<th>goodsPrice</th>
-								<th>cartAmount</th>
-								<th>totalPrice</th>
-							</tr>
-							<!-- 반복문을 이용하여 출력 -->
-							<c:forEach items="${cartListByChecked}" var="c">
-								<tr>
-									<input name="cartNo" type="hidden" value="${c.cartNo}">
-									<td>${c.cartNo}</td>
-									<td>${c.goodsNo}</td>
-									<td>${c.fileName}</td>
-									<td>${c.goodTitle}</td>
-									<td>${c.goodsPrice}</td>
-									<td>${c.cartAmount}</td>
-									<td>${c.totalPrice}</td>
-								</tr>
-							</c:forEach>
-						</table>
-						<div>총 금액 : <input type="text" name="paymentPrice" value="${totalSum}" readonly></div>
-						
-						<span class="display-3">결제 수단 선택</span>
-						<hr>
-						페이 : <input name="paymentMethod" type="radio" value="페이">
-						<br>
-						카드 : <input name="paymentMethod" type="radio" value="카드">
-						<hr>
-						
-						
-						<span class="display-3">배송지 선택</span>
-						<hr>
-						    <select class="form-select mt-3" name="addressNo">
-								<c:forEach var="a" items="${addressList}">
-						        	<option value="${a.addressNo}">
-						        		${a.addressDetail}
-						        	</option>
-						      	</c:forEach>
-						  	</select>
+    <!--  후  -->
+    <div class="row">
+        <!-- leftbar -->
+        <div class="col-sm-2 p-0">
+            <div >
+                <c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
+            </div>
+        </div>
+        
+        <!-- main -->
+        <div class="col-sm-10 p-0">
+            <!-- header -->
+            <div>
+                <c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
+            </div>
+                        
+            <!-- main -->
+            <div style="margin-left: 80px;  margin-top: 30px;">
+                <h3>Pay</h3>
+            </div>
 
+
+
+
+			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px; ">
+			    <!-- 출력할 데이터가 없을 때 -->
+			    <c:if test="${empty cartListByChecked}">
+			        <div>NO DATA</div>
+			    </c:if>
+			    
+			    <!-- 출력할 데이터가 있을 때 -->
+			    <c:if test="${not empty cartListByChecked}">
+                    <!-- cartNo[], Payment(paymentPrice, paymentMethod, addressNo) 전달폼 (paymentController : addPayment)  -->
+                    <form id="selectCartNoForm" method="post" action="${pageContext.request.contextPath}/customer/addPayment">
+                		<div style="margin-top: 30px;">
+			                <h3>상품정보</h3>
+			            </div>
 						<hr>
-						<button id="addPaymentBtn" type="button" class="btn btn-sm btn-light">결제하기</button>
-					</form>
-				</div>
-				
-			</div>
-		</div>
+                       
+                        <div class="list-group card">
+                            <!-- 결제할 상품 리스트 출력 -->
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+
+                                <c:forEach items="${cartListByChecked}" var="c">    
+                                    <!-- 서버에 CartNo 전달-->    
+                                    <input name="cartNo" type="hidden" value="${c.cartNo}">
+                                    
+                                    <!-- 결제 상품 정보 보여주기 -->
+                                    <div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
+                                        
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <!-- 파일 있을 때 -->
+                                            <c:if test="${not empty c.goodsFileNo}">
+                                                <img src="${pageContext.request.contextPath}/goodsFile/${c.goodsFileName}.${c.goodsFileExt}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+                                            </c:if>
+                                            <!-- 파일 없을 때 -->
+                                            <c:if test="${empty goods.goodsFileNo}">
+                                                <div style="align-items: center;">
+                                                    <img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+                                                </div>
+                                            </c:if>
+                                        </div>
+                                        <div class="d-flex gap-2 w-100 justify-content-between">
+                                            <div style="flex-grow: 1; margin-left: 15px;"> 
+                                                <p class="mt-2 mb-0"><small> Goods Name : ${c.goodTitle}</small></p>
+                                                <p class="mt-2 mb-0"><small> Category : ${c.categoryTitle}</small></p>
+                                                <p class="mt-2 mb-0"><small> Goods Price : $ <fmt:formatNumber value="${c.goodsPrice}" pattern="#,###"/></small></p>
+                                                <p class="mt-2 mb-0"><small> Quantity : ${c.cartAmount}</small></p>
+                                                <p class="mt-2 mb-0"><small> TOTAL PRICE : $ <fmt:formatNumber value="${c.totalPrice}" pattern="#,###"/></small></p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </c:forEach>
+                            </div>
+                        </div>
+							<div style="margin-top: 30px;" class="d-flex justify-content-end">
+								<input type="hidden" name="paymentPrice" value="${totalSum}" readonly>
+								<h3> 결제 금액 : $ <fmt:formatNumber value="${totalSum}" pattern="#,###"/></h3>
+							</div>
+                        
+                         
+			            <div style="margin-top: 30px;">
+			                <h3>결제 수단 선택</h3>
+			            </div>
+                        <hr>
+                        <div class="card d-flex">
+							<div class="form-check" style="margin: 5px">
+							  <input type="radio" class="form-check-input" id="pay" name="paymentMethod" value="페이"  checked>
+							  <label class="form-check-label" for="pay">페이</label>
+							</div>
+							<div class="form-check" style="margin: 5px">
+							  <input type="radio" class="form-check-input" id="card" name="paymentMethod" value="카드">
+							  <label class="form-check-label" for="card">카드</label>
+							</div>
+						</div>
+                        
+			            <div style="margin-top: 30px;">
+			                <h3>배송지 선택</h3>
+			            </div>
+                        <hr>
+                        <select class="form-select mt-3" name="addressNo">
+                            <c:forEach var="a" items="${addressList}">
+                                <option value="${a.addressNo}">
+                                    ${a.addressDetail}
+                                </option>
+                            </c:forEach>
+                        </select>
+						
+						<div class="d-flex justify-content-end" style="margin-top: 30px;" >
+                        	<button id="addPaymentBtn" type="button" class="btn btn-outline-success btn-lg">결제하기</button>
+						</div>
+                    
+                    </form>
+                    
+                </c:if>
+            </div>
+        </div>
+    </div>
 </body>
-
-
-
-</html>

@@ -28,15 +28,22 @@
 	<select id="selectCartListByChecked" parameterType="com.example.mall.vo.Cart" resultType="map">
 		SELECT 
 			 c.cart_no AS cartNo
+			 ,c.create_date AS createDate
 			 , go.goods_No AS goodsNo
-			 , gf.goods_file_name AS fileName
+			 , gf.goods_file_name AS goodsFileName
+ 			 , gf.goods_file_ext AS goodsFileExt
 			 , go.goods_Title AS goodTitle
 			 , go.goods_Price AS goodsPrice
+			 , ca.category_title AS categoryTitle
 			 , c.cart_amount AS cartAmount
 			 , (c.cart_amount * go.goods_Price) AS totalPrice
 		FROM cart c
 		INNER JOIN goods go
 		ON go.goods_no = c.goods_no
+		INNER JOIN goods_category gc
+		ON go.goods_no = gc.goods_no
+		INNER JOIN category ca
+		ON ca.category_no = gc.category_no
 		LEFT OUTER JOIN goods_file gf
 		ON go.goods_no = gf.goods_no
 		WHERE c.cart_no = #{cartNo}
