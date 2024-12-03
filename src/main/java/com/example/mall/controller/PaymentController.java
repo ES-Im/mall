@@ -102,11 +102,11 @@ public class PaymentController {
 		List<Map<String,Object>> paymentList = paymentService.getPaymentList(page);
 		log.debug(TeamColor.KMJ + "paymentList : "+ paymentList.toString() + TeamColor.RESET);
 		
+		// paymentList에 해당하는 orders List 가져오기
 		List<Map<String, Object>> PayInfoListByPaymentNo = new ArrayList<>();
-		
-		for(int i=0; i<paymentList.size(); i++) {
+		for(Map<String, Object> p : paymentList) {
 			
-			Integer paymentNo = Integer.parseInt(String.valueOf(paymentList.get(i).get("paymentNo")));
+			Integer paymentNo = Integer.parseInt(String.valueOf(p.get("paymentNo")));
 			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo(paymentNo);
 			
 		}

@@ -61,7 +61,7 @@
 		ON p.address_no = a.address_no
 	</select>
 	
-	<select id="selectPayInfoListByPaymentNo" parameterType="Integer" resultType="Map">
+	<select id="selectPayInfoListByPaymentNo" parameterType="map" resultType="Map">
 		SELECT
 	   o.payment_no AS paymentNo
 	   , o.orders_no AS ordersNo
@@ -114,13 +114,7 @@
 			ON temp0.goods_file_no = goods_file.goods_file_no) temp1
 		ON temp1.goodsNo = g.goods_no) temp2
 	ON gc.goods_no = temp2.goodsNo		
-	<where>
-		<if test="loginCustomer != null and loginStaff == null">
-			o.payment_no = #{paymentNo}
-		</if>
-		
-	</where>
-
+	where o.payment_no = #{paymentNo}
 
 
 	</select>

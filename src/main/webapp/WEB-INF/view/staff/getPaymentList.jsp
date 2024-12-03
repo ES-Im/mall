@@ -159,7 +159,7 @@
               		
               		<!-- 해당 페이먼트의 orders 출력을 위한 반복문 -->
               		<c:forEach var="orders" items="${PayInfoListByPaymentNo}">
-              			 <c:if test="${orders.paymentNo == payment.paymentNo}">
+              			 <%-- <c:if test="${orders.paymentNo == payment.paymentNo}"> --%>
               			 	<div>orders.paymentNo: ${orders.paymentNo}</div>
               			 
               			<!-- 이미지 -->
@@ -196,7 +196,7 @@
 				        	</div>
 				    	</div>
 				    	 <div>paymentNo: ${orders.paymentNo}</div>
-				    	</c:if>
+				    	<%-- </c:if> --%>
 				    	<c:if test="${orders.paymentNo != payment.paymentNo}">
 					        <!-- 매칭되지 않는 데이터 디버깅용 -->
 					        <div style="display: none;">
