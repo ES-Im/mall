@@ -63,60 +63,59 @@
 	
 	<select id="selectPayInfoListByPaymentNo" parameterType="map" resultType="Map">
 		SELECT
-	   o.payment_no AS paymentNo
-	   , o.orders_no AS ordersNo
-		, gc.goods_no AS goodsNo
-		, ct.category_no AS categoryNo
-		, o.orders_amount AS ordersAmount
-		, g.goods_title AS goodsTitle
-	   , g.goods_memo AS goodsMemo
-	   , g.goods_price AS goodsPrice
-	   , g.goods_status AS goodsStatus
-	   , ct.category_title AS categoryTitle
-	   , IFNULL(temp2.goodsFileName, 'no file') AS goodsFileName
-	   , temp2.goodsFileExt AS goodsFileExt
-	   , temp2.goodsFileNo AS goodsFileNo
-	FROM category ct
-	INNER JOIN goods_category gc ON gc.category_no = ct.category_no
-	INNER JOIN goods g ON gc.goods_no = g.goods_no
-	INNER JOIN orders o ON o.goods_no = g.goods_no
-	LEFT OUTER JOIN 
-		(SELECT 
-			g.goods_no AS goodsNo
+		   o.payment_no AS paymentNo
+		   , o.orders_no AS ordersNo
+			, gc.goods_no AS goodsNo
+			, ct.category_no AS categoryNo
+			, o.orders_amount AS ordersAmount
 			, g.goods_title AS goodsTitle
-			, temp1.goodsFileNo AS goodsFileNo
-			, temp1.goodsFileName AS goodsFileName
-			, temp1.goodsFileOriginName AS goodsFileOriginName
-			, temp1.goodsFileType AS goodsFileType
-			, temp1.goodsFileSize AS goodsFileSize
-			, temp1.createDate AS createDate
-			, temp1.updateDate AS updateDate
-			, temp1.goodsFileExt AS goodsFileExt
-		FROM goods g
-		INNER JOIN
+		   , g.goods_memo AS goodsMemo
+		   , g.goods_price AS goodsPrice
+		   , g.goods_status AS goodsStatus
+		   , ct.category_title AS categoryTitle
+		   , IFNULL(temp2.goodsFileName, 'no file') AS goodsFileName
+		   , temp2.goodsFileExt AS goodsFileExt
+		   , temp2.goodsFileNo AS goodsFileNo
+		FROM category ct
+		INNER JOIN goods_category gc ON gc.category_no = ct.category_no
+		INNER JOIN goods g ON gc.goods_no = g.goods_no
+		INNER JOIN orders o ON o.goods_no = g.goods_no
+		LEFT OUTER JOIN 
 			(SELECT 
-				goods_file.goods_file_no AS goodsFileNo
-				, goods_file.goods_no AS goodsNo
-				, goods_file.goods_file_name AS goodsFileName
-				, goods_file.goods_file_origin_name AS goodsFileOriginName
-				, goods_file.goods_file_type AS goodsFileType
-				, goods_file.goods_file_size AS goodsFileSize
-				, goods_file.create_date AS createDate
-				, goods_file.update_date AS updateDate
-				, goods_file.goods_file_ext AS goodsFileExt
-			FROM goods_file
+				g.goods_no AS goodsNo
+				, g.goods_title AS goodsTitle
+				, temp1.goodsFileNo AS goodsFileNo
+				, temp1.goodsFileName AS goodsFileName
+				, temp1.goodsFileOriginName AS goodsFileOriginName
+				, temp1.goodsFileType AS goodsFileType
+				, temp1.goodsFileSize AS goodsFileSize
+				, temp1.createDate AS createDate
+				, temp1.updateDate AS updateDate
+				, temp1.goodsFileExt AS goodsFileExt
+			FROM goods g
 			INNER JOIN
 				(SELECT 
-				    MIN(goods_file_no) AS goods_file_no, 
-				    goods_no
+					goods_file.goods_file_no AS goodsFileNo
+					, goods_file.goods_no AS goodsNo
+					, goods_file.goods_file_name AS goodsFileName
+					, goods_file.goods_file_origin_name AS goodsFileOriginName
+					, goods_file.goods_file_type AS goodsFileType
+					, goods_file.goods_file_size AS goodsFileSize
+					, goods_file.create_date AS createDate
+					, goods_file.update_date AS updateDate
+					, goods_file.goods_file_ext AS goodsFileExt
 				FROM goods_file
-				GROUP BY goods_no) temp0
-			ON temp0.goods_file_no = goods_file.goods_file_no) temp1
-		ON temp1.goodsNo = g.goods_no) temp2
-	ON gc.goods_no = temp2.goodsNo		
-	where o.payment_no = #{paymentNo}
-
-
+				INNER JOIN
+					(SELECT 
+					    MIN(goods_file_no) AS goods_file_no, 
+					    goods_no
+					FROM goods_file
+					GROUP BY goods_no) temp0
+				ON temp0.goods_file_no = goods_file.goods_file_no) temp1
+			ON temp1.goodsNo = g.goods_no) temp2
+		ON gc.goods_no = temp2.goodsNo
+		where o.payment_no = #{paymentNo}
+		LIMIT 1
 	</select>
 	
 	<update id="updatePaymentStatus" parameterType="com.example.mall.vo.Payment">

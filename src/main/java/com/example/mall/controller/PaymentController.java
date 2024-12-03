@@ -1,6 +1,7 @@
 package com.example.mall.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +61,8 @@ public class PaymentController {
 		List<Map<String,Object>> PayInfoListByPaymentNo = new ArrayList<>();
 		
 		for(Map<String, Object> p : paymentList) {
-			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo( Integer.parseInt(String.valueOf(p.get("paymentNo"))));
+			Map<String, Object> map = paymentService.getPayInfoListByPaymentNo( Integer.parseInt(String.valueOf(p.get("paymentNo"))));
+			PayInfoListByPaymentNo.add(map);
 		}
 		//log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제 상세 정보 리스트 : " + PayInfoListByPaymentNo.get(0).toString() + TeamColor.RESET);
 		//log.debug(TeamColor.KES + ((String) session.getAttribute("loginCustomer")) + "의 결제리스트 : " + paymentList.toString() + TeamColor.RESET);
@@ -105,12 +107,11 @@ public class PaymentController {
 		
 		// paymentList에 해당하는 orders List 가져오기
 		List<Map<String, Object>> PayInfoListByPaymentNo = new ArrayList<>();
+		
 		for(Map<String, Object> p : paymentList) {
 			
-			Integer paymentNo = Integer.parseInt(String.valueOf(p.get("paymentNo")));
-			log.debug(TeamColor.KMJ + "paymentNo : "+ PayInfoListByPaymentNo + TeamColor.RESET);	
-			PayInfoListByPaymentNo = paymentService.getPayInfoListByPaymentNo(paymentNo);
-			
+			Map<String, Object> map = paymentService.getPayInfoListByPaymentNo( Integer.parseInt(String.valueOf(p.get("paymentNo"))));
+			PayInfoListByPaymentNo.add(map);
 		}
 		
 		model.addAttribute("PayInfoListByPaymentNo", PayInfoListByPaymentNo);

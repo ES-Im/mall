@@ -159,6 +159,7 @@
               		
               		<!-- 해당 페이먼트의 orders 출력을 위한 반복문 -->
               		<c:forEach var="orders" items="${PayInfoListByPaymentNo}">
+              			<c:if test="${payment.paymentNo == orders.paymentNo}">
               			 <%-- <c:if test="${orders.paymentNo == payment.paymentNo}"> --%>
               			 	<div>orders.paymentNo: ${orders.paymentNo}</div>
               			 
@@ -202,6 +203,7 @@
 					        <div style="display: none;">
 					            Skipped OrdersNo: ${orders.ordersNo}, paymentNo: ${orders.paymentNo}
 					        </div>
+					    </c:if>
 					    </c:if>
 			    	</c:forEach><!-- orders 반복문 끝 -->
 			    	
