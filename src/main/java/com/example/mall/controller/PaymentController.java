@@ -107,6 +107,7 @@ public class PaymentController {
 		
 		// paymentList에 해당하는 orders List 가져오기
 		List<Map<String, Object>> PayInfoListByPaymentNo = new ArrayList<>();
+		
 		for(Map<String, Object> p : paymentList) {
 			
 			Map<String, Object> map = paymentService.getPayInfoListByPaymentNo( Integer.parseInt(String.valueOf(p.get("paymentNo"))));
