@@ -168,7 +168,7 @@
 	 								<img src="${pageContext.request.contextPath}/goodsFile/${orders.goodsFileName}.${orders.goodsFileExt}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
 	 							</c:if>
 	 							<!-- 파일 없을 때 -->
-	 							<c:if test="${empty goods.goodsFileNo}">
+	 							<c:if test="${empty orders.goodsFileNo}">
 	 								<div style="align-items: center;">
 	 									<img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
 	 								</div>

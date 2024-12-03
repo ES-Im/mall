@@ -74,8 +74,9 @@ public class GoodsService {
 	
 		
 		Map<String, Object> boardListMap = new HashMap<>();
-		paramMap.put("boardList", boardList);
-		paramMap.put("page", page);
+		boardListMap.put("boardList", boardList);
+		
+		boardListMap.put("page", page);
 
 		return boardListMap;
 	}
