@@ -70,6 +70,8 @@
 		  border-top-right-radius: 5px;
 		  border-bottom-right-radius: 5px;
 		}
+		
+		
     
     </style>
     <script>
@@ -110,12 +112,13 @@
                 	<!-- 이미지 --> 
                     <div class="col-md-6">
                     	<!-- <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /> -->
-                    	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-						  <div class="carousel-indicators">
-						    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-						    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-						    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-						  </div>
+                    	<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                    	<!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel"> -->
+						  <!-- <div class="carousel-indicators">
+						    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+						    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						   	<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+						  </div> -->
 						  <div class="carousel-inner">
 						  	<c:forEach var="gf" items="${goodsFileList}">
 							    <div class="carousel-item active">
@@ -123,11 +126,11 @@
 							    </div>
 							</c:forEach>
 						  </div>
-						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
 						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						    <span class="visually-hidden">Previous</span>
 						  </button>
-						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
 						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 						    <span class="visually-hidden">Next</span>
 						  </button>
@@ -187,7 +190,7 @@
 					<div class="d-flex gap-2 w-100 justify-content-between">
 						<div class="" >
 							<form action="${pageContext.request.contextPath }/addBoardOne" method="post" id="commentForm">
-								<input type="hidden" name="ordersNo" value="${orderNo}">
+								<input type="hidden" name="ordersNo" value="${ordersNo}">
 								<input type="hidden" name="goodsNo" value="${goodsNo}">
 								
 								<label for="comment" class="mb-2">후기 작성 </label>
@@ -205,11 +208,14 @@
       	  </div>
         
 	
-			<div
-				class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
 				<div class="list-group">
+					<c:if test="${empty boardList }">
+						아직 작성된 후기가 없습니다.
+					</c:if>
+				
 					<c:forEach var="board" items="${boardList}">
-						<!-- 후기 폼 -->
+						<!-- 후기 리스트 -->
 						<div
 							class="list-group-item list-group-item-action d-flex gap-3 py-3"
 							style="width: 700px;" id="boardForm">
@@ -242,94 +248,95 @@
 						<br>
 					</c:forEach>
 				</div>
-				
+			</div>
 				<!-- review pagination -->
-				<c:if test="${boardList == null && boardList.size() == 0}">
-				</c:if>
-				
-				<c:if test="${boardList != null && boardList.size() != 0}">
-				
-				<section class="py-5">
-			    <div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
-			                    
-			        <!-- 첫 페이지 -->
-			        <c:choose>
-			            <c:when test="${!(page.currentPage > 1)}">
-			                <a href="" style="pointer-events: none;">&laquo;</a>
-			            </c:when>
-			            <c:otherwise>
-			                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=1">&laquo;</a>
-			            </c:otherwise>
-			        </c:choose>
-			        
-			        <!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
-			        <c:choose>
-			            <c:when test="${page.getPreviousGroupEnd() <= 0}">
-			                <a href="" style="pointer-events: none;">
-			                    Previous
-			                </a>
-			            </c:when>
-			            
-			            <c:otherwise>
-			                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.getPreviousGroupEnd()}">
-			                    Previous
-			                </a>
-			            </c:otherwise>
-			        </c:choose>
-			        
-			        <!-- 페이지 번호 링크 -->
-			        <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
-			            <c:if test= "${num == page.currentPage}">
-			                <a class="active">${num}</a>
-			            </c:if>
-			            <c:if test= "${num != page.currentPage}">
-			                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${num}">${num}</a>
-			            </c:if>
-			        </c:forEach>
-			        
-			    
-			        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
-			                        마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
-			        
-			        <c:choose>
-			            <%-- 만약 현재 그룹이 마지막 페이지 그룹이라면 이동 불가--%>
-			            <c:when test="${page.currentPage >= page.getLastGroupStart()}">
-			                <a href="" style="pointer-events: none;">
-			                    Next
-			                 </a>
-			            </c:when>
-			            <%-- 만약 다음 그룹이 마지막 페이지 그룹이라면 마지막 그룹의 첫 번째 번호로 이동--%>
-			            <c:when test="${page.getNextGroupStart() + page.numPerPage >= page.lastPage}">
-			                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.getLastGroupStart()}">
-			                    Next
-			                </a>
-			            </c:when>
-			            <%-- 그 외는 다음 그룹의 첫 번째 번호로 이동--%>
-			            <c:otherwise>
-			                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.getNextGroupStart()}">
-			                    Next
-			                </a>
-			            </c:otherwise>
-			            
-			        </c:choose>
-			        <!-- 마지막 페이지 -->
-			        <c:if test="${!(page.currentPage < page.lastPage)}">
-			            <a href="" style="pointer-events: none;">&raquo;</a>
-			        </c:if>
-			        <c:if test="${page.currentPage < page.lastPage}">
-			            <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.lastPage}">&raquo;</a>
-			        </c:if>
-			        
-			    </div>
-				</section>
-				
-				</c:if>
+			
+					<c:if test="${boardList == null && boardList.size() == 0}">
+					</c:if>
+					
+					<c:if test="${boardList != null && boardList.size() != 0}">
+					
+					<section class="py-5">
+				    <div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+				                    
+				        <!-- 첫 페이지 -->
+				        <c:choose>
+				            <c:when test="${!(page.currentPage > 1)}">
+				                <a href="" style="pointer-events: none;">&laquo;</a>
+				            </c:when>
+				            <c:otherwise>
+				                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=1">&laquo;</a>
+				            </c:otherwise>
+				        </c:choose>
+				        
+				        <!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
+				        <c:choose>
+				            <c:when test="${page.getPreviousGroupEnd() <= 0}">
+				                <a href="" style="pointer-events: none;">
+				                    Previous
+				                </a>
+				            </c:when>
+				            
+				            <c:otherwise>
+				                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.getPreviousGroupEnd()}">
+				                    Previous
+				                </a>
+				            </c:otherwise>
+				        </c:choose>
+				        
+				        <!-- 페이지 번호 링크 -->
+				        <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+				            <c:if test= "${num == page.currentPage}">
+				                <a class="active">${num}</a>
+				            </c:if>
+				            <c:if test= "${num != page.currentPage}">
+				                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${num}">${num}</a>
+				            </c:if>
+				        </c:forEach>
+				        
+				    
+				        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
+				                        마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
+				        
+				        <c:choose>
+				            <%-- 만약 현재 그룹이 마지막 페이지 그룹이라면 이동 불가--%>
+				            <c:when test="${page.currentPage >= page.getLastGroupStart()}">
+				                <a href="" style="pointer-events: none;">
+				                    Next
+				                 </a>
+				            </c:when>
+				            <%-- 만약 다음 그룹이 마지막 페이지 그룹이라면 마지막 그룹의 첫 번째 번호로 이동--%>
+				            <c:when test="${page.getNextGroupStart() + page.numPerPage >= page.lastPage}">
+				                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.getLastGroupStart()}">
+				                    Next
+				                </a>
+				            </c:when>
+				            <%-- 그 외는 다음 그룹의 첫 번째 번호로 이동--%>
+				            <c:otherwise>
+				                <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.getNextGroupStart()}">
+				                    Next
+				                </a>
+				            </c:otherwise>
+				            
+				        </c:choose>
+				        <!-- 마지막 페이지 -->
+				        <c:if test="${!(page.currentPage < page.lastPage)}">
+				            <a href="" style="pointer-events: none;">&raquo;</a>
+				        </c:if>
+				        <c:if test="${page.currentPage < page.lastPage}">
+				            <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${goodsNo}&currentPage=${page.lastPage}">&raquo;</a>
+				        </c:if>
+				        
+				    </div>
+					</section>
+					
+					</c:if>
+					
 				
 			</div>
-		</div>
-	</section>
+		</section>
 
-        
+     
         
         <!-- 푸터 -->
     	<c:import url="/WEB-INF/view/inc/footer.jsp"></c:import>

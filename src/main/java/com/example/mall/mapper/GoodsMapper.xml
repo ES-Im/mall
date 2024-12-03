@@ -21,7 +21,7 @@
 	</select>
 	
 	<!-- getGoodsOne : 후기 리스트 -->
-	<select id="selectBoardListByGoodsNo" parameterType="Integer" resultType="map">
+	<select id="selectBoardListByGoodsNo" parameterType="map" resultType="map">
 		SELECT b.orders_no ordersNo
 				, b.board_content boardContent
 				, b.create_date createDate

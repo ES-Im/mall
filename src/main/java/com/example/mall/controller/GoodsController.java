@@ -65,6 +65,8 @@ public class GoodsController {
 
 		// boardList : 후기 리스트 + page
 		Map<String, Object> boardListMap = goodsService.getBoardListByGoodsNo(goodsNo, page);
+		log.debug(TeamColor.KMJ + "boardList : " + boardListMap.get("boardList") + TeamColor.RESET );
+		
 		
 		// 후기 작성 가능 회원 확인 (해당 상품의 구매이력이 존재 + payment_Status가 '배송완료' + 후기를 작성하지 않은 회원)
 		List<Map<String, Object>> eligibleReviewersListMap = goodsService.getEligibleReviewers(goodsNo, loginCustomer);
@@ -73,19 +75,23 @@ public class GoodsController {
 		boolean isEligibleReviewer = false;
 		
 		if(eligibleReviewersListMap.size() > 0) {
-			
 			if(Integer.parseInt(String.valueOf((eligibleReviewersListMap.get(0).get("boardOrdersNo")))) == -1) {
+				log.debug(TeamColor.KMJ + "getboardOrdersNo"  + eligibleReviewersListMap.get(0).get("boardOrdersNo") + TeamColor.RESET );
+				log.debug(TeamColor.KMJ + "getboardOrdersNo타입"  + eligibleReviewersListMap.get(0).get("boardOrdersNo").getClass() + TeamColor.RESET );
 				
 				isEligibleReviewer = true;
 			}
 
-			Integer orderNo = null;
+			Integer ordersNo = null;
 
 			for(int i = 0; i<eligibleReviewersListMap.size(); i++) {
-				if(eligibleReviewersListMap.get(i).get("paymentStatus").equals("배송완료") && eligibleReviewersListMap.get(i).get("boardOrdersNo").equals("-1")) {
-					orderNo = Integer.parseInt(String.valueOf(eligibleReviewersListMap.get(i).get("orderNo")));
-					model.addAttribute("orderNo", orderNo);
-					log.debug(TeamColor.KMJ + "orderNo : " + orderNo + TeamColor.RESET );
+				
+				if(eligibleReviewersListMap.get(i).get("paymentStatus").equals("배송완료") && (Long)eligibleReviewersListMap.get(i).get("boardOrdersNo") == -1 ) {
+					
+					ordersNo = (int)eligibleReviewersListMap.get(i).get("ordersNo");
+					model.addAttribute("ordersNo", ordersNo);
+					log.debug(TeamColor.KMJ + "ordersNo : " + ordersNo + TeamColor.RESET );
+				
 				}
 
 			}
