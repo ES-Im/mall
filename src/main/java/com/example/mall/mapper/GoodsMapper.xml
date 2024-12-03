@@ -43,7 +43,18 @@
 									ON o.payment_no = acp.payment_no) acpo
 		ON b.orders_no = acpo.orders_no
 		WHERE goods_no = #{goodsNo}
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	
+	<!-- getGoodsOne : 후기 리스트 마지막 페이지 구하기 -->
+	<select id="selectCountboardList" parameterType="Integer" resultType="Integer">
+		SELECT COUNT(*)
+		FROM board b
+		INNER JOIN orders o ON b.orders_no = o.orders_no
+		INNER JOIN goods g ON o.goods_no = g.goods_no
+		WHERE g.goods_no = #{goodsNo}
+	</select>
+	
 	
 	<!-- getGoodsOne : 후기 작성 가능한 회원 조회 -->
 	<select id="selectEligibleReviewers" parameterType="map" resultType="map">
@@ -170,23 +181,17 @@
 
 	<!-- home : 메인 페이지 상품 리스트 출력 -->
 	<select id="selectGoodsList" parameterType="map" resultType="map">
-	    SELECT g.goods_no AS goodsNo  
-	           , g.goods_title AS goodsTitle  
-	           , g.goods_memo AS goodsMemo  
-	           , g.goods_price AS goodsPrice  
-	           , g.goods_status AS goodsStatus  
-	           , g.update_date AS updateDate  
-	           , g.create_date AS createDate 
-	           , cgc.category_no AS categoryNo
-	           , cgc.category_title AS categoryTitle
-	    FROM goods g 
-	    INNER JOIN (
-	        SELECT c.category_no
-	               , c.category_title
-	               , gc.goods_no
-	        FROM category c 
-	        INNER JOIN goods_category gc ON c.category_no = gc.category_no
-	    ) cgc ON g.goods_no = cgc.goods_no
+	   	WITH ranked_files AS (SELECT gf.goods_no, gf.goods_file_no, gf.goods_file_name, 
+								  gf.goods_file_origin_name, gf.goods_file_ext, gf.goods_file_type,  gf.goods_file_size,
+								  ROW_NUMBER() OVER (PARTITION BY gf.goods_no ORDER BY gf.goods_file_no) row_num FROM goods_file gf)
+		SELECT g.goods_no goodsNo, g.goods_title goodsTitle, g.goods_memo goodsMemo, g.goods_price goodsPrice, g.goods_status goodsStatus, 
+		       g.update_date updateDate, g.create_date createDate, c.category_title categoryTitle,
+		       rf.goods_file_no goodsFileNo, rf.goods_file_name goodsFileName, rf.goods_file_origin_name goodsOriginName, 
+		       rf.goods_file_ext goodsFileExt, rf.goods_file_type goodsFileType, rf.goods_file_size goodsFileSize
+		FROM goods g
+		INNER JOIN goods_category gc ON g.goods_no = gc.goods_no
+		INNER JOIN category c ON gc.category_no = c.category_no
+		LEFT JOIN ranked_files rf ON g.goods_no = rf.goods_no AND rf.row_num = 1
 	    <where>
 	        <if test="searchWord != null and searchWord != ''">
 	            g.goods_title LIKE CONCAT('%', #{searchWord}, '%')
@@ -195,7 +200,7 @@
 	            <if test="searchWord != null and searchWord != ''">
 	                AND
 	            </if>
-	            cgc.category_no IN
+	            gc.category_no IN
 	            <foreach item="categoryNo" collection="categoryNoList" open="(" separator="," close=")">
 	                #{categoryNo}
 	            </foreach>
