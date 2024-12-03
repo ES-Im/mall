@@ -105,7 +105,7 @@ public class PaymentService {
 	
 	// # selectPayInfoListByPaymentNo : Payment_No 별 Order + goods + category 정보 출력 
 		//  직원용 + 고객용 
-	public List<Map<String,Object>> getPayInfoListByPaymentNo(Integer paymentNo) {
+	public Map<String,Object> getPayInfoListByPaymentNo(Integer paymentNo) {
 		return paymentMapper.selectPayInfoListByPaymentNo(paymentNo);
 	}
 	

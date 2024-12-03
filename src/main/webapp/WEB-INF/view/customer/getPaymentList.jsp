@@ -101,6 +101,7 @@
 					<div class="list-group">
 						<!-- Payment 기준 반복문 -->
 					   <c:forEach var="p" items="${paymentList}">
+					   <div>${p.paymentNo}</div>
 						<!-- 수정 후 -->
 						<div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
 							<div class="d-flex align-items-center justify-content-between" style="width: 100%; height: 40px">
@@ -123,41 +124,43 @@
 							</div>
 						</div>
 							<c:forEach var="i" items="${PayInfoListByPaymentNo}">
-								<!-- 수정 후 -->
-									<!-- 이미지 -->
-								<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
-									<div class="d-flex justify-content-center align-items-center">
-										<!-- 파일 있을 때 -->
-										<c:if test="${!(i.goodsFileName == 'no file')}">
-											<img src="${pageContext.request.contextPath}/goodsFile/${i.goodsFileName}.${i.goodsFileExt}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
-										</c:if>
-										<!-- 파일 없을 때 -->
-										<c:if test="${(i.goodsFileName == 'no file')}">
-											<div style="align-items: center;">
-	 											<img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
-	 										</div>
-										</c:if>
-									</div>
-									
-									<!-- 주문 정보 -->
-									<div class="d-flex gap-2 w-100 justify-content-between">
-										<div>
-											<p class="mt-2 mb-0"><small>OrdersNo : ${i.ordersNo}</small></p>
-											<div class="d-flex justify-content-between">
-												<div style="flex-grow: 1;"> 
-													<p class="mt-2 mb-0"><small>주문 상품 : ${i.categoryTitle} / ${i.goodsTitle}</small></p>
-													<p class="mt-2 mb-0"><small>상품 번호 : ${i.goodsNo}</small></p>
-													<p class="mt-2 mb-0"><small>상품 가격 : $<fmt:formatNumber value="${i.goodsPrice}" pattern="#,###"/></small></p>
-													<p class="mt-2 mb-0"><small>주문 수량 : ${i.ordersAmount}개</small></p>
-												</div>
-												
+								<c:if test="${p.paymentNo == i.paymentNo}">
+									<div>${i.paymentNo}</div>
+										<!-- 이미지 -->
+										<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
+											<div class="d-flex justify-content-center align-items-center">
+												<!-- 파일 있을 때 -->
+												<c:if test="${!(i.goodsFileName == 'no file')}">
+													<img src="${pageContext.request.contextPath}/goodsFile/${i.goodsFileName}.${i.goodsFileExt}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+												</c:if>
+												<!-- 파일 없을 때 -->
+												<c:if test="${(i.goodsFileName == 'no file')}">
+													<div style="align-items: center;">
+			 											<img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+			 										</div>
+												</c:if>
 											</div>
-											<div>
-												<small class="opacity-75">payment status : ${p.paymentStatus}</small>
+											
+											<!-- 주문 정보 -->
+											<div class="d-flex gap-2 w-100 justify-content-between">
+												<div>
+													<p class="mt-2 mb-0"><small>OrdersNo : ${i.ordersNo}</small></p>
+													<div class="d-flex justify-content-between">
+														<div style="flex-grow: 1;"> 
+															<p class="mt-2 mb-0"><small>주문 상품 : ${i.categoryTitle} / ${i.goodsTitle}</small></p>
+															<p class="mt-2 mb-0"><small>상품 번호 : ${i.goodsNo}</small></p>
+															<p class="mt-2 mb-0"><small>상품 가격 : $<fmt:formatNumber value="${i.goodsPrice}" pattern="#,###"/></small></p>
+															<p class="mt-2 mb-0"><small>주문 수량 : ${i.ordersAmount}개</small></p>
+														</div>
+														
+													</div>
+													<div>
+														<small class="opacity-75">payment status : ${p.paymentStatus}</small>
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
+									</c:if>
 							</c:forEach>
 							<hr>
 							<h3 class="opacity-75" style="text-align: right">TOTAL PRICE : $ <fmt:formatNumber value="${p.paymentPrice}" pattern="#,###"/> </h3>

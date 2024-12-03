@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Cart</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
 
 <style>
 		.goods-link {
@@ -33,10 +33,16 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"/>
 
 <script>
 	$(document).ready(function(){
+		// 배송지가 없으면 배송지리스트 폼으로 이동
+		if($('#addressListSize').val() == null || $('#addressListSize').val() === '0') {
+		    alert("배송지를 먼저 등록해주세요");
+		    window.location.href = "${pageContext.request.contextPath}/customer/getAddressList";
+		}
+		
 		// 테이블 상단 "결제하기"버튼 : (폼 post 전송) 선택한 OrderNo 리스트 결제 하기 화면으로 이동 
 		$(addPaymentBtn).click(function() {
 			// 선택한 orderNo이 없으면 alert창 띄우기 
@@ -47,8 +53,10 @@
 			// 선택한 orderNo이 1개 이상이라면 /customer/getCartListByChecked 로 이동
 			$(selectCartNoForm).submit();
 		});
+	
 		
 	});
+	
 </script>
 
 
@@ -79,7 +87,6 @@
 
 
 
-
 			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px; ">
 			    <!-- 출력할 데이터가 없을 때 -->
 			    <c:if test="${empty cartListByChecked}">
@@ -87,6 +94,7 @@
 			    </c:if>
 			    
 			    <!-- 출력할 데이터가 있을 때 -->
+				<input type="hidden" id="addressListSize" value="${addressList.size()}">
 			    <c:if test="${not empty cartListByChecked}">
                     <!-- cartNo[], Payment(paymentPrice, paymentMethod, addressNo) 전달폼 (paymentController : addPayment)  -->
                     <form id="selectCartNoForm" method="post" action="${pageContext.request.contextPath}/customer/addPayment">
@@ -177,3 +185,4 @@
         </div>
     </div>
 </body>
+

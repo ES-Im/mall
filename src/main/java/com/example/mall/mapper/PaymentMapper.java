@@ -27,7 +27,7 @@ public interface PaymentMapper {
 	
 	// /customer/getPaymentList & /staff/getPaymentListByStaff 
 	// paymentNo에 연결된 order 정보와 goods/category 정보 리스트 출력시 사용 (결제번호 별 상세보기)
-	List<Map<String,Object>> selectPayInfoListByPaymentNo(Integer paymentNo);	
+	Map<String,Object> selectPayInfoListByPaymentNo(Integer paymentNo);	
 	
 	// /직원+고객 공용/modifyPaymentStatus 에서 << paymentStatus 변경시 사용 >> : payment 매개값 : 변경후 status, paymentNo, customerEmail
 	Integer updatePaymentStatus(Map<String, Object> paramMap);
