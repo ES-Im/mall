@@ -26,8 +26,6 @@ import com.example.mall.vo.Page;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-
-
 @Controller
 @Slf4j
 public class GoodsController {
@@ -113,10 +111,6 @@ public class GoodsController {
 		
 		Map<String, Object> goodsList = goodsService.getGoodsListByStaff(page, searchWord);
 		log.debug(TeamColor.KDH + "goodsList" + goodsList.toString() + TeamColor.RESET); // debug
-		
-		if(page.getCurrentPage() > page.getLastPage()) {
-			return "redirect:/staff/getGoodsListByStaff?currentPage=" + page.getLastPage();
-		}
 		
 		model.addAttribute("goodsList", goodsList.get("goodsList"));
 		model.addAttribute("page", goodsList.get("page"));
@@ -226,7 +220,7 @@ public class GoodsController {
 		// 상품정보만 입력하고 File은 첨부 안했을 때
 		if(goodsFileList == null || goodsFileList.isEmpty()) {
 			String path = null;
-			goodsService.addGoods(goodsForm, path);
+			goodsService.modifyGoods(goodsForm, path);
 			return "redirect:/staff/getGoodsListByStaff";
 		}
 		
@@ -251,7 +245,6 @@ public class GoodsController {
 		goodsFileService.removeGoodsFile(goodsFileNo, path);
 		return "redirect:/staff/modifyGoods?goodsNo=" + goodsNo;
 	}
-
 	
 	// home : 메인 페이지 상품 리스트 출력
 	@GetMapping("/home")
@@ -286,6 +279,7 @@ public class GoodsController {
 		log.debug( TeamColor.KMJ + "page : " + page.toString() + TeamColor.RESET );
 		
 		model.addAttribute("goodsList", goodsListMap.get("goodsList"));
+		model.addAttribute("goodsFileList", goodsListMap.get("goodsFileList"));
 		model.addAttribute("page", goodsListMap.get("page"));
 		model.addAttribute("searchWord", searchWord);
 		// pagination용

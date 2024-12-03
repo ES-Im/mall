@@ -3,7 +3,7 @@
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>       
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 
 <!DOCTYPE html>
 <html lang="en">
@@ -203,22 +203,38 @@
 
         	
 				<div class="container px-4 px-lg-5 mt-5">
-					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
 					
-					<c:forEach var="goods" items="${goodsList}">
+					<c:forEach var="goods" items="${goodsFileList}">
 					
+						<c:if test="${goods.goodsStatus == '판매중지'}">
+							
+						</c:if>
+					
+						<c:if test="${goods.goodsStatus != '판매중지'}">
 						<div class="col mb-5">
-							<div class="card h-100">
-								<!-- Product image-->
-								<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+							<!-- Product image-->
+							<div class="card h-100">								
+								<!-- 파일 있을 때 -->
+	 							<c:if test="${not empty goods.goodsFileNo}">
+	 								<img class="card-img-top" src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsFileExt}" alt="${goods.goodsOriginName}" />
+	 							</c:if>
+	 							<!-- 파일 없을 때 -->
+	 							<c:if test="${empty goods.goodsFileNo}">
+	 								<div style="align-items: center;">
+	 									<img class="card-img-top" src="${pageContext.request.contextPath}/goodsFile/Preparing_the_goods_img.jpg" alt="..." />
+	 								</div>
+	 							</c:if>
+
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">
 										<!-- Product name-->
-										<h5 class="fw-bolder">${goods.goodsTitle}</h5>
+										<h4 class="fw-bolder">${goods.goodsTitle}</h4>
+										<!-- category -->
+										<h5>${goods.categoryTitle}</h5>
 										<!-- Product price-->
-										$ ${goods.goodsPrice}
-										 ${goods.categoryTitle}
+										 <fmt:formatNumber value="${goods.goodsPrice}" type="number" groupingUsed="true" />원
 									</div>
 								</div>
 								<!-- Product actions-->
@@ -233,7 +249,7 @@
 								</div>
 							</div>
 						</div>
-						
+						</c:if>
 					</c:forEach>	
 
 					</div>
@@ -282,7 +298,7 @@
 		    
 		        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
 		        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
-		        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1}"></c:set>
+		        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage}"></c:set>
 		        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
 		        
 		        <c:if test="${lastGroupStart > nextGroupStart}">
@@ -354,7 +370,7 @@
 		    
 		        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
 		        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
-		        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1}"></c:set>
+		        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage }"></c:set>
 		        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
 		        
 		        <c:if test="${lastGroupStart > nextGroupStart}">
@@ -424,8 +440,8 @@
 		        
 		    
 		        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
-		        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
-		        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1}"></c:set>
+		        마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
+		        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage }"></c:set>
 		        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
 		        
 		        <c:if test="${lastGroupStart > nextGroupStart}">
@@ -496,7 +512,7 @@
 		    
 		        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
 		        				마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
-		        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage + 1}"></c:set>
+		        <c:set var="nextGroupStart" value="${(page.currentPage - 1) - ((page.currentPage - 1) % page.numPerPage) + page.numPerPage }"></c:set>
 		        <c:set var="lastGroupStart" value="${page.lastPage - (page.lastPage)%page.numPerPage + 1}"></c:set>
 		        
 		        <c:if test="${lastGroupStart > nextGroupStart}">
@@ -525,16 +541,11 @@
 		            <a href="${pageContext.request.contextPath}/home?currentPage=${page.lastPage}">&raquo;</a>
 		        </c:if>
 		    </div>
-		    </c:if>		
-	
-
-		    
+		    </c:if>	
+    
 			</section> 
        
-       
-      	
-       
-       
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

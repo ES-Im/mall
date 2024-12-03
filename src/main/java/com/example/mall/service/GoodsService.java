@@ -1,6 +1,7 @@
 package com.example.mall.service;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -205,6 +206,7 @@ public class GoodsService {
 				}
 			}
 		}
+		
 		return 1;
 	}
 	
@@ -215,18 +217,20 @@ public class GoodsService {
 	public Map<String, Object> getGoodsList(Page page, String searchWord, List<String> categoryNoList){
 		log.debug( TeamColor.KMJ + "[GoodsService - getGoodsList]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "searchWord : " + searchWord + TeamColor.RESET );
-		
+		page.setRowPerPage(6);
 		Integer beginRow = page.getBeginRow();
 		Integer rowPerPage = page.getRowPerPage();
-		
+				
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("searchWord", searchWord);
 		paramMap.put("categoryNoList", categoryNoList);
 		
-		// goodsList.
+		// goodsList. : 상품 리스트
 		List<Map<String, Object>> goodsList = goodsMapper.selectGoodsList(paramMap);
+		// goodsList : 상품 리스트의 대표사진
+		List<Map<String, Object>> goodsFileList = goodsMapper.selectGoodsListByStaff(paramMap);
 		
 		// goodsList의 마지막 페이지 구하기
 		Integer totalRow = goodsMapper.selectGoodsListLastPage(paramMap);
@@ -243,6 +247,7 @@ public class GoodsService {
 		// goodsList + Page
 		Map<String, Object> goodsListMap = new HashMap<>();
 		goodsListMap.put("goodsList", goodsList);
+		goodsListMap.put("goodsFileList", goodsFileList);
 		goodsListMap.put("page", page);
 
 		return goodsListMap;

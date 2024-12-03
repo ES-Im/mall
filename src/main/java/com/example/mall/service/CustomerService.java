@@ -66,9 +66,9 @@ public class CustomerService {
 		//addressMapper.deleteAddress(customerEmail);		// deleteAddress -> where 동적쿼리 변경 필요
 		Integer checkAddressDelete = addressMapper.deleteAddress(address);
 		// 트랜잭션 디버깅
-		if(checkAddressDelete != 9) {
-			throw new RuntimeException("Address 쿼리에서 오류 checkAddressDelete = " + checkAddressDelete);
-		}
+//		if(checkAddressDelete != 9) {
+//			throw new RuntimeException("Address 쿼리에서 오류 checkAddressDelete = " + checkAddressDelete);
+//		}
 		
 		Integer checkSuccess = customerMapper.deleteCustomer(customer);
 //		// 트랜잭션 디버깅

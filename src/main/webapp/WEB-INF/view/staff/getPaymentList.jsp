@@ -137,19 +137,21 @@
  				
                 <!-- paymentNo/회원 아이디 기준 추출 -->
             
-                    <div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
-                    	<div class="d-flex align-items-center" style="width: 100%;">
+                    <div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; height:40px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
+                    	<div class="d-flex align-items-center justify-content-between" style="width: 100%;">
                         	<div class="me-3" style="margin-left: 20px;" >
                             	<span> PaymentNo : ${payment.paymentNo } / ${payment.customerEmail }</span>
                           	</div>
-                          	<div>Payment Status : ${payment.paymentStatus }</div>
-                          	<div>
-                          		<c:if test="${payment.paymentStatus == '결제완료' }">
-	                          		<a href="${pageContext.request.contextPath}/staff/modifyPaymentStatus?paymentNo=${payment.paymentNo}&paymentStatus=배송중"><button type="button" class="btn btn-sm btn-outline-primary mt-2" disabled style="opacity: 1;"> 배송시작 </button></a>
-	                          		<a href="${pageContext.request.contextPath}/staff/modifyPaymentStatus?paymentNo=${payment.paymentNo}&paymentStatus=결제취소"><button type="button" class="btn btn-sm btn-outline-danger mt-2" disabled style="opacity: 1;"> 결제취소 </button></a>
-                          		</c:if>
+                          	<div class="d-flex align-items-center">
+                          		<span style="padding-right: 15px;">Payment Status : ${payment.paymentStatus}</span>
+                          		<span style="padding-right: 15px;">
+	                          		<c:if test="${payment.paymentStatus == '결제완료' }">
+		                          		<a href="${pageContext.request.contextPath}/staff/modifyPaymentStatus?paymentNo=${payment.paymentNo}&paymentStatus=배송중"><button type="button" class="btn btn-sm btn-outline-primary my-2" disabled style="opacity: 1;"> 배송시작 </button></a>
+		                          		<a href="${pageContext.request.contextPath}/staff/modifyPaymentStatus?paymentNo=${payment.paymentNo}&paymentStatus=결제취소"><button type="button" class="btn btn-sm btn-outline-danger my-2" disabled style="opacity: 1;"> 결제취소 </button></a>
+	                          		</c:if>
+                          		</span>
+                          		<span style="padding-right: 15px;">Create Date : ${fn:substringBefore(payment.createDate, 'T')}</span>
                           	</div>
-                       
                       	</div>
                   	</div>
               		
@@ -172,14 +174,13 @@
 	 						</div>
 	 						
 	 						<!-- 주문 정보 -->
-	      					<div class="d-flex gap-2 w-100 justify-content-between">
+	      					<div class="d-flex gap-2 w-100 justify-content-between" style="height: 200px;">
 						        <div>
-						        	
 	      							<p class="mt-2 mb-0"><small>OrdersNo : ${orders.ordersNo}</small></p>
 	      							<div class="d-flex justify-content-between">
 									    <div style="flex-grow: 1;"> 
-									        <p class="mt-2 mb-0"><small>주문 상품 :${orders.categoryTitle} / ${orders.goodsTitle}</small></p>
-									        <p class="mt-2 mb-0"><small>상품 가격 :${orders.goodsPrice}</small></p>
+									        <p class="mt-2 mb-0"><small>주문 상품 : ${orders.categoryTitle} / ${orders.goodsTitle}</small></p>
+									        <p class="mt-2 mb-0"><small>상품 가격 : ${orders.goodsPrice}</small></p>
 									        <p class="mt-2 mb-0"><small>주문 수량 : ${orders.ordersAmount}</small></p>
 									    </div>
 									    
@@ -193,7 +194,7 @@
 			    	</c:forEach><!-- orders 반복문 끝 -->
 			    	
 			    	<div class="d-flex justify-content-end mt-2 align-items-center">
-			        	<p class="h4">TOTAL PRICE : ${payment.paymentPrice}</p>
+			        	<p class="h4" style="padding-right: 15px;">TOTAL PRICE : $ ${payment.paymentPrice}</p>
 			        </div>
 			        <br>
  				</c:forEach>

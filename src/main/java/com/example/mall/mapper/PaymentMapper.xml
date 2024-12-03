@@ -30,7 +30,7 @@
 		    , p.payment_price AS paymentPrice
 		    , p.payment_method AS paymentMethod
 		    , p.create_date AS createDate
-		    , a.customer_email AS customerEmail
+		    , IFNULL(a.customer_email, "( 회원탈퇴 고객 )") AS customerEmail
 		    , CONCAT(COUNT(o.orders_no), '건') AS orderCnt
 		FROM 
 		    payment p
@@ -44,6 +44,7 @@
 			</where>
 		</if>
 		GROUP BY p.payment_no
+		ORDER BY CASE WHEN p.payment_status = '결제완료' THEN 0 ELSE 1 END, p.create_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

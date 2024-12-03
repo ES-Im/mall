@@ -20,6 +20,9 @@ public interface StaffMapper { // Author : 김동현
 	// staff/addStaff.jsp
 	Integer insertStaff(Staff staff);
 	
+	// staff/addStaff.jsp → staffId 중복확인
+	Boolean existsByStaffId(String staffId);
+	
 	// staff/getStaffList.jsp → removeStaff
 	Integer deleteStaff(Integer staffNo);
 	
@@ -30,6 +33,6 @@ public interface StaffMapper { // Author : 김동현
 	Integer selectCountCustomer();
 	
 	// staff/getCustomerList.jsp → removeCustomerByStaff
-	Integer deleteCustomerByStaff(String customerEmail);
+	// Integer deleteCustomerByStaff(String customerEmail); // customerService.removeCustomer 재사용
 
 }

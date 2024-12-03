@@ -42,6 +42,11 @@ public class StaffService { // Author : 김동현
 		return staffMapper.insertStaff(staff);
 	}
 	
+	// 스태프 ID 중복 확인
+	 public Boolean isStaffIdExists(String staffId) {
+        return staffMapper.existsByStaffId(staffId);
+    }
+	
 	// 스태프 삭제
 	public Integer removeStaff(Integer staffNo) {
 		return staffMapper.deleteStaff(staffNo);
@@ -79,8 +84,10 @@ public class StaffService { // Author : 김동현
 	}
 	
 	// 고객 리스트 삭제
+	/*
 	public Integer removeCustomerByStaff(String customerEmail) {
 		return staffMapper.deleteCustomerByStaff(customerEmail);
 	}
+	*/
 
 }
