@@ -116,15 +116,11 @@
 		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
 			<div class="border d-flex p-3 justify-content-between" style="width: 700px;">
 				<form action="${pageContext.request.contextPath}/customer/addAddress" method="post" id="addAddressForm">
-					<div>
-						<textarea rows="3" cols="75" name="addressDetail" placeholder="주소 입력" id="addressDetail"></textarea>
-					</div>
-					<div>
-						<div style="text-align: right;">
+					<textarea rows="3" cols="75" name="addressDetail" placeholder="주소 입력" id="addressDetail" style="width: 660px;"></textarea>
+						<div style="text-align: right; margin-top: 2px">
 					    	<button type="button" class="btn btn-sm btn-outline-danger" id="btnAddAddress">add</button>
 						</div>
 		        		<br>
-					</div>
 				</form>	        		
 			</div>
 		</div>

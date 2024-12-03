@@ -56,9 +56,8 @@ public class CartController {
 	// customer/addCart : cart에 상품 추가시 사용
 	@GetMapping("/customer/addCart") 
 	public String addCart(Cart cart) {
+		log.debug(TeamColor.KES + "addCart 실행" + TeamColor.RESET);
 		cartService.addCart(cart);
-
-		
 		return "redirect:/customer/getCartList";
 	}
 	
