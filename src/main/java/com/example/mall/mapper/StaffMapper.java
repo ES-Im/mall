@@ -33,6 +33,6 @@ public interface StaffMapper { // Author : 김동현
 	Integer selectCountCustomer();
 	
 	// staff/getCustomerList.jsp → removeCustomerByStaff
-	Integer deleteCustomerByStaff(String customerEmail);
+	// Integer deleteCustomerByStaff(String customerEmail); // customerService.removeCustomer 재사용
 
 }
