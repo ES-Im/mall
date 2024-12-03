@@ -231,7 +231,7 @@
 		            <%-- 그 외는 다음 그룹의 첫 번째 번호로 이동--%>
 		            <c:otherwise>
 		                <a href="${pageContext.request.contextPath}/customer/getPaymentList?currentPage=${page.getNextGroupStart()}">
-		                    Next 평
+		                    Next
 		                </a>
 		            </c:otherwise>
 		            

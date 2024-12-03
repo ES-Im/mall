@@ -31,37 +31,36 @@
 
 
 <body>
-	<div class="justify-content-center">
-		<div class="col-sm-8">
-			<div class="row">
-		
-				<!-- leftbar -->
-				<div class="col-sm-2 p-0">
-					<div >
-						<c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
-					</div>
+	<div class="col-sm-8">
+		<div class="row" style="width: 100vw">
+			<!-- leftbar -->
+			<div class="col-sm-2 p-0">
+				<div>
+					<c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
 				</div>
-			
-			
-				<!-- main -->
-				<div class="col-sm-10 p-0">
-					<!-- header -->
-					<div>
-						<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
-					</div>
-					
-					<span class="display-3">결제 완료 !</span>
-					<hr>
-					<a href="${pageContext.request.contextPath}/home">홈으로</a>
-					<a href="${pageContext.request.contextPath}/customer/getPaymentList">주문 목록</a>
+			</div>
+		
+			<!-- main -->
+			<div class="col-sm-10 p-0" style="height: 100vh;">
+				<!-- header -->
+				<div>
+					<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
+				</div>
 				
-					
+				<div class="card d-flex justify-content-center align-items-center" style="height: 100%;">
+						<span class="display-3">결제 완료 !</span>
+					<div class="mt-5">
+						<a href="${pageContext.request.contextPath}/home" class="btn btn-lg btn-outline-secondary p-3 m-3">홈으로</a>
+						<a href="${pageContext.request.contextPath}/customer/getPaymentList" class="btn btn-lg btn-outline-primary p-3 ml-3">주문 목록</a>
+					</div>	
 				</div>
 				
 			</div>
+			
 		</div>
 	</div>
 </body>
+
 
 
 
