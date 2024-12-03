@@ -45,13 +45,39 @@ public class GoodsService {
 	}
 	
 	// getGoodsOne : 후기 리스트
-	public List<Map<String, Object>> getBoardListByGoodsNo(Integer goodsNo){
+	public Map<String, Object> getBoardListByGoodsNo(Integer goodsNo, Page page){
 		log.debug( TeamColor.KMJ + "[GoodsService - getBoardListByGoodsNo]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "goodsNo : " + goodsNo + TeamColor.RESET );
-		
-		List<Map<String, Object>> boardList = goodsMapper.selectBoardListByGoodsNo(goodsNo);
 
-		return boardList;
+		page.setRowPerPage(5);
+		Integer beginRow = page.getBeginRow();
+		Integer rowPerPage = page.getRowPerPage();
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("goodsNo", goodsNo);
+		
+		List<Map<String, Object>> boardList = goodsMapper.selectBoardListByGoodsNo(paramMap);
+		
+		// 후기 리스트 마지막 페이지 구하기
+		Integer boardTotalRow = goodsMapper.selectCountboardList(goodsNo);
+		
+		Integer boardListLastPage = boardTotalRow / rowPerPage;
+		if(boardTotalRow % rowPerPage != 0) {
+			boardListLastPage++;
+		}
+		
+		log.debug( TeamColor.KMJ + "boardListLastPage : " + boardListLastPage + TeamColor.RESET );
+		
+		page.setLastPage(boardListLastPage);
+	
+		
+		Map<String, Object> boardListMap = new HashMap<>();
+		paramMap.put("boardList", boardList);
+		paramMap.put("page", page);
+
+		return boardListMap;
 	}
 	
 	// getGoodsOne : 후기 작성 가능한 회원
@@ -227,10 +253,12 @@ public class GoodsService {
 		paramMap.put("searchWord", searchWord);
 		paramMap.put("categoryNoList", categoryNoList);
 		
-		// goodsList. : 상품 리스트
+		// goodsList. : 상품 리스트 (사진 포함)
 		List<Map<String, Object>> goodsList = goodsMapper.selectGoodsList(paramMap);
-		// goodsList : 상품 리스트의 대표사진
-		List<Map<String, Object>> goodsFileList = goodsMapper.selectGoodsListByStaff(paramMap);
+		
+		
+		
+	
 		
 		// goodsList의 마지막 페이지 구하기
 		Integer totalRow = goodsMapper.selectGoodsListLastPage(paramMap);
@@ -247,7 +275,6 @@ public class GoodsService {
 		// goodsList + Page
 		Map<String, Object> goodsListMap = new HashMap<>();
 		goodsListMap.put("goodsList", goodsList);
-		goodsListMap.put("goodsFileList", goodsFileList);
 		goodsListMap.put("page", page);
 
 		return goodsListMap;

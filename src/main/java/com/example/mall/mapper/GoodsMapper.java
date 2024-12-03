@@ -16,7 +16,10 @@ public interface GoodsMapper {
 	Map<String, Object> selectGoodsOne(Integer goodsNo);
 	
 	// getGoodsOne : 후기 리스트
-	List<Map<String, Object>> selectBoardListByGoodsNo(Integer goodsNo);
+	List<Map<String, Object>> selectBoardListByGoodsNo(Map<String, Object> paramMap);
+	
+	// getGoodsOne : 후기 리스트 마지막 페이지 구하기
+	Integer selectCountboardList(Integer goodsNo);
 	
 	// getGoodsOne : 후기 작성 가능한 회원
 	List<Map<String, Object>> selectEligibleReviewers(Map<String, Object> paramMap);
