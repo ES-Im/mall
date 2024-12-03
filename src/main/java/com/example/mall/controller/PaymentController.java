@@ -113,6 +113,7 @@ public class PaymentController {
 		
 		model.addAttribute("PayInfoListByPaymentNo", PayInfoListByPaymentNo);
 		log.debug(TeamColor.KMJ + "PayInfoListByPaymentNo : "+ PayInfoListByPaymentNo + TeamColor.RESET);	
+		log.debug(TeamColor.KMJ + "PayInfoListByPaymentNosize : "+ PayInfoListByPaymentNo.size() + TeamColor.RESET);	
 		
 		model.addAttribute("paymentList", paymentList);
 		
