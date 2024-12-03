@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.mall.service.CartService;
 import com.example.mall.service.PaymentService;
 import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Page;
@@ -24,11 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PaymentController {
 	@Autowired PaymentService paymentService;
-	
+	@Autowired CartService cartService;
 	// Author : 김은서
 	// 고객용 : /customer/addPayment 에서 결제 완료시 출력되는 화면
 	@GetMapping("/customer/payResult")
-	public String getPaymentResult() {
+	public String getPaymentResult(HttpSession session) {
+		Integer countCart = cartService.getCountCartByCustomerEmail((String) session.getAttribute("loginCustomer"));
+		log.debug(TeamColor.KES + "회원 장바구니 = " + countCart  + TeamColor.RESET);
+		session.setAttribute("countCart", countCart);
 		return "customer/payResult";
 	}
 	

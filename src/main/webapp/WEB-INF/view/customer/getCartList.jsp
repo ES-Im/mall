@@ -123,54 +123,54 @@
 
                             <c:forEach items="${cartList}" var="c">
                                 <div style="width: 1000px; margin-top: 10px;">
-                            	<div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
-					                <div class="d-flex align-items-center justify-content-between" style="width: 100%; margin-left: 20px;">
-					                    <div class=" align-items-center">
-					                        <input name="cartNo" type="checkbox" class="checkbox" value="${c.cartNo}">
-					                        <span class="goods-link" style="margin-left: 5px;">
-      											<a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${c.goodsNo}" style="text-decoration: none; font-weight: bold;">
-	      											<i class="bi bi-box-seam"> Goods Name : ${c.goodTitle}</i>
-	      										</a>
-			                        		</span>
-					                  	</div>
-										<small>Create Date : ${fn:substring(c.createDate, 0, 10)}</small>
-					              	</div>
-					            </div>
-                                   
-                                    <div class="list-group card">
-
-                                    <div class="d-flex gap-2 w-100 justify-content-between">
-                                            
-                                        <div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <!-- 파일 있을 때 -->
-                                                <c:if test="${not empty c.goodsFileNo}">
-                                                    <img src="${pageContext.request.contextPath}/goodsFile/${c.goodsFileName}.${c.goodsFileExt}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
-                                                </c:if>
-                                                <!-- 파일 없을 때 -->
-                                                <c:if test="${empty goods.goodsFileNo}">
-                                                    <div style="align-items: center;">
-                                                        <img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
-                                                    </div>
-                                                </c:if>
+                                    <div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
+                                        <div class="d-flex align-items-center justify-content-between" style="width: 100%; margin-left: 20px;">
+                                            <div class=" align-items-center">
+                                                <input name="cartNo" type="checkbox" class="checkbox" value="${c.cartNo}">
+                                                <span class="goods-link" style="margin-left: 5px;">
+                                                    <a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${c.goodsNo}" style="text-decoration: none; font-weight: bold;">
+                                                        <i class="bi bi-box-seam"> Goods Name : ${c.goodTitle}</i>
+                                                    </a>
+                                                </span>
                                             </div>
-                                            <div class="d-flex gap-2 w-100 justify-content-between">
-                                                <div style="flex-grow: 1; margin-left: 15px;"> 
-                                                    <p class="mt-2 mb-0"><small> Goods Name : ${c.goodTitle}</small></p>
-                                                    <p class="mt-2 mb-0"><small> Category : ${c.categoryTitle}</small></p>
-                                                    <p class="mt-2 mb-0"><small> Goods Price : $ <fmt:formatNumber value="${c.goodsPrice}" pattern="#,###"/></small></p>
-                                                    <p class="mt-2 mb-0"><small> Quantity : ${c.cartAmount}</small></p>
-                                                    <p class="mt-2 mb-0"><small> TOTAL PRICE : $ <fmt:formatNumber value="${c.totalPrice}" pattern="#,###"/></small></p>
+                                            <small>Create Date : ${fn:substring(c.createDate, 0, 10)}</small>
+                                        </div>
+                                    </div>
+                                    
+                                        <div class="list-group card">
+
+                                        <div class="d-flex gap-2 w-100 justify-content-between">
+                                                
+                                            <div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <!-- 파일 있을 때 -->
+                                                    <c:if test="${not empty c.goodsFileNo}">
+                                                        <img src="${pageContext.request.contextPath}/goodsFile/${c.goodsFileName}.${c.goodsFileExt}" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+                                                    </c:if>
+                                                    <!-- 파일 없을 때 -->
+                                                    <c:if test="${empty goods.goodsFileNo}">
+                                                        <div style="align-items: center;">
+                                                            <img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_product_img.jpg" alt="Preparing the product Image" class="img-thumbnail" style="width: 250px; height: 200px; object-fit: cover;" />
+                                                        </div>
+                                                    </c:if>
                                                 </div>
-                                                <div class="d-flex flex-column justify-content-between">
-                                                    <a href="${pageContext.request.contextPath}/customer/removeCart?cartNo=${c.cartNo}" class="btn btn-sm btn-outline-danger">❌</a>
-                                                    <!-- 선택한 cartNo 하나만 결제하기 페이지(getCartListByChecked)로 이동 -->
-                                                    <a href="${pageContext.request.contextPath}/customer/getCartListByChecked?cartNo=${c.cartNo}" class="btn btn-outline-primary">결제하기</a>
+                                                <div class="d-flex gap-2 w-100 justify-content-between">
+                                                    <div style="flex-grow: 1; margin-left: 15px;"> 
+                                                        <p class="mt-2 mb-0"><small> Goods Name : ${c.goodTitle}</small></p>
+                                                        <p class="mt-2 mb-0"><small> Category : ${c.categoryTitle}</small></p>
+                                                        <p class="mt-2 mb-0"><small> Goods Price : $ <fmt:formatNumber value="${c.goodsPrice}" pattern="#,###"/></small></p>
+                                                        <p class="mt-2 mb-0"><small> Quantity : ${c.cartAmount}</small></p>
+                                                        <p class="mt-2 mb-0"><small> TOTAL PRICE : $ <fmt:formatNumber value="${c.totalPrice}" pattern="#,###"/></small></p>
+                                                    </div>
+                                                    <div class="d-flex flex-column justify-content-between">
+                                                        <a href="${pageContext.request.contextPath}/customer/removeCart?cartNo=${c.cartNo}" class="btn btn-sm btn-outline-danger">❌</a>
+                                                        <!-- 선택한 cartNo 하나만 결제하기 페이지(getCartListByChecked)로 이동 -->
+                                                        <a href="${pageContext.request.contextPath}/customer/getCartListByChecked?cartNo=${c.cartNo}" class="btn btn-outline-primary">결제하기</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </c:forEach>
                     </form>
