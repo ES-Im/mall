@@ -84,8 +84,10 @@ public class StaffService { // Author : 김동현
 	}
 	
 	// 고객 리스트 삭제
+	/*
 	public Integer removeCustomerByStaff(String customerEmail) {
 		return staffMapper.deleteCustomerByStaff(customerEmail);
 	}
+	*/
 
 }
