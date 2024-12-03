@@ -81,7 +81,7 @@
     <div class="row">
         <!-- leftbar -->
         <div class="col-sm-2 p-0">
-            <div >
+            <div>
                 <c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
             </div>
         </div>
