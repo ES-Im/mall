@@ -33,7 +33,7 @@ public class CartController {
 		//log.debug(TeamColor.KES + "customerEmail = " + customerEmail);
 		
 		List<Map<String, Object>> cartList = cartService.getCartList(customerEmail);
-		//log.debug(TeamColor.KES + "cartList = " + cartList.toString());
+		log.debug(TeamColor.KES + "cartList = " + cartList.toString());
 		model.addAttribute("cartList", cartList);
 		return "customer/getCartList";
 	}
