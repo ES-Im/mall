@@ -37,7 +37,7 @@ public class GoodsController {
 	// Author : 김문정
 	// getGoodsOne : 상품 상세보기 + 후기 리스트 + 후기 작성, 수정
 	@GetMapping("/getGoodsOne")
-	public String getGoodsOne(@RequestParam Integer goodsNo, Model model, HttpSession session) {
+	public String getGoodsOne(@RequestParam Integer goodsNo, Model model, HttpSession session, Page page) {
 		log.debug( TeamColor.KMJ + "GET[GoodsController - getGoodsOne]" + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "goodsNo : " + goodsNo + TeamColor.RESET );
 	
@@ -62,12 +62,11 @@ public class GoodsController {
 		List<GoodsFile> fileList = goodsFileService.getGoodsFileList(goodsNo);
 		
 		model.addAttribute("goodsFileList", fileList);
+
+		// boardList : 후기 리스트 + page
+		Map<String, Object> boardListMap = goodsService.getBoardListByGoodsNo(goodsNo, page);
 		
-		
-		// boardList : 후기 리스트
-		List<Map<String, Object>> boardList = goodsService.getBoardListByGoodsNo(goodsNo);
-		
-		// 후기 작성 가능 회원 확인 (해당 상품의 구매이력이 존재 + payment_Status가 '배송완료' + 후기를 작성하지 않은 회원 + 모든 staff)
+		// 후기 작성 가능 회원 확인 (해당 상품의 구매이력이 존재 + payment_Status가 '배송완료' + 후기를 작성하지 않은 회원)
 		List<Map<String, Object>> eligibleReviewersListMap = goodsService.getEligibleReviewers(goodsNo, loginCustomer);
 		
 		log.debug(TeamColor.KMJ + "eligibleReviewersListMap : " + eligibleReviewersListMap.toString() + TeamColor.RESET );
@@ -97,7 +96,8 @@ public class GoodsController {
 
 		model.addAttribute("goodsNo", goodsNo);
 		model.addAttribute("goods", goods);
-		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardList", boardListMap.get("boardList"));
+		model.addAttribute("page", boardListMap.get("page"));
 		model.addAttribute("isEligibleReviewer", isEligibleReviewer);
 	
 		
@@ -276,10 +276,10 @@ public class GoodsController {
 		// 상품리스트 
 		Map<String, Object> goodsListMap = goodsService.getGoodsList(page, searchWord, categoryNoList);
 		
+		log.debug( TeamColor.KMJ + "goodsList : " + goodsListMap.get("goodsList").toString() + TeamColor.RESET );
 		log.debug( TeamColor.KMJ + "page : " + page.toString() + TeamColor.RESET );
 		
 		model.addAttribute("goodsList", goodsListMap.get("goodsList"));
-		model.addAttribute("goodsFileList", goodsListMap.get("goodsFileList"));
 		model.addAttribute("page", goodsListMap.get("page"));
 		model.addAttribute("searchWord", searchWord);
 		// pagination용
