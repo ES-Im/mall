@@ -61,14 +61,18 @@
 		ON p.address_no = a.address_no
 	</select>
 	
+	<select id="selectOrdersNoByPaymentNo" parameterType="Integer" resultType="String">
+		SELECT group_concat(DISTINCT(orders_no)) FROM orders WHERE payment_no = #{paymentNo};
+	</select>
+	
 	<select id="selectPayInfoListByPaymentNo" parameterType="map" resultType="Map">
 		SELECT
 		   o.payment_no AS paymentNo
 		   , o.orders_no AS ordersNo
-			, gc.goods_no AS goodsNo
-			, ct.category_no AS categoryNo
-			, o.orders_amount AS ordersAmount
-			, g.goods_title AS goodsTitle
+		   , gc.goods_no AS goodsNo
+		   , ct.category_no AS categoryNo
+		   , o.orders_amount AS ordersAmount
+		   , g.goods_title AS goodsTitle
 		   , g.goods_memo AS goodsMemo
 		   , g.goods_price AS goodsPrice
 		   , g.goods_status AS goodsStatus
@@ -107,15 +111,13 @@
 				FROM goods_file
 				INNER JOIN
 					(SELECT 
-					    MIN(goods_file_no) AS goods_file_no, 
-					    goods_no
+					    MIN(goods_file_no) AS goods_file_no
 					FROM goods_file
 					GROUP BY goods_no) temp0
 				ON temp0.goods_file_no = goods_file.goods_file_no) temp1
 			ON temp1.goodsNo = g.goods_no) temp2
 		ON gc.goods_no = temp2.goodsNo
-		where o.payment_no = #{paymentNo}
-		LIMIT 1
+		where o.orders_no = #{ordersNo}
 	</select>
 	
 	<update id="updatePaymentStatus" parameterType="com.example.mall.vo.Payment">

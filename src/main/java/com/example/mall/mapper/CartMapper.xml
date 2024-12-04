@@ -48,14 +48,13 @@
 				FROM goods_file
 				INNER JOIN
 					(SELECT 
-					    MIN(goods_file_no) AS goods_file_no, 
-					    goods_no
+					    MIN(goods_file_no) AS goods_file_no
 					FROM goods_file
 					GROUP BY goods_no) temp0
 				ON temp0.goods_file_no = goods_file.goods_file_no) temp1
 				ON temp1.goodsNo = g.goods_no) temp2
 			ON go.goods_no = temp2.goodsNO
-		WHERE c.customer_email = #{customerEmail};
+		WHERE c.customer_email = #{customerEmail}
 	</select>
 	
 	<select id="selectCartListByChecked" parameterType="com.example.mall.vo.Cart" resultType="map">
@@ -105,8 +104,7 @@
 						FROM goods_file
 						INNER JOIN
 							(SELECT 
-							    MIN(goods_file_no) AS goods_file_no, 
-							    goods_no
+							    MIN(goods_file_no) AS goods_file_no
 							FROM goods_file
 							GROUP BY goods_no) temp0
 						ON temp0.goods_file_no = goods_file.goods_file_no) temp1
