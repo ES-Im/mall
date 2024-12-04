@@ -6,7 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!-- jQuery 추가 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,8 +74,39 @@
 		
     
     </style>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
 	$(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 실행.
+		
+		/* 수량 변경 */
+		$('#btnMinus').click(function() {
+			var val =  parseInt($('#cartAmount').val());
+			if(val > 1){
+				var minusVal = val-1;
+				$('#cartAmount').val(minusVal);
+			}
+	
+		})
+	  $('#btnPlus').click(function() {
+	    var currentValue = parseInt($('#cartAmount').val());  // 현재 입력값 가져오기
+	    if(currentValue > 9){
+	    	alert('10개 이상 구매 불가!');
+	    	return false;
+	    }
+
+	    var newValue = currentValue + 1;  // 1 더하기
+	    $('#cartAmount').val(newValue);  // 결과값을 input에 다시 대입
+	    
+
+	    
+	    
+	    
+	    
+	  });
+		
+		
 		
 		$('#btnWrite').click(function() {
 			if($('#comment').val() == null || $('#comment').val() == ''){
@@ -98,20 +129,7 @@
 			return;
 		}
 		
-		/* 수량 변경 */
-		$('#btnMinus').click(function() {
-			var val =  parseInt($('#cartAmount').val());
-			if(val > 1){
-				var minusVal = val-1;
-				$('#cartAmount').val(minusVal);
-			}
-	
-		})
-	  $('#btnPlus').click(function() {
-		    var currentValue = parseInt($('#inputQuantity').val());  // 현재 입력값 가져오기
-		    var newValue = currentValue + 1;  // 1 더하기
-		    $('#inputQuantity').val(newValue);  // 결과값을 input에 다시 대입
-		  });
+		
 		
 		
 		
@@ -164,23 +182,25 @@
                         <p class="lead">${goods.goodsMemo }</p>
                         
                         <!-- 장바구니  -->
-                        <div class="d-flex">
+                        <div class="d-flex col-lg-8 justify-content-between" style="border: 1px solid red;">
                         	<c:if test="${goods.goodsStatus == '재고있음' }">
                         		<form action="${pageContext.request.contextPath}/customer/addCart" method="get">
-	                        		<button type="button" id="btnMinus" class="btn">&#10134;</button>
-	                        			<input class="form-control text-center me-3" id="cartAmount" name="cartAmount" type="number" min="1" value="1" style="max-width: 5rem" />
-		                          	<button type="button" id="btnPlus"  class="btn"> &#10133;</button>
-		                          	
+	                        		<!-- 수량변경 -->
+	                        		<div class= "d-flex align-items-center">
+		                        		<button type="button" id="btnMinus" class="btn">&#10134;</button>
+		                        			<input class="form-control text-center  " id="cartAmount" name="cartAmount" type="text" min="1" value="1" style="max-width: 3rem" readonly/>
+			                          	<button type="button" id="btnPlus"  class="btn"> &#10133;</button>
+		                          	</div>
 		                          	<input type="hidden" name="goodsNo" value="${goods.goodsNo }">
 		                          	<input type="hidden" name="customerEmail" value="${sessionScope.loginCustomer}">
 		                          	
-		                          
-		                           <button class="btn btn-outline-dark flex-shrink-0" type="submit">
-		                            
-		                                <i class="bi-cart-fill me-1"></i>
-		                                Add to cart
-		                            
-		                           </button>  
+		                           <div class="col-lg-12" style="border: 1px solid yellow;">
+		                           	
+			                           <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+			                                <i class="bi-cart-fill me-1"></i>
+			                                Add to cart
+			                           </button> 
+		                           </div>
 	                           </form>
                         	</c:if>	
                         	<c:if test="${goods.goodsStatus == '재고없음' }">
