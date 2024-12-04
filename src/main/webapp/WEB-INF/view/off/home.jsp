@@ -117,25 +117,25 @@
 	})
 	</script>
     
-    <body>
-    	
-    	<!-- 고객 헤더 -->
-	   	<c:if test="${loginCustomer != null && loginStaff == null}">
-    		<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
-    	</c:if>
-    	
-    	<!-- 스태프 헤더 -->
-    	<c:if test="${loginStaff != null && loginCustomer == null}">
-    		<c:import url="/WEB-INF/view/inc/staffHeader.jsp"></c:import>
-    	</c:if>
-       
-        <!-- Header-->
-        <c:if test="${loginStaff == null && loginCustomer == null}">
-			<jsp:include page="/WEB-INF/view/inc/header.jsp" />
-		</c:if>
+    	<div class="fixed-top">
+	    	<!-- 고객 헤더 -->
+		   	<c:if test="${loginCustomer != null && loginStaff == null}">
+	    		<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
+	    	</c:if>
+	    	
+	    	<!-- 스태프 헤더 -->
+	    	<c:if test="${loginStaff != null && loginCustomer == null}">
+	    		<c:import url="/WEB-INF/view/inc/staffHeader.jsp"></c:import>
+	    	</c:if>
+	       
+	        <!-- Header-->
+	        <c:if test="${loginStaff == null && loginCustomer == null}">
+				<jsp:include page="/WEB-INF/view/inc/header.jsp" />
+			</c:if>
+		</div>
 		
 <!-- Carousel -->
-<div id="demo" class="carousel slide" data-bs-ride="carousel">
+<div id="demo" class="carousel slide" data-bs-ride="carousel" style="margin-top: 2%;">
 
   <!-- Indicators/dots -->
   <div class="carousel-indicators">

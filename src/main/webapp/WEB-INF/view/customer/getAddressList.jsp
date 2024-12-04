@@ -58,104 +58,71 @@
         	color: black;
         	text-decoration: none;
         }
-		
-		.pagination {
-		  display: flex;
-  		  justify-content: center;
-		}
-		
-		.pagination a {
-		  color: #5D5D5D;
-		  float: left;
-		  padding: 6px 12px;
-		  text-decoration: none;
-		  border: 1px solid #ddd;
-		}
-		
-		.pagination a.active {
-		  background-color: #5D5D5D;
-		  color: white;
-		  border: 1px solid #5D5D5D;
-		}
-		
-		.pagination a:hover:not(.active) {background-color: #ddd;}
-		
-		.pagination a:first-child {
-		  border-top-left-radius: 5px;
-		  border-bottom-left-radius: 5px;
-		}
-		
-		.pagination a:last-child {
-		  border-top-right-radius: 5px;
-		  border-bottom-right-radius: 5px;
-		}
 	</style>
-<meta charset="UTF-8">
-<title>GET ADDRESS LIST</title>
-
+	<meta charset="UTF-8">
+	<title>GET ADDRESS LIST</title>
 </head>
 <body>
-<div class="row">
-	<!-- leftbar -->
-	<div class="col-sm-2 p-0">
-		<div >
-			<c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
-		</div>
+	 <!-- header -->
+	<div>
+		<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
 	</div>
 	
-	<!-- main -->
-	<div class="col-sm-10 p-0">
-		<!-- header -->
-		<div>
-			<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
+		
+	<div class="row">
+        <!-- leftbar -->
+		<div class="col-sm-2 p-0">
+			<c:import url="/WEB-INF/view/inc/customerLeftMenu.jsp"></c:import>
 		</div>
-		<!-- main -->
-		<div style="margin-left: 80px; margin-top: 30px;">
-			<h3>ADDRESS LIST</h3>
-		</div>
-		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
-			<div class="border d-flex p-3 justify-content-between" style="width: 700px;">
-				<form action="${pageContext.request.contextPath}/customer/addAddress" method="post" id="addAddressForm">
-					<textarea rows="3" cols="75" name="addressDetail" placeholder="주소 입력" id="addressDetail" style="width: 660px;"></textarea>
+
+
+		<div class="col-sm-10 p-0">
+			<!-- main -->
+			<div style="margin-left: 80px; margin-top: 90px;">
+				<h3>ADDRESS LIST</h3>
+			</div>
+			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
+				<div class="border d-flex p-3 justify-content-between" style="width: 700px;">
+					<form action="${pageContext.request.contextPath}/customer/addAddress" method="post" id="addAddressForm">
+						<textarea rows="3" cols="75" name="addressDetail" placeholder="주소 입력" id="addressDetail" style="width: 660px;"></textarea>
 						<div style="text-align: right; margin-top: 2px">
-					    	<button type="button" class="btn btn-sm btn-outline-danger" id="btnAddAddress">add</button>
+							<button type="button" class="btn btn-sm btn-outline-danger" id="btnAddAddress">add</button>
 						</div>
-		        		<br>
-				</form>	        		
+						<br>
+					</form>	        		
+				</div>
+			</div>
+			
+			
+			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">		
+				<div class="d-flex flex-column scrollbar" style="max-height: 800px; overflow-y: auto;"> <!-- 일정 길이를 넘는다면 스크롤바 추가 --> 
+			  		<div class="list-group">
+						<c:forEach var="address" items="${addressList}">
+							<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;">
+								<div class="d-flex gap-2 w-100 justify-content-between">
+									<div>
+										<i class="bi bi-chat-right-text-fill">&nbsp;&nbsp;${address.customerEmail}</i>
+										<p class="mb-1">AddressNo : ${address.addressNo}</p>
+										<p class="mb-1">Address : ${address.addressDetail}</p>
+										<small class="opacity-75 text-nowrap">UpdateDate : ${fn:substring(address.updateDate, 0, 10)  }</small>
+										<small class="opacity-75 text-nowrap">CreateDate : ${fn:substring(address.createDate, 0, 10)}</small>
+										
+									</div>
+									<div>
+										<div style="text-align: right;">
+											<a href="${pageContext.request.contextPath}/customer/removeAddress?addressNo=${address.addressNo}" class="btnRemoveBoard btn btn-sm btn-outline-danger">remove</a>
+										</div>
+										<br>
+									</div>
+								</div>	
+							</div>
+							<br>
+						</c:forEach>
+			  		</div>
+		  		</div>
 			</div>
 		</div>
-		
-		
-		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">		
-
-	  		<div class="list-group">
-
-					<c:forEach var="address" items="${addressList}">
- 						<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;">
-      						<div class="d-flex gap-2 w-100 justify-content-between">
-						        <div>
-	      							<i class="bi bi-chat-right-text-fill">&nbsp;&nbsp;${address.customerEmail}</i>
-	      							<p class="mb-1">AddressNo : ${address.addressNo}</p>
-						        	<p class="mb-1">Address : ${address.addressDetail}</p>
-						        	<small class="opacity-75 text-nowrap">UpdateDate : ${fn:substring(address.updateDate, 0, 10)  }</small>
-						        	<small class="opacity-75 text-nowrap">CreateDate : ${fn:substring(address.createDate, 0, 10)}</small>
-					        		
-						        </div>
-						        <div>
-					        		<div style="text-align: right;">
-									    <a href="${pageContext.request.contextPath}/customer/removeAddress?addressNo=${address.addressNo}" class="btnRemoveBoard btn btn-sm btn-outline-danger">remove</a>
-									</div>
-					        		<br>
-				        		</div>
-			        		</div>	
-			    		</div>
-			    	<br>
- 					</c:forEach>
- 				
-	  		</div>
-		</div>
 	</div>
-</div>
 <!-- footer -->
 
 </body>
