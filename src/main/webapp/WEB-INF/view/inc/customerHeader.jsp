@@ -27,7 +27,7 @@
 </script>
 </head>
 
-<body class="fixed-top">
+<body >
 	<!-- header-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light m-0" style="position:fixed; width:100%">
           <div class="container-fluid px-4 px-lg-5">
