@@ -65,7 +65,7 @@
 <body>
 	 <!-- header -->
 	<div>
-		<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
+		<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
 	</div>
 	
 		

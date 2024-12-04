@@ -63,35 +63,27 @@
 				$('#formAddGoods').submit();
 			}
 		});
-	
-		
-	 	
 	});
 	</script>
-	<style>
-		
-	</style>
-<meta charset="UTF-8">
-<title>Add Goods</title>
+	<meta charset="UTF-8">
+	<title>Add Goods</title>
 </head>
+
 <body>
-<div class="row">
-	<!-- leftbar -->
-	<div class="col-sm-2 p-0">
-		<div >
+	<!-- header -->
+	<div>
+		<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
+	</div>
+		
+	<div class="row">
+        <!-- leftbar -->
+		<div class="col-sm-2 p-0">
 			<c:import url="/WEB-INF/view/inc/staffLeftMenu.jsp"></c:import>
 		</div>
-	</div>
-	
-	<!-- main -->
-	<div class="col-sm-10 p-0">
-		<!-- header -->
-		<div>
-			<c:import url="/WEB-INF/view/inc/staffHeader.jsp"></c:import>
-		</div>
+		
 		<!-- main -->
-		<div style="margin-left: 80px; margin-top: 30px;">
-			<div>
+		<div class="col-sm-10 p-0">
+			<div style="margin-left: 80px; margin-top: 90px;">
 				<h3>Add Goods</h3>
 			</div>
 			<form id="formAddGoods" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/staff/addGoods">
@@ -147,10 +139,5 @@
             </form>
 		</div>
 	</div>
-</div>
-<!-- footer -->
-
-
-
 </body>
 </html>

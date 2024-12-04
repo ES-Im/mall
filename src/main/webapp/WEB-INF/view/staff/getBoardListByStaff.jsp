@@ -6,22 +6,22 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script>
-	$(document).ready(function() {
-	    // 삭제 버튼 클릭
-	    $('.btnRemoveBoard').click(function(event) {
-	        // 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
-	        event.preventDefault();
-	        
-	        // 삭제 확인 
-	        var result = confirm("정말로 삭제하시겠습니까?");
-	        if (result) {
-	        	window.location.href = $(this).attr('href');
-	        	alert('삭제 성공하였습니다.');
-	        } else {
-	            return false;
-	        }
-	    });
-	});
+		$(document).ready(function() {
+			// 삭제 버튼 클릭
+			$('.btnRemoveBoard').click(function(event) {
+				// 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
+				event.preventDefault();
+				
+				// 삭제 확인 
+				var result = confirm("정말로 삭제하시겠습니까?");
+				if (result) {
+					window.location.href = $(this).attr('href');
+					alert('삭제 성공하였습니다.');
+				} else {
+					return false;
+				}
+			});
+		});
 	</script>
 	<style>
 		.goods-link {
@@ -101,32 +101,26 @@
 		  border-top-right-radius: 5px;
 		  border-bottom-right-radius: 5px;
 		}
-		
-		
-		
-		
 	</style>
-<meta charset="UTF-8">
-<title>Board List ByStaff</title>
-
+	<meta charset="UTF-8">
+	<title>Board List ByStaff</title>
 </head>
+
 <body>
-<div class="row">
-	<!-- leftbar -->
-	<div class="col-sm-2 p-0">
-		<div >
+	<!-- header -->
+	<div>
+		<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
+	</div>
+		
+	<div class="row">
+        <!-- leftbar -->
+		<div class="col-sm-2 p-0">
 			<c:import url="/WEB-INF/view/inc/staffLeftMenu.jsp"></c:import>
 		</div>
-	</div>
-	
-	<!-- main -->
-	<div class="col-sm-10 p-0">
-		<!-- header -->
-		<div>
-			<c:import url="/WEB-INF/view/inc/staffHeader.jsp"></c:import>
-		</div>
+		
 		<!-- main -->
-		<div style="margin-left: 80px; margin-top: 30px;">
+		<div class="col-sm-10 p-0">
+			<div style="margin-left: 80px; margin-top: 90px;">
 			<h3>Staff Board Management</h3>
 		</div>
 		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
@@ -134,110 +128,105 @@
 	  			<c:if test="${empty boardList}">
 	  				<span>No Data</span>
 	  			</c:if>
- 					<c:forEach var="board" items="${boardList}">
- 						<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;">
-      						<div class="d-flex gap-2 w-100 justify-content-between">
-						        <div>
-	      							<i class="bi bi-chat-right-text-fill">&nbsp;&nbsp;${board.customerEmail}</i>
-	      							<p class="mb-1">OrderNo : ${board.ordersNo}</p>
-	      							<p class="mb-1"><a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${board.goodsNo}" class="goods-link">
-						        		Goods : [${board.goodsNo}] ${board.goodsTitle}
-						        	</a></p>
-						        	<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
-					        		<p class="mb-1">BoardContent : ${board.boardContent}</p>
-						        </div>
-						        <div>
-					        		<div style="text-align: right;">
-									    <a href="${pageContext.request.contextPath}/staff/removeBoardByStaff?ordersNo=${board.ordersNo}" class="btnRemoveBoard btn btn-sm btn-outline-danger">remove</a>
-									</div>
-					        		<br>
-				        		</div>
-			        		</div>	
-			    		</div>
-			    	<br>
- 					</c:forEach>
- 					
- 					<!-- PAGINATION -->
-					<c:if test="${not empty boardList}">
-    				<section class="py-5">
-					    <div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
-					                    
-					        <!-- 첫 페이지 -->
-					        <c:choose>
-					            <c:when test="${!(page.currentPage > 1)}">
-					                <a href="" style="pointer-events: none;">&laquo;</a>
-					            </c:when>
-					            <c:otherwise>
-					                <a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=1">&laquo;</a>
-					            </c:otherwise>
-					        </c:choose>
-					        
-					        <!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
-					        <c:choose>
-					            <c:when test="${page.getPreviousGroupEnd() <= 0}">
-					                <a href="" style="pointer-events: none;">
-					                    Previous
-					                </a>
-					            </c:when>
-					            
-					            <c:otherwise>
-					                <a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.getPreviousGroupEnd()}">
-					                    Previous
-					                </a>
-					            </c:otherwise>
-					        </c:choose>
-					        
-					        <!-- 페이지 번호 링크 -->
-					        <c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
-					            <c:if test= "${num == page.currentPage}">
-					                <a class="active">${num}</a>
-					            </c:if>
-					            <c:if test= "${num != page.currentPage}">
-					                <a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${num}">${num}</a>
-					            </c:if>
-					        </c:forEach>
-					        
-					    
-					        <!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
-					                        마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
-					        
-					        <c:choose>
-					            <%-- 만약 현재 그룹이 마지막 페이지 그룹이라면 이동 불가--%>
-					            <c:when test="${page.currentPage >= page.getLastGroupStart()}">
-					                <a href="" style="pointer-events: none;">
-					                    Next
-					                 </a>
-					            </c:when>
-					            <%-- 만약 다음 그룹이 마지막 페이지 그룹이라면 마지막 그룹의 첫 번째 번호로 이동--%>
-					            <c:when test="${page.getNextGroupStart() + page.numPerPage >= page.lastPage}">
-					                <a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.getLastGroupStart()}">
-					                    Next
-					                </a>
-					            </c:when>
-					            <%-- 그 외는 다음 그룹의 첫 번째 번호로 이동--%>
-					            <c:otherwise>
-					                <a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.getNextGroupStart()}">
-					                    Next
-					                </a>
-					            </c:otherwise>
-					            
-					        </c:choose>
-					        <!-- 마지막 페이지 -->
-					        <c:if test="${!(page.currentPage < page.lastPage)}">
-					            <a href="" style="pointer-events: none;">&raquo;</a>
-					        </c:if>
-					        <c:if test="${page.currentPage < page.lastPage}">
-					            <a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.lastPage}">&raquo;</a>
-					        </c:if>
-					        
-					    </div>
+				<c:forEach var="board" items="${boardList}">
+					<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 700px;">
+						<div class="d-flex gap-2 w-100 justify-content-between">
+							<div>
+								<i class="bi bi-chat-right-text-fill">&nbsp;&nbsp;${board.customerEmail}</i>
+								<p class="mb-1">OrderNo : ${board.ordersNo}</p>
+								<p class="mb-1"><a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${board.goodsNo}" class="goods-link">
+									Goods : [${board.goodsNo}] ${board.goodsTitle}
+								</a></p>
+								<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
+								<p class="mb-1">BoardContent : ${board.boardContent}</p>
+							</div>
+							<div>
+								<div style="text-align: right;">
+									<a href="${pageContext.request.contextPath}/staff/removeBoardByStaff?ordersNo=${board.ordersNo}" class="btnRemoveBoard btn btn-sm btn-outline-danger">remove</a>
+								</div>
+								<br>
+							</div>
+						</div>	
+					</div>
+					<br>
+				</c:forEach>
+				
+				<!-- PAGINATION -->
+				<c:if test="${not empty boardList}">
+					<section class="py-5">
+						<div class="pagination justify-content-center" style="text-align: center; margin-top: 20px; ">
+										
+							<!-- 첫 페이지 -->
+							<c:choose>
+								<c:when test="${!(page.currentPage > 1)}">
+									<a href="" style="pointer-events: none;">&laquo;</a>
+								</c:when>
+								<c:otherwise>
+									<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=1">&laquo;</a>
+								</c:otherwise>
+							</c:choose>
+							
+							<!-- 이전 페이지 : 클릭시 이전 numPerPage 그룹에서 마지막점으로 이동 (ex : 37 에서 클릭시 30으로 이동)-->
+							<c:choose>
+								<c:when test="${page.getPreviousGroupEnd() <= 0}">
+									<a href="" style="pointer-events: none;">
+										Previous
+									</a>
+								</c:when>
+								
+								<c:otherwise>
+									<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.getPreviousGroupEnd()}">
+										Previous
+									</a>
+								</c:otherwise>
+							</c:choose>
+							
+							<!-- 페이지 번호 링크 -->
+							<c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+								<c:if test= "${num == page.currentPage}">
+									<a class="active">${num}</a>
+								</c:if>
+								<c:if test= "${num != page.currentPage}">
+									<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${num}">${num}</a>
+								</c:if>
+							</c:forEach>
+							
+						
+							<!-- 다음 페이지 : 클릭시 다음 numPerPage 그룹에서 시작점으로 이동 (ex : 37 에서 클릭시 41로 이동), 
+											마지막 numPerPage 그룹의 시작점을 위해 lastGroupPage 따로 처리 (ex : lastGroupStart가 51 일때 [42 ~ 50] 페이지는 무조건 51로 이동하도록)-->
+							
+							<c:choose>
+								<%-- 만약 현재 그룹이 마지막 페이지 그룹이라면 이동 불가--%>
+								<c:when test="${page.currentPage >= page.getLastGroupStart()}">
+									<a href="" style="pointer-events: none;">
+										Next
+									</a>
+								</c:when>
+								<%-- 만약 다음 그룹이 마지막 페이지 그룹이라면 마지막 그룹의 첫 번째 번호로 이동--%>
+								<c:when test="${page.getNextGroupStart() + page.numPerPage >= page.lastPage}">
+									<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.getLastGroupStart()}">
+										Next
+									</a>
+								</c:when>
+								<%-- 그 외는 다음 그룹의 첫 번째 번호로 이동--%>
+								<c:otherwise>
+									<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.getNextGroupStart()}">
+										Next
+									</a>
+								</c:otherwise>
+							</c:choose>
+							<!-- 마지막 페이지 -->
+							<c:if test="${!(page.currentPage < page.lastPage)}">
+								<a href="" style="pointer-events: none;">&raquo;</a>
+							</c:if>
+							<c:if test="${page.currentPage < page.lastPage}">
+								<a href="${pageContext.request.contextPath}/staff/getBoardListByStaff?currentPage=${page.lastPage}">&raquo;</a>
+							</c:if>
+						</div>
 					</section>
 				</c:if>
 	  		</div>
 		</div>
 	</div>
-</div>
-<!-- footer -->
-
 </body>
 </html>
