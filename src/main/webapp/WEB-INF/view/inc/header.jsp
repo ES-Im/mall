@@ -44,7 +44,7 @@
 </head>
 
 
-<body>
+<body style="z-index: 9999;">
 	<!-- 각 세션 상태를 변수로 저장 (true = 해당 세션이 있음) -->
 	<c:set var="loginCustomer" value="${sessionScope.loginCustomer != null}"/> 
 	<c:set var="loginStaff" value="${sessionScope.loginStaff != null}"/> 
@@ -86,7 +86,7 @@
 					<!-- 회원가입 & 로그인 버튼 : staff/customer 세션이 없을 경우만 보이기 -->
 				<c:if test="${loginOff}">
 					<div class="me-3">
-						<a href="${pageContext.request.contextPath }/customer/addCustomer"><button type="button" class="btn btn-sm btn-light">회원가입</button></a>
+						<a href="${pageContext.request.contextPath }/off/addCustomer"><button type="button" class="btn btn-sm btn-light">회원가입</button></a>
 						<a href="${pageContext.request.contextPath }/off/login"><button type="button" class="btn btn-sm btn-dark">로그인</button></a>
 					</div>
 				</c:if>

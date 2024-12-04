@@ -100,9 +100,9 @@
 								<!-- 수정 후 -->
 								<div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
 									<div class="d-flex align-items-center justify-content-between" style="width: 100%; height: 40px">
-										<div class="me-3" style="margin-left: 20px;" >
+										<div class="me-3 " style="margin-left: 20px;" >
 											<span>PaymentNo : ${p.paymentNo}</span>
-											<span>/ Payment Status : ${p.paymentStatus}</span>
+											<span >/ Payment Status : ${p.paymentStatus}</span>
 											<c:if test="${p.paymentStatus.equals('배송중')}">
 												<a href="${pageContext.request.contextPath}/customer/modifyPaymentStatus?paymentStatus=배송완료&paymentNo=${p.paymentNo}" class="btn btn-sm btn-outline-danger" style="opacity: 1;">배송완료</a>
 											</c:if>
@@ -138,14 +138,14 @@
 														<p class="mt-2 mb-0"><small>OrdersNo : ${i.ordersNo}</small></p>
 														<div class="d-flex justify-content-between">
 															<div style="flex-grow: 1;"> 
-																<p class="mt-2 mb-0"><small>주문 상품 : ${i.categoryTitle} / ${i.goodsTitle}</small></p>
-																<p class="mt-2 mb-0"><small>상품 번호 : ${i.goodsNo}</small></p>
+																<p class="mt-2 mb-0"><small>카테고리 : ${i.categoryTitle}</small></p>
+																<p class="mt-2 mb-0"><a class="goods-link" href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${i.goodsNo}"><small>주문 상품 : ${i.goodsNo} / ${i.goodsTitle}</small></a></p>
 																<p class="mt-2 mb-0"><small>상품 가격 : $<fmt:formatNumber value="${i.goodsPrice}" pattern="#,###"/></small></p>
 																<p class="mt-2 mb-0"><small>주문 수량 : ${i.ordersAmount}개</small></p>
 															</div>
 															
 														</div>
-														<div>
+														<div class="mt-2">
 															<small class="opacity-75">payment status : ${p.paymentStatus}</small>
 														</div>
 													</div>

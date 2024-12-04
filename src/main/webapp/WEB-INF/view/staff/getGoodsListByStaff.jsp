@@ -93,6 +93,20 @@
 		  border-top-right-radius: 5px;
 		  border-bottom-right-radius: 5px;
 		}
+		
+		/* 상품 상세설명 글자 수 제한 */
+		 .text-container {
+	        width: 750px; /* 고정된 너비 */
+	        max-height: 80px; /* 고정된 높이 */
+	        min-height: 80px; /* 고정된 높이 */
+	        overflow: hidden; /* 넘치는 부분 숨기기 */
+	        /* font-size: 2vw; */ /* 화면 크기에 비례하여 텍스트 크기 설정 */
+	        white-space: normal; /*  */
+	        text-align: left; /* 텍스트 가운데 정렬 */
+		}
+		
+		
+		
 	</style>
 	<meta charset="UTF-8">
 	<title>Goods List</title>
@@ -199,7 +213,7 @@
 									<p class="mt-2 mb-0"><small>Price : $ ${goods.goodsPrice}</small></p>
 									<div class="d-flex justify-content-between">
 										<div style="flex-grow: 1;">
-											<p class="mt-2 mb-0" style="min-width: 750px; max-width: 750px; min-height: 80px;"><small>Description : ${goods.goodsMemo}</small></p>
+											<p class="mt-2 mb-0 text-container"><small>Description : ${goods.goodsMemo}</small></p>
 											<div class="d-flex justify-content-between mt-2 align-items-center">
 												<div>
 													<small class="opacity-75">UpdateDate : ${goods.updateDate}</small>

@@ -166,13 +166,14 @@
 										<p class="mt-2 mb-0"><small>OrdersNo : ${orders.ordersNo}</small></p>
 										<div class="d-flex justify-content-between">
 											<div style="flex-grow: 1;"> 
-												<p class="mt-2 mb-0"><small>주문 상품 : ${orders.categoryTitle} / ${orders.goodsTitle}</small></p>
+												<p class="mt-2 mb-0"><small>카테고리 : ${orders.categoryTitle}</small></p>
+												<p class="mt-2 mb-0"><a class="goods-link" href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${orders.goodsNo}"><small>주문 상품 : ${orders.goodsNo} / ${orders.goodsTitle}</small></a></p>
 												<p class="mt-2 mb-0"><small>상품 가격 : ${orders.goodsPrice}</small></p>
 												<p class="mt-2 mb-0"><small>주문 수량 : ${orders.ordersAmount}</small></p>
 											</div>
 											
 										</div>
-										<div>
+										<div class="mt-2">
 											<small class="opacity-75">payment status : ${payment.paymentStatus}</small>
 										</div>
 									</div>

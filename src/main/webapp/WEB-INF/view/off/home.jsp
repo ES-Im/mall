@@ -78,6 +78,15 @@
 		  border-bottom-right-radius: 5px;
 		}
 		
+		/* carousel-inner */
+		  .carousel-inner img {
+      width: 100%;  /* 너비를 부모 요소에 맞춤 */
+      height: 750px; /* 높이를 고정 */
+      
+  }
+		
+		
+		
 	</style>
 	<script>
 	$(document).ready(function(){ // <body>까지 메모리에 올라간 후 script 실행.
@@ -117,22 +126,11 @@
 	})
 	</script>
     
-    	<div class="fixed-top">
-	    	<!-- 고객 헤더 -->
-		   	<c:if test="${loginCustomer != null && loginStaff == null}">
-	    		<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
-	    	</c:if>
-	    	
-	    	<!-- 스태프 헤더 -->
-	    	<c:if test="${loginStaff != null && loginCustomer == null}">
-	    		<c:import url="/WEB-INF/view/inc/staffHeader.jsp"></c:import>
-	    	</c:if>
-	       
-	        <!-- Header-->
-	        <c:if test="${loginStaff == null && loginCustomer == null}">
-				<jsp:include page="/WEB-INF/view/inc/header.jsp" />
-			</c:if>
-		</div>
+     <div class="fixed-top " style="z-index: 9999;">
+         
+            <jsp:include page="/WEB-INF/view/inc/header.jsp" />
+         
+      </div>
 		
 <!-- Carousel -->
 <div id="demo" class="carousel slide" data-bs-ride="carousel" style="margin-top: 2%;">
@@ -145,26 +143,26 @@
   </div>
   
   <!-- The slideshow/carousel -->
-  <div class="carousel-inner">
+  <div class="carousel-inner"  >
     <div class="carousel-item active">
-      <img src="https://www.w3schools.com/bootstrap5/chicago.jpg" alt="Los Angeles" class="d-block" style="width:100%">
+      <img src="${pageContext.request.contextPath}/img/sale1.jpg" alt="" class="d-block" style="width:100%">
       <div class="carousel-caption">
-        <h3>Los Angeles</h3>
-        <p>We had such a great time in LA!</p>
+        <h3>SHOP</h3>
+        <p>We had such a great time in SHOP!</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://www.w3schools.com/bootstrap5/ny.jpg" alt="Chicago" class="d-block" style=width:100%">
+      <img src="${pageContext.request.contextPath}/img/sale2.jpg" alt="" class="d-block" style=width:100%">
       <div class="carousel-caption">
-        <h3>Chicago</h3>
-        <p>Thank you, Chicago!</p>
+        <h3>Christmas Sale</h3>
+        <p>Thank you, Christmas!</p>
       </div> 
     </div>
     <div class="carousel-item">
-      <img src="https://www.w3schools.com/bootstrap5/la.jpg" alt="New York" class="d-block" style="width:100%">
+      <img src="${pageContext.request.contextPath}/img/sale3.jpg" alt="" class="d-block" style="width:100%">
       <div class="carousel-caption">
-        <h3>New York</h3>
-        <p>We love the Big Apple!</p>
+        <h3>Black Friday Sale</h3>
+        <p>We love the Black Friday!</p>
       </div>  
     </div>
   </div>
@@ -183,8 +181,8 @@
         <section class="py-5">
         		
         		<!-- 카테고리 -->
-        		<div class="card col-sm-2 m-3" id="category">
-        			<div class="card-body">
+        		<div class=" col-sm-2 ms-3 mt-5" id="category" style="float:left;">
+        			<div class="card card-body" style="width:80%;">
         			    <div class="mb-3 d-flex justify-content-between">
         			 		<span class="h4">CATEGORY</span>
         			 		<div class="">
@@ -208,8 +206,70 @@
 					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
 					
 					<c:forEach var="goods" items="${goodsList}">
-						
+				<!-- 판매 중지 -->
 						<c:if test="${goods.goodsStatus == '판매중지'}">
+							<div class="col mb-5 ">
+							<!-- Product image-->
+							<div class="card h-100">								
+								<!-- 파일 있을 때 -->
+	 							<c:if test="${not empty goods.goodsFileNo}">
+
+	 								<div style="position: relative; display: inline-block;">
+                               <!-- 상품 이미지 -->
+                               <img class="card-img-top" style="height:400px;" 
+                                    src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsFileExt}" 
+                                    alt="${goods.goodsOriginName}" />
+                           
+                               <!-- 반투명 오버레이 -->
+                               <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+                                           background-color: rgba(128, 128, 128, 0.5); 
+                                           backdrop-filter: blur(5px); z-index: 1;"></div>
+                           
+                               <!-- 판매 종료 텍스트 -->
+                               <p class="sold-out-text" style="position: absolute; top: 50%; left: 50%; 
+                                                               transform: translate(-50%, -50%); 
+                                                               color: white; font-size: 24px; font-weight: bold; z-index: 2;">
+                                   판매 종료
+                               </p>
+                           </div>
+	 							</c:if>
+	 							<!-- 파일 없을 때 -->
+	 							<c:if test="${empty goods.goodsFileNo}">
+	 								<div style="align-items: center;">
+	 									<img class="card-img-top" src="${pageContext.request.contextPath}/goodsFile/Preparing_the_goods_img.jpg" alt="..." id style="height:400px; " />
+	 								</div>
+	 							</c:if>
+
+								<!-- Product details-->
+								<div class="card-body p-4">
+									<div class="text-center">
+										<!-- Product name-->
+										<h4 class="fw-bolder">${goods.goodsTitle}</h4>
+										<!-- category -->
+										<h5>${goods.categoryTitle}</h5>
+										<!-- Product price-->
+										 <fmt:formatNumber value="${goods.goodsPrice}" type="number" groupingUsed="true" />원
+									</div>
+								</div>
+								<!-- Product actions-->
+								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<c:if test="${goods.goodsStatus == '재고없음'}">
+										<div class="text-center"><a class="btn btn-dark mt-auto text-lights" href="${pageContext.request.contextPath }/getGoodsOne?goodsNo=${goods.goodsNo}">SOLD OUT</a></div>
+									</c:if>
+									
+									<c:if test="${goods.goodsStatus == '재고있음'}">
+										<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${pageContext.request.contextPath }/getGoodsOne?goodsNo=${goods.goodsNo}">상세보기</a></div>
+									</c:if>
+									
+									<c:if test="${goods.goodsStatus == '판매중지'}">
+										<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">판매중지</a></div>
+									</c:if>
+								</div>
+							</div>
+						</div>
+						
+						
+						
 						</c:if>
 					
 						<c:if test="${goods.goodsStatus != '판매중지'}">
@@ -257,6 +317,8 @@
 
 					</div>
 				</div>
+			</section>
+			
 				
 			<!-- pagination -->	
 			<c:if test="${goodsList == null && goodsList.size() == 0}">

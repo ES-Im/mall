@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!-- jQuery 추가 -->
@@ -71,7 +71,16 @@
 		  border-bottom-right-radius: 5px;
 		}
 		
-		
+		/* 상품 상세설명 글자 수  */
+		 .text-container {
+        width: 400px; /* 고정된 너비 */
+        max-height: 300px; /* 고정된 높이 */
+        min-height: 300px; /* 고정된 높이 */
+        overflow: hidden; /* 넘치는 부분 숨기기 */
+        /* font-size: 2vw; */ /* 화면 크기에 비례하여 텍스트 크기 설정 */
+        white-space: normal; /*  */
+        text-align: left; /* 텍스트 가운데 정렬 */
+    } 
     
     </style>
     
@@ -100,10 +109,6 @@
 	    $('#cartAmount').val(newValue);  // 결과값을 input에 다시 대입
 	    
 
-	    
-	    
-	    
-	    
 	  });
 		
 		
@@ -137,8 +142,12 @@
 	</script>
     <body>
     	<!-- 헤더 -->
-    	<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
-    
+    	    
+     <div class="fixed-top " style="z-index: 9999;">
+         
+            <jsp:include page="/WEB-INF/view/inc/header.jsp" />
+         
+      </div>
  
         <!-- Product section-->
         <section class="py-5">
@@ -176,33 +185,49 @@
                         <div class="small mb-1">GOODSNO : ${goods.goodsNo }</div>
                         <h1 class="display-5 fw-bolder">${goods.goodsTitle }</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">450,000</span>
-                            <span>${goods.goodsPrice }</span>
+                            <span class="text-decoration-line-through"><fmt:formatNumber value="${goods.goodsPrice * 1.5}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" />원</span>
+                            <span> <fmt:formatNumber value="${goods.goodsPrice}" type="number" groupingUsed="true" />원</span>
                         </div>
-                        <p class="lead">${goods.goodsMemo }</p>
-                        
+
+    <div class="lead text-container">
+        ${goods.goodsMemo}
+    </div>
+
+
+                       	<br>
+                       	<br>
                         <!-- 장바구니  -->
-                        <div class="d-flex col-lg-8 justify-content-between" style="border: 1px solid red;">
+                        <div  >
                         	<c:if test="${goods.goodsStatus == '재고있음' }">
-                        		<form action="${pageContext.request.contextPath}/customer/addCart" method="get">
-	                        		<!-- 수량변경 -->
-	                        		<div class= "d-flex align-items-center">
-		                        		<button type="button" id="btnMinus" class="btn">&#10134;</button>
-		                        			<input class="form-control text-center  " id="cartAmount" name="cartAmount" type="text" min="1" value="1" style="max-width: 3rem" readonly/>
-			                          	<button type="button" id="btnPlus"  class="btn"> &#10133;</button>
-		                          	</div>
-		                          	<input type="hidden" name="goodsNo" value="${goods.goodsNo }">
-		                          	<input type="hidden" name="customerEmail" value="${sessionScope.loginCustomer}">
-		                          	
-		                           <div class="col-lg-12" style="border: 1px solid yellow;">
-		                           	
-			                           <button class="btn btn-outline-dark flex-shrink-0" type="submit">
-			                                <i class="bi-cart-fill me-1"></i>
-			                                Add to cart
-			                           </button> 
-		                           </div>
-	                           </form>
-                        	</c:if>	
+                           
+                              <form action="${pageContext.request.contextPath}/customer/addCart" method="get" class="col-lg-8 d-flex justify-content-between flex-nowrap" style="height: 45px; width: 100%;">
+                                    <!-- 수량변경 -->
+                                    <div class= "d-flex align-items-center">
+                                       <button type="button" id="btnMinus" class="btn pe-1"><i class="h3 bi bi-dash"></i></button>
+                                          <input class="form-control text-center " id="cartAmount" name="cartAmount" type="text" min="1" value="1" style="max-width: 3rem; border: none; font-size: large;" readonly />
+                                         <button type="button" id="btnPlus"class="btn ps-1"><i class="h3 bi bi-plus"></i></button>
+                                      </div>
+                                      <input type="hidden" name="goodsNo" value="${goods.goodsNo }">
+                                      <input type="hidden" name="customerEmail" value="${sessionScope.loginCustomer}">
+                                   
+                                      <!-- add to cart 버튼 -->
+                                    <div class="d-flex justify-content-end" style=""> <!-- flex 추가 -->
+                                       <c:if test="${sessionScope.loginStaff != null }">
+                                       		<a href="${pageContext.request.contextPath}/staff/modifyGoods?goodsNo=${goods.goodsNo}" style="text-decoration: none;">
+                                       			<button class="btn btn-outline-success flex-shrink-0 me-3" style="height: 45px;" type="button" >modify</button> 
+                                       		</a>
+                                       </c:if>
+                                       
+                                       
+                                       <button class="btn btn-outline-dark flex-shrink-0" type="submit" >
+                                            <i class="bi-cart-fill me-1"></i>
+                                            CART
+                                       </button> 
+                                      
+                                    </div>
+                                </form>
+                             
+                           </c:if>   
                         	<c:if test="${goods.goodsStatus == '재고없음' }">
 
 	                            <button class="btn btn-outline-dark flex-shrink-0 btn-dark text-light" type="button">
