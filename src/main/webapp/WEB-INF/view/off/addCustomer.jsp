@@ -6,7 +6,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Add Staff</title>
+<title>JOIN</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <!-- bootstrap -->
@@ -37,7 +37,7 @@
 			}
 			
 			// 결과 팝업창으로 알려주기
-			window.open('${pageContext.request.contextPath}/off/getCustomerEmail', '_blank', 'width=450, height=200, top=10, left=200');
+			window.open('${pageContext.request.contextPath}/off/getCustomerEmail', '_blank', 'width=500, height=280, top=10, left=200');
 		});
 		
 		$('#btnAddCustomer').click(function() {
