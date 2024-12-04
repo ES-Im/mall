@@ -93,25 +93,25 @@
 			   	</c:if>
                 <!-- 주문내역이 있을 때 출력 -->
 				<c:if test="${not empty paymentList}">
-					<div class="d-flex flex-column scrollbar" style="max-height: 850px; overflow-y: auto;"> <!-- 일정 길이를 넘는다면 스크롤바 추가 --> 
+					<div class="d-flex flex-column scrollbar px-4" style="max-height: 850px; overflow-y: auto;"> <!-- 일정 길이를 넘는다면 스크롤바 추가 --> 
 						<div class="list-group">
 							<!-- Payment 기준 반복문 -->
 						   <c:forEach var="p" items="${paymentList}">
 								<!-- 수정 후 -->
 								<div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
-									<div class="d-flex align-items-center justify-content-between" style="width: 100%; height: 40px">
-										<div class="me-3 " style="margin-left: 20px;" >
+									<div class="d-flex align-items-center justify-content-between" style="width: 100%; height: 35px">
+										<div class="me-3 align-items-center" style="margin-left: 20px;" >
 											<span>PaymentNo : ${p.paymentNo}</span>
-											<span >/ Payment Status : ${p.paymentStatus}</span>
+										</div>
+										<div>
+											<span class="me-2">Payment Status : ${p.paymentStatus}</span>
 											<c:if test="${p.paymentStatus.equals('배송중')}">
 												<a href="${pageContext.request.contextPath}/customer/modifyPaymentStatus?paymentStatus=배송완료&paymentNo=${p.paymentNo}" class="btn btn-sm btn-outline-danger" style="opacity: 1;">배송완료</a>
 											</c:if>
 											<c:if test="${p.paymentStatus.equals('결제완료')}">
 												<a href="${pageContext.request.contextPath}/customer/modifyPaymentStatus?paymentStatus=결제취소&paymentNo=${p.paymentNo}" class="btn btn-sm btn-outline-danger" style="opacity: 1;">결제취소</a>
 											</c:if>
-										</div>
-										<div>
-											<small class="opacity-75 text-nowrap">결제일: ${p.createDate}</small>
+											<small class="opacity-75 text-nowrap mx-2">결제일 : ${p.createDate}</small>
 										</div>
 									</div>
 								</div>
@@ -153,9 +153,8 @@
 											</div>
 										</c:if>
 								</c:forEach>
+								<h3 class="opacity-75 mt-3" style="text-align: right">TOTAL PRICE : $ <fmt:formatNumber value="${p.paymentPrice}" pattern="#,###"/> </h3>
 								<hr>
-								<h3 class="opacity-75" style="text-align: right">TOTAL PRICE : $ <fmt:formatNumber value="${p.paymentPrice}" pattern="#,###"/> </h3>
-								<br>
 							</c:forEach>
 						</div>
 					</div>

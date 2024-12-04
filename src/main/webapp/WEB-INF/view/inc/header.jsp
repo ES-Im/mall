@@ -34,7 +34,7 @@
 		});
 		
 		// 현재 URL 이 home 이거나 getGoodsOne이면 로고 배치
-		let logoHtml = '<a href="${pageContext.request.contextPath}/home" class="nav-link px-0 " > <span class="fs-4 d-none d-sm-inline ps-5" >MUSINSA</span></a>'
+		let logoHtml = '<a href="${pageContext.request.contextPath}/home" class="nav-link px-0 " > <span class="fs-4 d-none d-sm-inline" >MUSINSA</span></a>'
 		
 		if(window.location.pathname === '/mall/home' || window.location.pathname === '/mall/getGoodsOne') {
 			  $('#logoHtml').html(logoHtml);
