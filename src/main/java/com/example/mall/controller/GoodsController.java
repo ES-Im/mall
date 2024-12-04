@@ -74,7 +74,7 @@ public class GoodsController {
 		log.debug(TeamColor.KMJ + "eligibleReviewersListMap : " + eligibleReviewersListMap.toString() + TeamColor.RESET );
 		boolean isEligibleReviewer = false;
 		
-		if(eligibleReviewersListMap.size() > 0) {
+		if(eligibleReviewersListMap.size() > 0 && loginStaff == null) {
 			if(Integer.parseInt(String.valueOf((eligibleReviewersListMap.get(0).get("boardOrdersNo")))) == -1) {
 				log.debug(TeamColor.KMJ + "getboardOrdersNo"  + eligibleReviewersListMap.get(0).get("boardOrdersNo") + TeamColor.RESET );
 				log.debug(TeamColor.KMJ + "getboardOrdersNo타입"  + eligibleReviewersListMap.get(0).get("boardOrdersNo").getClass() + TeamColor.RESET );
@@ -97,7 +97,7 @@ public class GoodsController {
 			}
 			
 		}
-
+		
 		log.debug(TeamColor.KMJ + "eligibleReviewer : " + isEligibleReviewer + TeamColor.RESET );
 
 		model.addAttribute("goodsNo", goodsNo);
