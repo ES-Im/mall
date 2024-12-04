@@ -219,13 +219,13 @@
 							<div class="card h-100">								
 								<!-- 파일 있을 때 -->
 	 							<c:if test="${not empty goods.goodsFileNo}">
-	 								<img class="card-img-top" src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsFileExt}" alt="${goods.goodsOriginName}" />
+	 								<img class="card-img-top" style="height:400px;"  src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsFileExt}" alt="${goods.goodsOriginName}" />
 	 								
 	 							</c:if>
 	 							<!-- 파일 없을 때 -->
 	 							<c:if test="${empty goods.goodsFileNo}">
 	 								<div style="align-items: center;">
-	 									<img class="card-img-top" src="${pageContext.request.contextPath}/goodsFile/Preparing_the_goods_img.jpg" alt="..." />
+	 									<img class="card-img-top" src="${pageContext.request.contextPath}/goodsFile/Preparing_the_goods_img.jpg" alt="..." style="height:400px;" />
 	 								</div>
 	 							</c:if>
 

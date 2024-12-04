@@ -136,7 +136,8 @@
  				</c:if>
 	  			<!-- paymentList 반복문 -->
  				<c:forEach var="payment" items="${paymentList}">
- 				<div>payment.paymentNo: ${payment.paymentNo}</div>
+ 				<!-- 디버깅용 -->
+ 				<%-- <div>payment.paymentNo: ${payment.paymentNo}</div> --%>
                 <!-- paymentNo/회원 아이디 기준 추출 -->
             
                     <div class="d-flex gap-1 py-1 bg-light" style="width: 1000px; height:40px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
@@ -160,8 +161,8 @@
               		<!-- 해당 페이먼트의 orders 출력을 위한 반복문 -->
               		<c:forEach var="orders" items="${PayInfoListByPaymentNo}">
               			<c:if test="${payment.paymentNo == orders.paymentNo}">
-              			 <%-- <c:if test="${orders.paymentNo == payment.paymentNo}"> --%>
-              			 	<div>orders.paymentNo: ${orders.paymentNo}</div>
+              			 <%-- 디버깅용 --%>
+              			 <%-- <div>orders.paymentNo: ${orders.paymentNo}</div> --%>
               			 
               			<!-- 이미지 -->
 	 					<div class="list-group-item list-group-item-action d-flex gap-3 py-3" style="width: 1000px;">
@@ -196,14 +197,15 @@
 						        </div>
 				        	</div>
 				    	</div>
-				    	 <div>paymentNo: ${orders.paymentNo}</div>
-				    	<%-- </c:if> --%>
-				    	<c:if test="${orders.paymentNo != payment.paymentNo}">
-					        <!-- 매칭되지 않는 데이터 디버깅용 -->
-					        <div style="display: none;">
-					            Skipped OrdersNo: ${orders.ordersNo}, paymentNo: ${orders.paymentNo}
-					        </div>
-					    </c:if>
+				    	<!-- 디버깅용 -->
+				    	<%-- <div>paymentNo: ${orders.paymentNo}</div> --%>
+				    	
+				        <!-- 매칭되지 않는 데이터 디버깅용 -->
+				    	<%-- <c:if test="${orders.paymentNo != payment.paymentNo}">
+						        <div style="display: none;">
+						            Skipped OrdersNo: ${orders.ordersNo}, paymentNo: ${orders.paymentNo}
+						        </div> 
+					   		 </c:if>--%>
 					    </c:if>
 			    	</c:forEach><!-- orders 반복문 끝 -->
 			    	

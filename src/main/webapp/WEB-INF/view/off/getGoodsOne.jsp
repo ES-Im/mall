@@ -98,6 +98,23 @@
 			return;
 		}
 		
+		/* 수량 변경 */
+		$('#btnMinus').click(function() {
+			var val =  parseInt($('#cartAmount').val());
+			if(val > 1){
+				var minusVal = val-1;
+				$('#cartAmount').val(minusVal);
+			}
+	
+		})
+	  $('#btnPlus').click(function() {
+		    var currentValue = parseInt($('#inputQuantity').val());  // 현재 입력값 가져오기
+		    var newValue = currentValue + 1;  // 1 더하기
+		    $('#inputQuantity').val(newValue);  // 결과값을 input에 다시 대입
+		  });
+		
+		
+		
 	})
 	</script>
     <body>
@@ -122,7 +139,7 @@
 						  <div class="carousel-inner">
 						  	<c:forEach var="gf" items="${goodsFileList}">
 							    <div class="carousel-item active">
-							      <img src="${pageContext.request.contextPath}/goodsFile/${gf.goodsFileName}.${gf.goodsFileExt}" class="d-block w-100" alt="...">
+							      <img src="${pageContext.request.contextPath}/goodsFile/${gf.goodsFileName}.${gf.goodsFileExt}" class="d-block w-100" alt="..."  style="height:600px;">
 							    </div>
 							</c:forEach>
 						  </div>
@@ -150,7 +167,10 @@
                         <div class="d-flex">
                         	<c:if test="${goods.goodsStatus == '재고있음' }">
                         		<form action="${pageContext.request.contextPath}/customer/addCart" method="get">
-	                        		<input class="form-control text-center me-3" id="inputQuantity" name="cartAmount" type="num" value="1" style="max-width: 3rem" />
+	                        		<button type="button" id="btnMinus" class="btn">&#10134;</button>
+	                        			<input class="form-control text-center me-3" id="cartAmount" name="cartAmount" type="number" min="1" value="1" style="max-width: 5rem" />
+		                          	<button type="button" id="btnPlus"  class="btn"> &#10133;</button>
+		                          	
 		                          	<input type="hidden" name="goodsNo" value="${goods.goodsNo }">
 		                          	<input type="hidden" name="customerEmail" value="${sessionScope.loginCustomer}">
 		                          	
