@@ -6,13 +6,14 @@
 			 c.cart_no AS cartNo
 			 , c.create_date AS createDate
 			 , go.goods_No AS goodsNo
-			 , MAX(gf.goods_file_name) AS goodsFileName
- 			 , MAX(gf.goods_file_ext) AS goodsFileExt
 			 , go.goods_Title AS goodTitle
 			 , go.goods_Price AS goodsPrice
 			 , ca.category_title AS categoryTitle
 			 , c.cart_amount AS cartAmount
 			 , (c.cart_amount * go.goods_Price) AS totalPrice
+			 , temp2.goodsFileNo AS goodsFileNo
+			 , temp2.goodsFileName AS goodsFileName
+			 , temp2.goodsFileExt AS goodsFileExt		 			 
 		FROM cart c
 		INNER JOIN goods go
 		ON go.goods_no = c.goods_no
@@ -20,13 +21,41 @@
 		ON go.goods_no = gc.goods_no
 		INNER JOIN category ca
 		ON ca.category_no = gc.category_no
-		LEFT OUTER JOIN goods_file gf
-		ON go.goods_no = gf.goods_no
-		WHERE c.customer_email = #{customerEmail}
-		GROUP BY 
-		    c.cart_no, c.create_date, c.cart_amount, 
-		    go.goods_No, go.goods_Title, go.goods_Price, 
-		    ca.category_title 
+		LEFT OUTER JOIN 
+			(SELECT 
+				g.goods_no AS goodsNo
+				, g.goods_title AS goodsTitle
+				, temp1.goodsFileNo AS goodsFileNo
+				, temp1.goodsFileName AS goodsFileName
+				, temp1.goodsFileOriginName AS goodsFileOriginName
+				, temp1.goodsFileExt AS goodsFileExt
+				, temp1.goodsFileType AS goodsFileType
+				, temp1.goodsFileSize AS goodsFileSize
+				, temp1.createDate AS createDate
+				, temp1.updateDate AS updateDate
+			FROM goods g
+			INNER JOIN
+				(SELECT 
+					goods_file.goods_file_no AS goodsFileNo
+					, goods_file.goods_no AS goodsNo
+					, goods_file.goods_file_name AS goodsFileName
+					, goods_file.goods_file_origin_name AS goodsFileOriginName
+					, goods_file.goods_file_ext AS goodsFileExt
+					, goods_file.goods_file_type AS goodsFileType
+					, goods_file.goods_file_size AS goodsFileSize
+					, goods_file.create_date AS createDate
+					, goods_file.update_date AS updateDate
+				FROM goods_file
+				INNER JOIN
+					(SELECT 
+					    MIN(goods_file_no) AS goods_file_no, 
+					    goods_no
+					FROM goods_file
+					GROUP BY goods_no) temp0
+				ON temp0.goods_file_no = goods_file.goods_file_no) temp1
+				ON temp1.goodsNo = g.goods_no) temp2
+			ON go.goods_no = temp2.goodsNO
+		WHERE c.customer_email = #{customerEmail};
 	</select>
 	
 	<select id="selectCartListByChecked" parameterType="com.example.mall.vo.Cart" resultType="map">
@@ -34,8 +63,9 @@
 			 c.cart_no AS cartNo
 			 ,c.create_date AS createDate
 			 , go.goods_No AS goodsNo
-			 , MAX(gf.goods_file_name) AS goodsFileName
- 			 , MAX(gf.goods_file_ext) AS goodsFileExt
+			 , temp2.goodsFileNo AS goodsFileNo
+			 , temp2.goodsFileName AS goodsFileName
+			 , temp2.goodsFileExt AS goodsFileExt		 
 			 , go.goods_Title AS goodTitle
 			 , go.goods_Price AS goodsPrice
 			 , ca.category_title AS categoryTitle
@@ -48,13 +78,41 @@
 		ON go.goods_no = gc.goods_no
 		INNER JOIN category ca
 		ON ca.category_no = gc.category_no
-		LEFT OUTER JOIN goods_file gf
-		ON go.goods_no = gf.goods_no
+		LEFT OUTER JOIN 
+					(SELECT 
+						g.goods_no AS goodsNo
+						, g.goods_title AS goodsTitle
+						, temp1.goodsFileNo AS goodsFileNo
+						, temp1.goodsFileName AS goodsFileName
+						, temp1.goodsFileOriginName AS goodsFileOriginName
+						, temp1.goodsFileExt AS goodsFileExt
+						, temp1.goodsFileType AS goodsFileType
+						, temp1.goodsFileSize AS goodsFileSize
+						, temp1.createDate AS createDate
+						, temp1.updateDate AS updateDate
+					FROM goods g
+					INNER JOIN
+						(SELECT 
+							goods_file.goods_file_no AS goodsFileNo
+							, goods_file.goods_no AS goodsNo
+							, goods_file.goods_file_name AS goodsFileName
+							, goods_file.goods_file_origin_name AS goodsFileOriginName
+							, goods_file.goods_file_ext AS goodsFileExt
+							, goods_file.goods_file_type AS goodsFileType
+							, goods_file.goods_file_size AS goodsFileSize
+							, goods_file.create_date AS createDate
+							, goods_file.update_date AS updateDate
+						FROM goods_file
+						INNER JOIN
+							(SELECT 
+							    MIN(goods_file_no) AS goods_file_no, 
+							    goods_no
+							FROM goods_file
+							GROUP BY goods_no) temp0
+						ON temp0.goods_file_no = goods_file.goods_file_no) temp1
+						ON temp1.goodsNo = g.goods_no) temp2
+					ON go.goods_no = temp2.goodsNO
 		WHERE c.cart_no = #{cartNo}
-		GROUP BY 
-		    c.cart_no, c.create_date, c.cart_amount, 
-		    go.goods_No, go.goods_Title, go.goods_Price, 
-		    ca.category_title
 	</select>
 	
 	<insert id="insertCart" parameterType="com.example.mall.vo.Cart">
