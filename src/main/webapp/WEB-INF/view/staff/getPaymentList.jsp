@@ -168,7 +168,7 @@
 											<div style="flex-grow: 1;"> 
 												<p class="mt-2 mb-0"><small>카테고리 : ${orders.categoryTitle}</small></p>
 												<p class="mt-2 mb-0"><a class="goods-link" href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${orders.goodsNo}"><small>주문 상품 : ${orders.goodsNo} / ${orders.goodsTitle}</small></a></p>
-												<p class="mt-2 mb-0"><small>상품 가격 : ${orders.goodsPrice}</small></p>
+												<p class="mt-2 mb-0"><small>상품 가격 : <fmt:formatNumber value="${orders.goodsPrice}" pattern="#,###"/>원</small></p>
 												<p class="mt-2 mb-0"><small>주문 수량 : ${orders.ordersAmount}</small></p>
 											</div>
 											
@@ -192,7 +192,7 @@
 						</c:forEach><!-- orders 반복문 끝 -->
 						
 						<div class="d-flex justify-content-end mt-2 align-items-center">
-							<p class="h4" style="padding-right: 15px;">TOTAL PRICE :  ${payment.paymentPrice}원</p>
+							<p class="h4" style="padding-right: 15px;">TOTAL PRICE : <fmt:formatNumber value="${payment.paymentPrice}" pattern="#,###"/>원</p>
 						</div>
 						<br>
 					</c:forEach>
