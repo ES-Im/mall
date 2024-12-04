@@ -21,7 +21,7 @@
 <body>
 
 <div class="container-fluid " style="height:100%">
-    <div class="row flex-nowrap" style="position: fixed; z-index: 10;">
+    <div class="row flex-nowrap" style="position: fixed; z-index: 999;">
         <div class=" bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" >
             	<a href="${pageContext.request.contextPath}/home" class="nav-link px-0 " > <span class="fs-4 d-none d-sm-inline ps-5" >MUSINSA</span> </a> 
