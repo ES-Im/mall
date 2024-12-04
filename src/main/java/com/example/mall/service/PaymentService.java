@@ -1,5 +1,6 @@
 package com.example.mall.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,12 +102,17 @@ public class PaymentService {
 		}
 		return lastPage;
 	}
+	// # getOrdersNoByPaymentNo : 특정 페이먼트 넘어 하나에 딸린 ordersNo들 출력하여 배열로 추출
+		// 직원용 + 고객용
+	public String[] getOrdersNoByPaymentNo(Integer paymentNo) {
+		return paymentMapper.selectOrdersNoByPaymentNo(paymentNo).split(",");
+	}
 
 	
 	// # selectPayInfoListByPaymentNo : Payment_No 별 Order + goods + category 정보 출력 
 		//  직원용 + 고객용 
-	public Map<String,Object> getPayInfoListByPaymentNo(Integer paymentNo) {
-		return paymentMapper.selectPayInfoListByPaymentNo(paymentNo);
+	public Map<String,Object> getPayInfoListByPaymentNo(Integer ordersNo) {
+		return paymentMapper.selectPayInfoListByOrders(ordersNo);
 	}
 	
 	// # payment status 변경
