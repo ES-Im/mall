@@ -126,11 +126,9 @@
 	})
 	</script>
     
-     <div class="fixed-top " style="z-index: 9999;">
-         
-            <jsp:include page="/WEB-INF/view/inc/header.jsp" />
-         
-      </div>
+     <div>
+          <jsp:include page="/WEB-INF/view/inc/header.jsp" />
+     </div>
 		
 <!-- Carousel -->
 <div id="demo" class="carousel slide" data-bs-ride="carousel" style="margin-top: 2%;">
