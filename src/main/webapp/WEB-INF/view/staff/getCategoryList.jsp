@@ -6,46 +6,41 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script>
-	$(document).ready(function() {
-		// 카테고리 삭제 버튼 클릭
-	    $('.btnRemoveCategory').click(function(event) {
-	        // 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
-	        event.preventDefault();
-	        
-	        // 삭제 확인 
-	        var result = confirm("정말로 삭제하시겠습니까?");
-	        if (result) {
-	        	window.location.href = $(this).attr('href');
-	        	alert('삭제 성공하였습니다.');
-	        } else {
-	            return false;
-	        }
-	    });
-	});
+		$(document).ready(function() {
+			// 카테고리 삭제 버튼 클릭
+			$('.btnRemoveCategory').click(function(event) {
+				// 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
+				event.preventDefault();
+				
+				// 삭제 확인 
+				var result = confirm("정말로 삭제하시겠습니까?");
+				if (result) {
+					window.location.href = $(this).attr('href');
+					alert('삭제 성공하였습니다.');
+				} else {
+					return false;
+				}
+			});
+		});
 	</script>
-	<style>
-	
-	</style>
-<meta charset="UTF-8">
-<title>Category List</title>
+	<meta charset="UTF-8">
+	<title>Category List</title>
 </head>
 <body>
-<div class="row">
-	<!-- leftbar -->
-	<div class="col-sm-2 p-0">
-		<div >
+	<!-- header -->
+	<div>
+		<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
+	</div>
+		
+	<div class="row">
+        <!-- leftbar -->
+		<div class="col-sm-2 p-0">
 			<c:import url="/WEB-INF/view/inc/staffLeftMenu.jsp"></c:import>
 		</div>
-	</div>
-	
-	<!-- main -->
-	<div class="col-sm-10 p-0">
-		<!-- header -->
-		<div>
-			<c:import url="/WEB-INF/view/inc/staffHeader.jsp"></c:import>
-		</div>
+		
 		<!-- main -->
-		<div style="margin-left: 80px; margin-top: 30px;">
+		<div class="col-sm-10 p-0">
+			<div style="margin-left: 80px; margin-top: 90px;">
 			<h3>Category List</h3>
 		</div>
 		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
@@ -75,11 +70,6 @@
 	  		</div>
 		</div>
 	</div>
-</div>
-<!-- footer -->
-
-
-
 </body>
 
 </html>

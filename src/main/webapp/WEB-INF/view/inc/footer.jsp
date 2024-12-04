@@ -8,12 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>footer</title>
-</head>
-<body>
-<head>
-    <meta charset="utf-8" />
+	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -24,8 +19,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="${pageContext.request.contextPath }/css/styles.css" rel="stylesheet" />
+   	<title>footer</title>
 </head>
-
+<body style="display:bottom-fix">
 
    <!-- Footer-->
    <footer class="py-5 bg-dark">

@@ -25,7 +25,7 @@
 
 <body>
 	<div>
-		<c:import url="/WEB-INF/view/inc/customerHeader.jsp"></c:import>
+		<c:import url="/WEB-INF/view/inc/header.jsp"></c:import>
 	</div>
 	
 	<div class="row" style="height: 95vh;">
@@ -37,7 +37,6 @@
 		<div class="col-sm-10 p-0">
 			<!-- main -->
 
-			<!-- 메인 -->
 			<div class="row d-flex justify-content-center align-items-center" style="min-height: 79%; margin-top: 5%;" > <!-- 콘텐츠 영역의 높이 설정 -->
 				<div class="text-center">
 					<span class="display-3">결제 완료 !</span>
