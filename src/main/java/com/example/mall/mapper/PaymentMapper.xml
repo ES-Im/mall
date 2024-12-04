@@ -65,7 +65,7 @@
 		SELECT group_concat(DISTINCT(orders_no)) FROM orders WHERE payment_no = #{paymentNo};
 	</select>
 	
-	<select id="selectPayInfoListByPaymentNo" parameterType="map" resultType="Map">
+	<select id="selectPayInfoListByOrders" parameterType="map" resultType="Map">
 		SELECT
 		   o.payment_no AS paymentNo
 		   , o.orders_no AS ordersNo
