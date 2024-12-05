@@ -93,7 +93,7 @@
 			   	</c:if>
                 <!-- 주문내역이 있을 때 출력 -->
 				<c:if test="${not empty paymentList}">
-					<div class="d-flex flex-column scrollbar px-4" style="max-height: 850px; overflow-y: auto;"> <!-- 일정 길이를 넘는다면 스크롤바 추가 --> 
+					<div class="d-flex flex-column px-4"> 
 						<div class="list-group">
 							<!-- Payment 기준 반복문 -->
 						   <c:forEach var="p" items="${paymentList}">
@@ -140,7 +140,7 @@
 															<div style="flex-grow: 1;"> 
 																<p class="mt-2 mb-0"><small>카테고리 : ${i.categoryTitle}</small></p>
 																<p class="mt-2 mb-0"><a class="goods-link" href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${i.goodsNo}"><small>주문 상품 : ${i.goodsNo} / ${i.goodsTitle}</small></a></p>
-																<p class="mt-2 mb-0"><small>상품 가격 : $<fmt:formatNumber value="${i.goodsPrice}" pattern="#,###"/></small></p>
+																<p class="mt-2 mb-0"><small>상품 가격 : <fmt:formatNumber value="${i.goodsPrice}" pattern="#,###"/>원</small></p>
 																<p class="mt-2 mb-0"><small>주문 수량 : ${i.ordersAmount}개</small></p>
 															</div>
 															
@@ -153,7 +153,7 @@
 											</div>
 										</c:if>
 								</c:forEach>
-								<h3 class="opacity-75 mt-3" style="text-align: right">TOTAL PRICE : $ <fmt:formatNumber value="${p.paymentPrice}" pattern="#,###"/> </h3>
+								<h3 class="opacity-75 mt-3" style="text-align: right">TOTAL PRICE : <fmt:formatNumber value="${p.paymentPrice}" pattern="#,###"/>원 </h3>
 								<hr>
 							</c:forEach>
 						</div>
