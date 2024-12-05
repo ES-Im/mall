@@ -2,5 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mall.mapper.StatisticalMapper">
 
+	<select id="getDailySales" resultType="Map">
+        SELECT DATE(create_date) payment_date, IFNULL(SUM(payment_price), '매출망함') daily_sales
+        FROM payment
+        WHERE DATE(create_date) = CURRENT_DATE
+        GROUP BY DATE(create_date)
+    </select>
+
 
 </mapper>
