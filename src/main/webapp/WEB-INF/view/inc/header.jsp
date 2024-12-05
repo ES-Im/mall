@@ -44,7 +44,7 @@
 </head>
 
 
-<body style="z-index: 9999;">
+<div class="fixed-top" style="z-index: 999;">
 	<!-- 각 세션 상태를 변수로 저장 (true = 해당 세션이 있음) -->
 	<c:set var="loginCustomer" value="${sessionScope.loginCustomer != null}"/> 
 	<c:set var="loginStaff" value="${sessionScope.loginStaff != null}"/> 
@@ -106,7 +106,5 @@
 			</div>
 		</div>
 	</nav>
-
-
-</body>
+</div>
 </html>
