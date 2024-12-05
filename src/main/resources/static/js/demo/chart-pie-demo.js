@@ -20,8 +20,8 @@ Chart.defaults.global.defaultFontColor = '#858796';
                     labels: labels,
                     datasets: [{
                         data: values,
-                        backgroundColor: ['#4e73df', '#1cc88a'],
-                        hoverBackgroundColor: ['#2e59d9', '#17a673'],
+                        backgroundColor: ['#4c5b6c', '#9fa4a3'],
+                        hoverBackgroundColor: ['#3a3a3a', '#717b7f'],
                         hoverBorderColor: "rgba(234, 236, 244, 1)",
                     }],
                 },
