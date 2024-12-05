@@ -12,10 +12,11 @@
 		    today.paymentDate today
 		FROM (SELECT CURRENT_DATE paymentDate) today
 		LEFT JOIN payment ON DATE(create_date) = today.paymentDate
+		WHERE payment_status = '배송완료'
 		GROUP BY today.paymentDate;
     </select>
     
-    <!-- : 남 여 성비 -->
+    <!-- selectGenderRatio : 가입자 성비 -->
     <select id="selectGenderRatio" resultType="Map">
     	SELECT customer_gender AS customerGender
       		 , COUNT(customer_gender) AS genderCount
@@ -23,6 +24,100 @@
 		FROM customer
 		GROUP BY customer_gender
     </select>
+
+	<!-- selectMonthlySales : 당월 매출 -->
+	<select id="selectMonthlySales" resultType="Map">
+		SELECT DATE_FORMAT(create_date, '%Y-%m') AS monthly
+				, SUM(payment_price) AS monthlySales
+		FROM payment
+		WHERE payment_status LIKE '%배송완료%'
+		GROUP BY DATE_FORMAT(create_date, '%Y-%m')
+		ORDER BY monthly DESC
+		LIMIT 1	
+	</select>
+
+	<!-- selectMonthSalesByYear : 당해 월별 매출 그래프 -->
+	<select id="selectMonthSalesByYear" parameterType="Integer" resultType="Map">
+
+		SELECT 
+		    monthList.paymentDate paymentMonth,
+		    IFNULL(SUM(payment.payment_price), 0) monthSales,
+		    CASE 
+		        WHEN SUM(payment.payment_price) IS NULL OR SUM(payment.payment_price) = 0 THEN '매출 없음'
+		        ELSE '매출 있음'
+		    END AS salesStatus,
+		    CAST(#{salesYear} AS CHAR) AS todayYear
+		FROM 
+		    (SELECT CONCAT(#{salesYear}, '-', LPAD(month, 2, '0')) AS paymentDate
+		     FROM (SELECT 1 AS month UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+		               UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 
+		               UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12) months) monthList
+		LEFT JOIN payment 
+		    ON DATE_FORMAT(payment.create_date, '%Y-%m') = monthList.paymentDate
+		GROUP BY monthList.paymentDate
+		ORDER BY monthList.paymentDate;
+	
+	</select>
+	
+	<!-- selectBestSeller : 베스트 셀러 -->
+	<select id="selectBestSeller" resultType="Map">
+		SELECT 
+		   DISTINCT o.goods_no goodsNo
+		   , g.goods_title goodsTitle
+		   , g.goods_memo goodsMemo
+		   , g.goods_price goodsPrice
+		   , g.goods_status goodsStatus
+		   , SUM(o.orders_amount) OVER(PARTITION BY g.goods_no) monthlyGoodsCount
+		   , p.status
+		FROM orders o
+		INNER JOIN
+		   (SELECT 
+		      payment_no 
+		      , (case when payment_status IN ('결제완료','배송중','배송완료')
+		             then 'Target'
+		             ELSE 'drop'
+		             END) status
+		      FROM payment
+		      ) p
+		ON o.payment_no = p.payment_no
+		INNER JOIN goods g ON g.goods_no = o.goods_no
+		WHERE DATE_FORMAT(o.create_date, '%y-%m') = DATE_FORMAT(NOW(), '%y-%m')
+		      AND p.status LIKE 'Target'
+		ORDER BY monthlyGoodsCount DESC
+		LIMIT 0, 3
+	</select>
+
+	<!-- 당일 상품 주문량 -->
+	<select id="selectDailySalesGoodsCount" resultType="Map">
+		SELECT 
+		   DATE(p.create_date) paymentDate, 
+		   IFNULL(SUM(o.orders_amount), 0) dailySalesCount,
+		   CASE 
+		      WHEN IFNULL(SUM(o.orders_amount), 0) = 0 THEN '매출 없음'
+		      ELSE '매출 있음'
+		   END AS salesCountStatus,
+		   CURRENT_DATE today
+		FROM orders o
+		LEFT JOIN payment p ON o.payment_no = p.payment_no
+		WHERE DATE(p.create_date) = CURRENT_DATE
+		   AND p.payment_status = '배송완료'
+		GROUP BY DATE(p.create_date)
+		
+		UNION ALL
+		
+		SELECT 
+		   CURRENT_DATE paymentDate,
+		   0 dailySalesCount,
+		   '매출 없음' salesCountStatus,
+		  CURRENT_DATE today
+		WHERE 
+		NOT EXISTS ( SELECT 1 FROM orders o
+		   LEFT JOIN payment p ON o.payment_no = p.payment_no
+		   WHERE DATE(p.create_date) = CURRENT_DATE
+		      AND p.payment_status = '배송완료'
+		)
+	</select>
+
 
 
 </mapper>

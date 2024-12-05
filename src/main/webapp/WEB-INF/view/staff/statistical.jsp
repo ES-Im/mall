@@ -67,7 +67,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                하루 매출 ${getDailySales.paymentDate}</div>
+                                                하루 매출 : ${getDailySales.paymentDate}</div>
                                             <c:if test="${getDailySales.dailySales == 0 }">
                                             	<div class="h5 mb-0 font-weight-bold text-gray-800">${getDailySales.salesStatus}</div>
                                             </c:if>
@@ -76,7 +76,7 @@
                                         	</c:if>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -90,11 +90,16 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                오늘의 주문량</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                                오늘의 주문량 : ${dailyGoodsCount.paymentDate }</div>
+                                           <c:if test="${dailyGoodsCount.dailySalesCount == 0}">
+                                           		<div class="h5 mb-0 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건 - ${dailyGoodsCount.salesCountStatus}</div>
+                                           </c:if>		
+                                           <c:if test="${dailyGoodsCount.dailySalesCount != 0}">
+                                           		<div class="h5 mb-0 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건</div>
+                                           </c:if>		
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -107,12 +112,12 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1"> 한달 매출
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1"> 당월 매출 : ${monthlySales.monthly}
                                             </div>
-       										<div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+       										<div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${monthlySales.monthlySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" />원</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -126,11 +131,17 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                이번달 주문량</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                베스트 셀러 : ${monthlySales.monthly}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            	
+                                            	<c:forEach var="best" items="${bestSeller}" varStatus="status">
+													${status.index+1 } NO.${best.goodsNo } : ${best.goodsTitle } - ${best.monthlyGoodsCount }건 판매	<br>				      		
+                                            	</c:forEach>
+		
+											</div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                         <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +159,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">그래프1</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">당해 월별 매출 그래프</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -156,11 +167,11 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-header">전년도 매출 현황</div>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath }/staff/statistical?salesYear=${year}">${year}</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath }/staff/statistical?salesYear=${year-1}">${year - 1}</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath }/staff/statistical?salesYear=${year-2}">${year - 2}</a>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -189,10 +200,10 @@
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> 남자
+                                            <i class="fas fa-circle text-primary"></i> 여자
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> 여자
+                                            <i class="fas fa-circle text-success"></i> 남자
                                         </span>
                                     </div>
                                 </div>
