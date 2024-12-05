@@ -1,7 +1,5 @@
 package com.example.mall.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.mall.mapper.AddressMapper;
 import com.example.mall.service.AddressService;
 import com.example.mall.util.TeamColor;
 import com.example.mall.vo.Address;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller

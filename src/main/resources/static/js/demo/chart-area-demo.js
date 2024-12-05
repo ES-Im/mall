@@ -27,6 +27,30 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+var queryResults = [
+  { month: "Jan", earnings: 0 },
+  { month: "Feb", earnings: 10000 },
+  { month: "Mar", earnings: 5000 },
+  { month: "Apr", earnings: 15000 },
+  { month: "May", earnings: 10000 },
+  { month: "Jun", earnings: 20000 },
+  { month: "Jul", earnings: 15000 },
+  { month: "Aug", earnings: 25000 },
+  { month: "Sep", earnings: 20000 },
+  { month: "Oct", earnings: 30000 },
+  { month: "Nov", earnings: 80000 },
+  { month: "Dec", earnings: 50000 }
+];
+
+// 1. 라벨 및 데이터 배열 생성
+var labels = queryResults.map(function(item) {
+  return item.month;  // 월 이름 배열 생성
+});
+
+var earningsData = queryResults.map(function(item) {
+  return item.earnings;  // 수익 데이터 배열 생성
+});
+
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
@@ -34,7 +58,7 @@ var myLineChart = new Chart(ctx, {
   data: {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
-      label: "Earnings",
+      label: "labels",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -46,7 +70,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: earningsData,
     }],
   },
   options: {
