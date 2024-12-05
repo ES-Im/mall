@@ -168,10 +168,9 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">전년도 매출 현황</div>
-                                            <a class="dropdown-item" href="${pageContext.request.contextPath }/staff/statistical?salesYear=${year}">${year}</a>
-                                            <a class="dropdown-item" href="${pageContext.request.contextPath }/staff/statistical?salesYear=${year-1}">${year - 1}</a>
-                                            <a class="dropdown-item" href="${pageContext.request.contextPath }/staff/statistical?salesYear=${year-2}">${year - 2}</a>
-                                            
+                                            <a class="dropdown-item" href="#" onclick="fetchSalesData(${year})">${year}</a>
+											<a class="dropdown-item" href="#" onclick="fetchSalesData(${year-1})">${year-1}</a>
+											<a class="dropdown-item" href="#" onclick="fetchSalesData(${year-2})">${year-2}</a>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -190,8 +189,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">가입자 성비</h6>
-                                    
+                                    <h6 class="m-0 font-weight-bold" style="color:#4c5b6c;">가입자 성비</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -200,10 +198,10 @@
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> 여자
+                                            <i class="fas fa-circle" style="color:#9fa4a3;"></i> 남자
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> 남자
+                                            <i class="fas fa-circle" style="color:#4c5b6c;"></i> 여자
                                         </span>
                                     </div>
                                 </div>
