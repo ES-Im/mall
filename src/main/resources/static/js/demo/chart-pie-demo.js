@@ -4,7 +4,7 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 /*document.addEventListener("DOMContentLoaded", function () {*/
-    fetch('/getGenderRation')
+    fetch('../getGenderRation')
         .then(response => response.json())  // JSON 응답을 객체로 변환
         .then(data => {
              
@@ -20,8 +20,8 @@ Chart.defaults.global.defaultFontColor = '#858796';
                     labels: labels,
                     datasets: [{
                         data: values,
-                        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-                        hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                        backgroundColor: ['#4e73df', '#1cc88a'],
+                        hoverBackgroundColor: ['#2e59d9', '#17a673'],
                         hoverBorderColor: "rgba(234, 236, 244, 1)",
                     }],
                 },

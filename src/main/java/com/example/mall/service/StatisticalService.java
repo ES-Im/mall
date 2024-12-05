@@ -19,13 +19,11 @@ public class StatisticalService {
 	
 	@Autowired StatisticalMapper statisticalMapper;
 	
-	public List<Map<String, Object>> getDailySales() {
+	public Map<String, Object> getDailySales() {
 		
 	    List<Map<String, Object>> resultDailySales = statisticalMapper.selectDailySales(); // 하루 매출
-	    
-	   
-	    
-	    return resultDailySales;  // 첫 번째 행 반환
+
+	    return resultDailySales.get(0);  // 첫 번째 행 반환
 	}
 	
 	public List<Map<String, Object>> getGenderRatio() {

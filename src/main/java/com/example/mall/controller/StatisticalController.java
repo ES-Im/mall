@@ -23,10 +23,14 @@ public class StatisticalController {
 	
 	@Autowired StatisticalService statisticalService;
 	
-	@GetMapping("/staff/statistical")
+	@GetMapping("/staff/statistical") // intercepter'/staff'
 	public String getStatistical(Model model) {
 		
-		// 매출				
+		// 매출	
+		Map<String, Object> getDailySales = statisticalService.getDailySales();
+		model.addAttribute("getDailySales", getDailySales);
+		log.debug(TeamColor.KDH + "getDailySales : " + getDailySales.toString() + TeamColor.RESET); //
+		
 		
 		// 성비
         List<Map<String, Object>> list =   statisticalService.getGenderRatio();
@@ -37,7 +41,7 @@ public class StatisticalController {
 		log.debug(TeamColor.KDH + "female : " + femaleMap.toString() + TeamColor.RESET); //
 		
 		
-		return "staff/statistical";
+		return "staff/statistical"; // view로 이동 
 	}
 	
 	
