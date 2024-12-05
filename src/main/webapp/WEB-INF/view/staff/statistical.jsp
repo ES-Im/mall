@@ -67,8 +67,13 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                하루 매출 ${result.payment_date }</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${result.daily_sales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" /> 원</div>
+                                                하루 매출 ${getDailySales.paymentDate}</div>
+                                            <c:if test="${getDailySales.dailySales == 0 }">
+                                            	<div class="h5 mb-0 font-weight-bold text-gray-800">${getDailySales.salesStatus}</div>
+                                            </c:if>
+                                            <c:if test="${getDailySales.dailySales != 0 }">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${getDailySales.dailySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" /> 원</div>
+                                        	</c:if>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>

@@ -22,10 +22,13 @@ public class StatisticalController {
 	@GetMapping("/staff/statistical")
 	public String getStatistical(Model model) {
 		
-		Map<String, Object> result = statisticalService.getStatistical();
+		Map<String, Object> resultStatistical = statisticalService.getStatistical();
 		
-		log.debug(TeamColor.KDH + "result : " + result.toString() + TeamColor.RESET);
-		model.addAttribute("result", result);
+		log.debug(TeamColor.KDH + "getDailySales : " + resultStatistical.get("getDailySales").toString() + TeamColor.RESET); // debug
+		log.debug(TeamColor.KDH + "getGenderRatio : " + resultStatistical.get("getGenderRatio").toString() + TeamColor.RESET); // debug
+		
+		model.addAttribute("getDailySales", resultStatistical.get("getDailySales"));
+		model.addAttribute("getGenderRatio", resultStatistical.get("getGenderRatio"));
 		
 		return "staff/statistical";
 	}
