@@ -3,13 +3,15 @@ Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,Bli
 Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {*/
     fetch('/getGenderRation')
         .then(response => response.json())  // JSON 응답을 객체로 변환
         .then(data => {
-            const labels = Object.keys(data);  
-            const values = Object.values(data);  
-
+             
+            const labels = Object.keys(data);  // male, female
+            const values = Object.values(data);  // 71.4, 28.6
+			console.log('Labels:', labels); // 디버깅용 출력
+			console.log('Values:', values); // 디버깅용 출력
             // Chart.js를 사용해 도넛 차트 생성
             var ctx = document.getElementById("myPieChart");
             var myPieChart = new Chart(ctx, {
@@ -43,4 +45,4 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         })
         .catch(error => console.error('데이터 가져오기 실패:', error));
-});
+/*});*/

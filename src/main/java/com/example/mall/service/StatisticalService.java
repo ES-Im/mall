@@ -19,16 +19,21 @@ public class StatisticalService {
 	
 	@Autowired StatisticalMapper statisticalMapper;
 	
-	public Map<String, Object> getStatistical() {
+	public List<Map<String, Object>> getDailySales() {
 		
 	    List<Map<String, Object>> resultDailySales = statisticalMapper.selectDailySales(); // 하루 매출
-	    List<Map<String, Object>> resultGenderRatio = statisticalMapper.selectGenderRatio(); // 남여 성비
 	    
-	    Map<String, Object> resultMap = new HashMap<>();
-	    resultMap.put("getDailySales", resultDailySales.get(0));
-	    resultMap.put("getGenderRatio", resultGenderRatio);
+	   
 	    
-	    return resultMap;  // 첫 번째 행 반환
+	    return resultDailySales;  // 첫 번째 행 반환
+	}
+	
+	public List<Map<String, Object>> getGenderRatio() {
+		
+		
+		List<Map<String, Object>> resultGenderRatio = statisticalMapper.selectGenderRatio(); // 남여 성비
+		
+		return resultGenderRatio;  
 	}
 
 }
