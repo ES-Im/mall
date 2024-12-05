@@ -2,11 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mall.mapper.StatisticalMapper">
 
-	<select id="getDailySales" resultType="Map">
-        SELECT DATE(create_date) payment_date, IFNULL(SUM(payment_price), '매출망함') daily_sales
-        FROM payment
-        WHERE DATE(create_date) = CURRENT_DATE
-        GROUP BY DATE(create_date)
+	<!-- selectDailySales Query : 하루 매출 -->
+	<select id="selectDailySales" resultType="Map">
+        SELECT today.paymentDate paymentDate, IFNULL(SUM(payment_price), 0) dailySales,
+		    CASE 
+		        WHEN SUM(payment_price) IS NULL OR SUM(payment_price) = 0 THEN '매출 없음'
+		        ELSE '매출 있음'
+		    END AS salesStatus,
+		    today.paymentDate today
+		FROM (SELECT CURRENT_DATE paymentDate) today
+		LEFT JOIN payment ON DATE(create_date) = today.paymentDate
+		GROUP BY today.paymentDate;
+    </select>
+    
+    <!-- : 남 여 성비 -->
+    <select id="selectGenderRatio" resultType="Map">
+    	SELECT customer_gender AS customerGender
+      		 , COUNT(customer_gender) AS genderCount
+      		 , ROUND(COUNT(*) / SUM(COUNT(*)) OVER() * 100, 1) AS genderPer
+		FROM customer
+		GROUP BY customer_gender
     </select>
 
 
