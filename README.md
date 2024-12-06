@@ -3,44 +3,41 @@
   - 프로젝트 기간 : 2024-11-18 ~ 2024-12-05<br>
   - (K-Digital Training) 클라우드 활용 자바 개발자 양성과정 86기 세미 팀 프로젝트<br>
 
-# :blue_book: UI/UX 설계
+# 📑 서비스 설계 개요
  - <a href="https://app.luminpdf.com/viewer/6752b712f7ff78bf8b148b3e?credentials-id=e124a136-0814-4450-9acf-5ab668712655">스토리보드</a> <br>
  - <a href="https://docs.google.com/spreadsheets/d/11NJC1y1dsvDWexZ4eV6W06k6LUDjZuBRMJeBKP2Cx5I/edit?gid=0#gid=0">인터페이스 설계서</a>
 
-# 개발 환경 및 기술 스택 (수정중)
-#### LANGUAGE (완)
+# 🧰 개발 환경 및 기술 스택
+#### LANGUAGE
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-
-
-#### Framework (1) - 수정 필 SpringBoot
-![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=springBoot&logoColor=white)
-#### DATABASE (완)
+#### Framework
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring%20Boot&logoColor=white)
+#### DATABASE
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
-
-#### LIBLARY (4) - 수정 필 JSTL, Lombok, MyBatis
-![My Skills](https://skillicons.dev/icons?i=jstl,lombok,mybatis)
+#### LIBLARY
 ![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
-
-#### WAS Apache (완)
-![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat-10&logoColor=black)
-
-#### TOOL - 수정 필 - Spring Tool Suite 4, HeidiSQL
+![JSTL](https://img.shields.io/badge/jstl-E4F7BA?style=for-the-badge)
+![Lombok](https://img.shields.io/badge/Lombok-FFA7A7?style=for-the-badge)
+![MyBatis](https://img.shields.io/badge/MyBatis-47C83E?style=for-the-badge)
+#### WAS Apache
+![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat%2010-23F8DC75.svg?style=for-the-badge&logo=apache%20tomcat%2010&logoColor=black)
+#### TOOL
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-![My Skills](https://skillicons.dev/icons?i=eclipse,Heidi) 
+![Heidi](https://img.shields.io/badge/Heidi%20SQL-6B9900?style=for-the-badge)
+![Spring Tool Suite 4](https://img.shields.io/badge/Spring%20Tool%20Suite%204-8A2BE2?style=for-the-badge)
 
 
-# 데이터 베이스 구조
-
+# 📚 데이터 베이스 구조
 
 # 🗂️ 주요 기능
-이 쇼핑몰은 직관적인 인터페이스와 간단한 기능 흐름을 제공합니다. <br>
-직원은 관리페이지에서 상품을 빠르게 관리하고, 실시간으로 판매 현황을 파악할 수 있습니다. <br>
-고객은 원하는 상품을 쉽게 찾고, 간편하게 구매할 수 있습니다.
+이 사이트는 전자상거래 통합 관리 플랫폼입니다. <br>
+고객은 상품 검색, 장바구니, 결제, 후기 작성 및 개인정보 관리를 통해 쇼핑을 편리하게 이용할 수 있으며, <br>
+직원은 상품, 주문, 고객, 후기 관리 및 매출 통계를 통해 효율적인 운영과 관리가 가능합니다.
 
 <details>
 <summary><b>각 기능 상세보기</b></summary>
@@ -68,7 +65,7 @@
 
 
 
-# 💁‍♂️ Collaborators
+# 🧑‍🤝‍🧑 Collaborators
 | <a href="https://github.com/KHyun27">김동현</a>| <a href="https://github.com/KHyun27">김문정</a>| <a href="https://github.com/KHyun27">김은서</a>|
 |---|---|---|
 |사진| | |
