@@ -4,16 +4,18 @@
 
 	<!-- selectDailySales Query : 하루 매출 -->
 	<select id="selectDailySales" resultType="Map">
-        SELECT today.paymentDate paymentDate, IFNULL(SUM(payment_price), 0) dailySales,
-		    CASE 
-		        WHEN SUM(payment_price) IS NULL OR SUM(payment_price) = 0 THEN '매출 없음'
-		        ELSE '매출 있음'
-		    END AS salesStatus,
-		    today.paymentDate today
-		FROM (SELECT CURRENT_DATE paymentDate) today
-		LEFT JOIN payment ON DATE(create_date) = today.paymentDate
-		WHERE payment_status = '배송완료'
-		GROUP BY today.paymentDate;
+        SELECT today.paymentDate AS paymentDate, 
+       IFNULL(SUM(payment_price), 0) AS dailySales,
+       CASE 
+           WHEN SUM(payment_price) IS NULL OR SUM(payment_price) = 0 THEN '매출 없음'
+           ELSE '매출 있음'
+       END AS salesStatus,
+       today.paymentDate AS today
+	   FROM (SELECT CURRENT_DATE AS paymentDate) today
+	   LEFT JOIN payment ON payment.payment_status = '배송완료' 
+	   AND payment.create_date BETWEEN DATE_FORMAT(today.paymentDate, '%Y-%m-%d 00:00:00') 
+	   AND DATE_FORMAT(today.paymentDate, '%Y-%m-%d 12:00:00')
+	   GROUP BY today.paymentDate;
     </select>
     
     <!-- selectGenderRatio : 가입자 성비 -->

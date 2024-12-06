@@ -101,6 +101,7 @@ fetch(`../getMonthSalesByYear?salesYear=${salesYear}`)
           }],
           yAxes: [{
             ticks: {
+			  min: 0,
               maxTicksLimit: 5,
               padding: 10,
               callback: function(value, index, values) {
