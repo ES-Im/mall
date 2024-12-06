@@ -164,11 +164,18 @@
 						   	<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
 						  </div> -->
 						  <div class="carousel-inner">
-						  	<c:forEach var="gf" items="${goodsFileList}">
-							    <div class="carousel-item active">
-							      <img src="${pageContext.request.contextPath}/goodsFile/${gf.goodsFileName}.${gf.goodsFileExt}" class="d-block w-100" alt="..."  style="height:600px;">
-							    </div>
-							</c:forEach>
+						  	<c:if test="${empty goodsFileList }">	
+						  		<div class="carousel-item active">
+						  			<img src="${pageContext.request.contextPath}/goodsFile/Preparing_the_goods_img.jpg" class="d-block w-100" alt="..."  style="height:600px;">
+						  		</div>
+						  	</c:if>	
+						  	<c:if test="${not empty goodsFileList }">
+							  	<c:forEach var="gf" items="${goodsFileList}">
+								    <div class="carousel-item active">
+								      <img src="${pageContext.request.contextPath}/goodsFile/${gf.goodsFileName}.${gf.goodsFileExt}" class="d-block w-100" alt="..."  style="height:600px;">
+								    </div>
+								</c:forEach>
+							</c:if>
 						  </div>
 						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
 						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -189,11 +196,9 @@
                             <span> <fmt:formatNumber value="${goods.goodsPrice}" type="number" groupingUsed="true" />원</span>
                         </div>
 
-    <div class="lead text-container">
-        ${goods.goodsMemo}
-    </div>
-
-
+				    <div class="lead text-container">
+				        ${goods.goodsMemo}
+				    </div>
                        	<br>
                        	<br>
                         <!-- 장바구니  -->

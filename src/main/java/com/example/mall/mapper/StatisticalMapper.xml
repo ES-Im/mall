@@ -4,7 +4,7 @@
 
 	<!-- selectDailySales Query : 하루 매출 -->
 	<select id="selectDailySales" resultType="Map">
-        SELECT today.paymentDate AS paymentDate, 
+       SELECT today.paymentDate AS paymentDate, 
        IFNULL(SUM(payment_price), 0) AS dailySales,
        CASE 
            WHEN SUM(payment_price) IS NULL OR SUM(payment_price) = 0 THEN '매출 없음'
@@ -13,29 +13,49 @@
        today.paymentDate AS today
 	   FROM (SELECT CURRENT_DATE AS paymentDate) today
 	   LEFT JOIN payment ON payment.payment_status = '배송완료' 
-	   AND payment.create_date BETWEEN DATE_FORMAT(today.paymentDate, '%Y-%m-%d 00:00:00') 
-	   AND DATE_FORMAT(today.paymentDate, '%Y-%m-%d 12:00:00')
+		   AND payment.create_date BETWEEN DATE_FORMAT(today.paymentDate, '%Y-%m-%d 00:00:00') 
+		   AND DATE_FORMAT(today.paymentDate, '%Y-%m-%d 12:00:00')
 	   GROUP BY today.paymentDate;
     </select>
     
     <!-- selectGenderRatio : 가입자 성비 -->
     <select id="selectGenderRatio" resultType="Map">
-    	SELECT customer_gender AS customerGender
-      		 , COUNT(customer_gender) AS genderCount
-      		 , ROUND(COUNT(*) / SUM(COUNT(*)) OVER() * 100, 1) AS genderPer
-		FROM customer
-		GROUP BY customer_gender
+    	SELECT 
+	    gender.customerGender,
+	    COALESCE(COUNT(customer.customer_gender), 0) AS genderCount,
+	    ROUND(COALESCE(COUNT(customer.customer_gender), 0) / SUM(COALESCE(COUNT(customer.customer_gender), 0)) OVER() * 100, 1) AS genderPer
+		FROM 
+		    (SELECT '남자' AS customerGender
+		     UNION ALL
+		     SELECT '여자' AS customerGender) AS gender
+		LEFT JOIN customer ON customer.customer_gender = gender.customerGender
+		GROUP BY gender.customerGender
     </select>
 
 	<!-- selectMonthlySales : 당월 매출 -->
 	<select id="selectMonthlySales" resultType="Map">
-		SELECT DATE_FORMAT(create_date, '%Y-%m') AS monthly
-				, SUM(payment_price) AS monthlySales
-		FROM payment
-		WHERE payment_status LIKE '%배송완료%'
-		GROUP BY DATE_FORMAT(create_date, '%Y-%m')
-		ORDER BY monthly DESC
-		LIMIT 1	
+		SELECT 
+    months.monthly,
+    COALESCE(SUM(payment.payment_price), 0) AS monthlySales
+FROM 
+    (SELECT '2024-01' AS monthly
+    UNION ALL SELECT '2024-02'
+    UNION ALL SELECT '2024-03'
+    UNION ALL SELECT '2024-04'
+    UNION ALL SELECT '2024-05'
+    UNION ALL SELECT '2024-06'
+    UNION ALL SELECT '2024-07'
+    UNION ALL SELECT '2024-08'
+    UNION ALL SELECT '2024-09'
+    UNION ALL SELECT '2024-10'
+    UNION ALL SELECT '2024-11'
+    UNION ALL SELECT '2024-12') AS months
+LEFT JOIN payment 
+    ON DATE_FORMAT(payment.create_date, '%Y-%m') = months.monthly
+    AND payment.payment_status LIKE '%배송완료%'
+GROUP BY months.monthly
+ORDER BY months.monthly DESC
+LIMIT 1;
 	</select>
 
 	<!-- selectMonthSalesByYear : 당해 월별 매출 그래프 -->

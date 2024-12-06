@@ -177,28 +177,28 @@
 
         <!-- Section-->
         <section class="py-5">
-        		
         		<!-- 카테고리 -->
-        		<div class=" col-sm-2 ms-3 mt-5" id="category" style="float:left;">
-        			<div class="card card-body" style="width:80%;">
-        			    <div class="mb-3 d-flex justify-content-between">
-        			 		<span class="h4">CATEGORY</span>
-        			 		<div class="">
-							   <a href="${pageContext.request.contextPath}/home?category=" id="categoryUrl"> 
-							    	<button class="btnRemoveBoard btn btn-sm btn-outline-danger" id="btnCategoryView">VIEW</button>
-							    </a>
-						    </div>
-						</div>
-						<c:forEach var="c" items="${categoryList }" varStatus="status">
-        			 		<div class="form-check" id="checkbox">
-							    <input class="form-check-input" type="checkbox" name="categoryNo" value="${c.categoryNo }">
-							    <label class="form-check-label">${c.categoryTitle }</label>   	
-        			 		</div>
-        			 	</c:forEach>	
-		 
-        			 </div>
-        		</div>
-
+        		<c:if test="${not empty categoryList}">
+	        		<div class=" col-sm-2 ms-3 mt-5" id="category" style="float:left;">
+	        			<div class="card card-body" style="width:80%;">
+	        			    <div class="mb-3 d-flex justify-content-between">
+	        			 		<span class="h4">CATEGORY</span>
+	        			 		<div class="">
+								   <a href="${pageContext.request.contextPath}/home?category=" id="categoryUrl"> 
+								    	<button class="btnRemoveBoard btn btn-sm btn-outline-danger" id="btnCategoryView">VIEW</button>
+								    </a>
+							    </div>
+							</div>
+							<c:forEach var="c" items="${categoryList }" varStatus="status">
+	        			 		<div class="form-check" id="checkbox">
+								    <input class="form-check-input" type="checkbox" name="categoryNo" value="${c.categoryNo }">
+								    <label class="form-check-label">${c.categoryTitle }</label>   	
+	        			 		</div>
+	        			 	</c:forEach>	
+			 
+	        			 </div>
+	        		</div>
+				</c:if>
         	
 				<div class="container px-4 px-lg-5 mt-5">
 					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
@@ -211,31 +211,45 @@
 							<div class="card h-100">								
 								<!-- 파일 있을 때 -->
 	 							<c:if test="${not empty goods.goodsFileNo}">
-
 	 								<div style="position: relative; display: inline-block;">
-                               <!-- 상품 이미지 -->
-                               <img class="card-img-top" style="height:400px;" 
-                                    src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsFileExt}" 
-                                    alt="${goods.goodsOriginName}" />
-                           
-                               <!-- 반투명 오버레이 -->
-                               <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
-                                           background-color: rgba(128, 128, 128, 0.5); 
-                                           backdrop-filter: blur(5px); z-index: 1;"></div>
-                           
-                               <!-- 판매 종료 텍스트 -->
-                               <p class="sold-out-text" style="position: absolute; top: 50%; left: 50%; 
-                                                               transform: translate(-50%, -50%); 
-                                                               color: white; font-size: 24px; font-weight: bold; z-index: 2;">
-                                   판매 종료
-                               </p>
-                           </div>
+		                               <!-- 상품 이미지 -->
+		                               <img class="card-img-top" style="height:400px;" 
+		                                    src="${pageContext.request.contextPath}/goodsFile/${goods.goodsFileName}.${goods.goodsFileExt}" 
+		                                    alt="${goods.goodsOriginName}" />
+		                           
+		                               <!-- 반투명 오버레이 -->
+		                               <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+		                                           background-color: rgba(128, 128, 128, 0.5); 
+		                                           backdrop-filter: blur(5px); z-index: 1;"></div>
+		                           
+		                               <!-- 판매 종료 텍스트 -->
+		                               <p class="sold-out-text" style="position: absolute; top: 50%; left: 50%; 
+		                                                               transform: translate(-50%, -50%); 
+		                                                               color: white; font-size: 24px; font-weight: bold; z-index: 2;">
+		                                   판매 종료
+		                               </p>
+                           			</div>
 	 							</c:if>
 	 							<!-- 파일 없을 때 -->
 	 							<c:if test="${empty goods.goodsFileNo}">
-	 								<div style="align-items: center;">
-	 									<img class="card-img-top" src="${pageContext.request.contextPath}/goodsFile/Preparing_the_goods_img.jpg" alt="..." id style="height:400px; " />
-	 								</div>
+	 								<div style="position: relative; display: inline-block;">
+		                               <!-- 상품 이미지 -->
+		                               <img class="card-img-top" style="height:400px;" 
+		                                    src="${pageContext.request.contextPath}/goodsFile/Preparing_the_goods_img.jpg" 
+		                                    alt="${goods.goodsOriginName}" />
+		                           
+		                               <!-- 반투명 오버레이 -->
+		                               <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+		                                           background-color: rgba(128, 128, 128, 0.5); 
+		                                           backdrop-filter: blur(5px); z-index: 1;"></div>
+		                           
+		                               <!-- 판매 종료 텍스트 -->
+		                               <p class="sold-out-text" style="position: absolute; top: 50%; left: 50%; 
+		                                                               transform: translate(-50%, -50%); 
+		                                                               color: white; font-size: 24px; font-weight: bold; z-index: 2;">
+		                                   판매 종료
+		                               </p>
+                           			</div>
 	 							</c:if>
 
 								<!-- Product details-->
@@ -260,12 +274,11 @@
 									</c:if>
 									
 									<c:if test="${goods.goodsStatus == '판매중지'}">
-										<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">판매중지</a></div>
+										<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${pageContext.request.contextPath }/getGoodsOne?goodsNo=${goods.goodsNo}" style="pointer-events: none;">판매중지</a></div>
 									</c:if>
 								</div>
 							</div>
 						</div>
-						
 						
 						
 						</c:if>
