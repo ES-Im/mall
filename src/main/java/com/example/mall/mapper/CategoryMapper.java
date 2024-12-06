@@ -25,6 +25,8 @@ public interface CategoryMapper { // Author : 김동현
 	// modifyGoods : 상품 수정에서 카테고리 수정
 	Integer updateGoodsCategory(GoodsCategory goodsCateogry);
 	
+	// staff/getCategoryList.jsp → removeCategory → selectCategoryGoods
+	Integer selectCategoryGoods(Integer categoryNo);
 	
 
 }

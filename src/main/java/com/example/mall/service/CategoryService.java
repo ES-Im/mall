@@ -30,4 +30,10 @@ public class CategoryService { // Author : 김동현
 		return categoryMapper.deleteCategory(categoryNo);
 	}
 	
+	// 카테고리 삭제를 위해 해당 카테고리에 등록된 상품 유무 조회
+	public Integer selectCategoryGoods(Integer categoryNo) {
+		return categoryMapper.selectCategoryGoods(categoryNo);
+	}
+	
+	
 }

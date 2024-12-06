@@ -6,23 +6,37 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			// 카테고리 삭제 버튼 클릭
-			$('.btnRemoveCategory').click(function(event) {
-				// 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
-				event.preventDefault();
-				
-				// 삭제 확인 
-				var result = confirm("정말로 삭제하시겠습니까?");
-				if (result) {
-					window.location.href = $(this).attr('href');
-					alert('삭제 성공하였습니다.');
-				} else {
-					return false;
-				}
-			});
-		});
-	</script>
+    
+    const msg = '${categoryMsg != null ? categoryMsg : ""}';
+    console.log('msg:', msg);
+
+    $(document).ready(function () {
+
+        
+        if (msg !== "") {
+            alert(msg);
+        }
+
+        // 카테고리 삭제 버튼 클릭
+        $('.btnRemoveCategory').click(function (event) {
+
+            // 기본 링크 클릭 동작을 막기 (페이지 이동을 막기)
+            event.preventDefault();
+
+            // 삭제 확인
+            var result = confirm("정말로 삭제하시겠습니까?");
+            if (result) {
+                window.location.href = $(this).attr('href');
+                
+            } else {
+            	
+                return false;
+            }
+        });
+    });
+</script>
+
+	
 	<meta charset="UTF-8">
 	<title>Category List</title>
 </head>

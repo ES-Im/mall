@@ -17,6 +17,13 @@
 		DELETE FROM category WHERE category_no = #{categoryNo}
 	</delete>
 	
+	<!-- selectCategoryGoods Query : 카테고리에 상품 존재 유무 조회 -->
+	<select id="selectCategoryGoods" parameterType="Integer" resultType="Integer">
+		SELECT COUNT(*)
+		FROM goods_category
+		WHERE category_no = #{categoryNo}
+	</select>
+	
 	<!-- insertGoodsCateogry Query : 상품 추가 시 카테고리 값 같이 추가 -->
 	<insert id="insertGoodsCateogry" parameterType="com.example.mall.vo.GoodsCategory">
 		INSERT INTO goods_category(goods_no, category_no) VALUES(#{goodsNo}, #{categoryNo})
