@@ -1,20 +1,51 @@
-<div>
-<img src="https://user-images.githubusercontent.com/80824750/208554611-f8277015-12e8-48d2-b2cc-d09d67f03c02.png" width="400"/>
-
 # 📝 개요
-  프로젝트 명 : Spring/MVC 방식을 사용한 미니 쇼핑몰 
-  프로젝트 기간-2024-11-18 ~ 2024-12-05
-  (K-Digital Training) 클라우드 활용 자바 개발자 양성과정 86기 1차 팀 프로젝트입니다.
+  - 프로젝트 명 : Spring/MVC 방식을 사용한 미니 쇼핑몰<br>
+  - 프로젝트 기간 : 2024-11-18 ~ 2024-12-05<br>
+  - (K-Digital Training) 클라우드 활용 자바 개발자 양성과정 86기 세미 팀 프로젝트<br>
 
-# :blue_book: 첨부파일
-<a href="https://app.luminpdf.com/viewer/6752b712f7ff78bf8b148b3e?credentials-id=e124a136-0814-4450-9acf-5ab668712655">스토리보드</a> <br>
-<a href="https://docs.google.com/spreadsheets/d/11NJC1y1dsvDWexZ4eV6W06k6LUDjZuBRMJeBKP2Cx5I/edit?gid=0#gid=0">인터페이스 설계서</a>
+# :blue_book: UI/UX 설계
+ - <a href="https://app.luminpdf.com/viewer/6752b712f7ff78bf8b148b3e?credentials-id=e124a136-0814-4450-9acf-5ab668712655">스토리보드</a> <br>
+ - <a href="https://docs.google.com/spreadsheets/d/11NJC1y1dsvDWexZ4eV6W06k6LUDjZuBRMJeBKP2Cx5I/edit?gid=0#gid=0">인터페이스 설계서</a>
+
+# 개발 환경 및 기술 스택 (수정중)
+#### LANGUAGE (완)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+
+
+#### Framework (1) - 수정 필 SpringBoot
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=springBoot&logoColor=white)
+#### DATABASE (완)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+
+#### LIBLARY (4) - 수정 필 JSTL, Lombok, MyBatis
+![My Skills](https://skillicons.dev/icons?i=jstl,lombok,mybatis)
+![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+#### WAS Apache (완)
+![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat-10&logoColor=black)
+
+#### TOOL - 수정 필 - Spring Tool Suite 4, HeidiSQL
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![My Skills](https://skillicons.dev/icons?i=eclipse,Heidi) 
+
 
 # 데이터 베이스 구조
 
 
 # 🗂️ 주요 기능
+이 쇼핑몰은 직관적인 인터페이스와 간단한 기능 흐름을 제공합니다. <br>
+직원은 관리페이지에서 상품을 빠르게 관리하고, 실시간으로 판매 현황을 파악할 수 있습니다. <br>
+고객은 원하는 상품을 쉽게 찾고, 간편하게 구매할 수 있습니다.
 
+<details>
+<summary><b>각 기능 상세보기</b></summary>
+<div markdown="1">
+	
 |기능|설명|
 |---|---|
 |로그인 / 로그아웃| - 정규표현식 등 을 이용하여 CUSTOMER, STAFF 로그인 구분 <br> - 로그인 아이디(이메일)을 세션에 담을 수 있도록 기능 구현 <br> - 세션 초기화 기능 구현 |
@@ -32,55 +63,14 @@
 |CUSTOMER - 회원 결제 이력|  - 로그인한 회원의 주문 목록을 최신순으로 조회할 수 있도록 리스트 및 페이징 구현 <br> - 결제상태(결제취소, 배송완료) 수정 기능 접근이 직관적이도록 설계 |
 |CUSTOMER - 회원 가입| - 이메일 중복 검사 기능 구현 및 유효성 검사(ID 중복 확인, 성별, 비밀번호, 생일) 기능 구현 <br>  - 회원 등록 기능 구현|
 |CUSTOMER - 개인정보 관리 페이지|  - 비밀번호 변경, 회원 탈퇴 기능 구현 및 회원정보 페이지에서 접근이 직관적이도록 설계 <br> - 로그인한 회원의 기본 정보 출력 <br> - 비밀번호 확인 기능 구현|
+</div>
+</details>
 
 
 
-
-# DEPENDENCIES
-
-
-# 개발 환경 및 기술 스택
-// 
-  <li> Language : HTML5, CSS3, Java, SQL, JavaScript </li>
-  <li> Framework : SpringBoot </li>
-  <li> Library : JSTL, JQuery, Lombok, MyBatis, Maven, BootStrap </li>
-  <li> Database : MySQL </li>
-  <li> WAS Apache : Tomcat10 </li>
-  <li> OS : Windows, Mac </li>
-  <li> TOOL : Spring-Tool-Suite4, HeidiSQL, Github Desktop, 피그마</li> // ( 아이콘 사용)
- 
-
-
-
-🤔 기술적 이슈와 해결 과정
-
-
-## 💁‍♂️ Collaborators
-<table>
-  <tr>
-    <td> 관리자 페이지 중심 구현 </td>
-    <td> 공용 페이지 중심 구현 </td>
-    <td> 회원 페이지 중심 구현 </td>
-  </tr>
-  
-  <tr>
-    <td>
-      <a href="https://github.com/KHyun27">김동현</a>
-    </td>
-    <td>
-      <a href="https://github.com/KHyun27">김문정</a>
-    </td>
-    <td>
-      <a href="https://github.com/KHyun27">김은서</a>
-    </td>
-  </tr>
-
-  
-  <tr>
-
-
-  </tr>
-  
-</table>
-
+# 💁‍♂️ Collaborators
+| <a href="https://github.com/KHyun27">김동현</a>| <a href="https://github.com/KHyun27">김문정</a>| <a href="https://github.com/KHyun27">김은서</a>|
+|---|---|---|
+|사진| | |
+|관리자 페이지 중심 MVC 구현|공용 페이지 중심 MVC 구현|회원 페이지 중심 MVC 구현|
 	
