@@ -7,11 +7,10 @@
   (K-Digital Training) 클라우드 활용 자바 개발자 양성과정 86기 1차 팀 프로젝트입니다.
 
 # :blue_book: 첨부파일
+<a href="https://app.luminpdf.com/viewer/6752b712f7ff78bf8b148b3e?credentials-id=e124a136-0814-4450-9acf-5ab668712655">스토리보드</a> <br>
+<a href="https://docs.google.com/spreadsheets/d/11NJC1y1dsvDWexZ4eV6W06k6LUDjZuBRMJeBKP2Cx5I/edit?gid=0#gid=0">인터페이스 설계서</a>
 
- 프로토타입 파일 첨부
- <a href="https://docs.google.com/spreadsheets/d/11NJC1y1dsvDWexZ4eV6W06k6LUDjZuBRMJeBKP2Cx5I/edit?gid=0#gid=0">인터페이스 설계서</a>
-
-
+# 데이터 베이스 구조
 
 
 # 🗂️ 주요 기능
@@ -40,14 +39,15 @@
 # DEPENDENCIES
 
 
-# 기술 스택
-skills 폴더에 있는 아이콘을 이용할 수 있습니다.
-
-Back-end
-      
-Infra
-
-Tools
+# 개발 환경 및 기술 스택
+// 
+  <li> Language : HTML5, CSS3, Java, SQL, JavaScript </li>
+  <li> Framework : SpringBoot </li>
+  <li> Library : JSTL, JQuery, Lombok, MyBatis, Maven, BootStrap </li>
+  <li> Database : MySQL </li>
+  <li> WAS Apache : Tomcat10 </li>
+  <li> OS : Windows, Mac </li>
+  <li> TOOL : Spring-Tool-Suite4, HeidiSQL, Github Desktop, 피그마</li> // ( 아이콘 사용)
  
 
 
