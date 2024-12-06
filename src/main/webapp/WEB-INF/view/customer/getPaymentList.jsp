@@ -83,13 +83,19 @@
 		<div class="col-sm-10 p-0">
 			<!-- main -->
 			<div style="margin-left: 80px; margin-top: 90px;">
-				<h3>PAYMENT LIST</h3>
+				<h3>주문 목록</h3>
 			</div>
 			
 			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
                 <!-- 주문내역이 없을 때 출력 -->
                 <c:if test="${empty paymentList}">
-			    	<div>NO DATA</div>  
+			    	<div class="col-sm-12 p-0">
+			    		<div style="margin-top: 200px; margin-left:-160px; text-align: center;">
+					        <span>아직 결제하신 상품이 없습니다.</span>
+					        <br>
+					        <a href="${pageContext.request.contextPath}/home" class="btn btn-sm btn-outline-primary align-content-center mt-4">주문하기</a>
+				        </div>
+			    	</div>  
 			   	</c:if>
                 <!-- 주문내역이 있을 때 출력 -->
 				<c:if test="${not empty paymentList}">

@@ -104,7 +104,7 @@
 		<!-- main -->
 		<div class="col-sm-10 p-0">
 			<div style="margin-left: 80px; margin-top: 90px;">
-				<h3>PAYMENT LIST</h3>
+				<h3>고객 주문 목록</h3>
 			</div>
 
 			<!-- updateDate 기준으로 그룹화 출력 -->

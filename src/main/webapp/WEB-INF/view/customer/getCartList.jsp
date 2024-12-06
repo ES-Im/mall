@@ -88,13 +88,19 @@
 		<div class="col-sm-10 p-0">
 			<!-- main -->
 			<div style="margin-left: 80px; margin-top: 90px;">
-                <h3>Cart</h3>
+                <h3>장바구니</h3>
             </div>
 
 			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px; "> 
 			    <!-- 출력할 데이터가 없을 때 -->
 			    <c:if test="${empty cartList}">
-			        <div>NO DATA</div>
+			    	<div class="col-sm-12 p-0">
+			    		<div style="margin-top: 200px; margin-left:-180px; text-align: center;">
+					        <span>장바구니가 비어있습니다.</span>
+					        <br>
+					        <a href="${pageContext.request.contextPath}/home" class="btn btn-sm btn-outline-primary align-content-center mt-4">주문하기</a>
+				        </div>
+			    	</div>
 			    </c:if>
 			    
 			    <!-- 출력할 데이터가 있을 때 -->

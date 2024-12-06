@@ -84,7 +84,7 @@
 		<!-- main -->
 		<div class="col-sm-10 p-0">
 			<div style="margin-left: 80px; margin-top: 90px;">
-				<h3>Add Goods</h3>
+				<h3>상품 등록</h3>
 			</div>
 			<form id="formAddGoods" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/staff/addGoods">
 				<div class="container px-4 px-lg-1 my-5">

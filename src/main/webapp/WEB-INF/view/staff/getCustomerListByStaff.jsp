@@ -103,7 +103,7 @@
 		}
 	</style>
 	<meta charset="UTF-8">
-	<title>Get Staff List</title>
+	<title>Customer List</title>
 </head>
 
 <body>
@@ -122,7 +122,7 @@
 		<!-- main -->
 		<div class="col-sm-10 p-0">
 			<div style="margin-left: 80px; margin-top: 90px;">
-			<h3>Customer List</h3>
+			<h3>고객 목록</h3>
 		</div>
 		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
 	  		<div class="list-group">

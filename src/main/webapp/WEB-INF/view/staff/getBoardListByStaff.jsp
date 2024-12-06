@@ -121,7 +121,7 @@
 		<!-- main -->
 		<div class="col-sm-10 p-0">
 			<div style="margin-left: 80px; margin-top: 90px;">
-			<h3>Staff Board Management</h3>
+			<h3>고객 상품후기 관리</h3>
 		</div>
 		<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
 	  		<div class="list-group">
@@ -137,8 +137,8 @@
 								<p class="mb-1"><a href="${pageContext.request.contextPath}/getGoodsOne?goodsNo=${board.goodsNo}" class="goods-link">
 									Goods : [${board.goodsNo}] ${board.goodsTitle}
 								</a></p>
-								<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
 								<p class="mb-1">BoardContent : ${board.boardContent}</p>
+								<small class="opacity-75 text-nowrap">CreateDate : ${board.createDate}</small>
 							</div>
 							<div>
 								<div style="text-align: right;">

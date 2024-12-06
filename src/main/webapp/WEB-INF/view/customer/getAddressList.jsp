@@ -79,16 +79,15 @@
 		<div class="col-sm-10 p-0">
 			<!-- main -->
 			<div style="margin-left: 80px; margin-top: 90px;">
-				<h3>ADDRESS LIST</h3>
+				<h3>배송지 목록</h3>
 			</div>
-			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px;">
+			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-3 align-items-center" style="margin-left: 110px;">
 				<div class="border d-flex p-3 justify-content-between" style="width: 700px;">
 					<form action="${pageContext.request.contextPath}/customer/addAddress" method="post" id="addAddressForm">
-						<textarea rows="3" cols="75" name="addressDetail" placeholder="주소 입력" id="addressDetail" style="width: 660px;"></textarea>
-						<div style="text-align: right; margin-top: 2px">
-							<button type="button" class="btn btn-sm btn-outline-danger" id="btnAddAddress">add</button>
+						<textarea rows="3" cols="75" name="addressDetail" placeholder="주소 입력" id="addressDetail" style="width: 660px; margin-top:10px;"></textarea>
+						<div style="text-align: right; margin-top: 10px">
+							<button type="button" class="mt-2 btn btn-sm btn-outline-danger" id="btnAddAddress">등록</button>
 						</div>
-						<br>
 					</form>	        		
 				</div>
 			</div>

@@ -129,7 +129,7 @@
 		<div class="col-sm-10 p-0">
 			<div style="margin-left: 80px; margin-top: 90px;">
 				<div>
-					<h3>Staff Goods List</h3>
+					<h3>상품 목록</h3>
 				</div>
 				<div class="d-flex justify-content-end " style="width: 1050px;">
 					<form id="formGoodsSearch" method="get" action="${pageContext.request.contextPath}/staff/getGoodsListByStaff"}>
@@ -210,7 +210,7 @@
 										</div>
 									</div>
 									<p class="mt-2 mb-0"><small>Category : ${goods.categoryTitle}</small></p>
-									<p class="mt-2 mb-0"><small>Price : $ ${goods.goodsPrice}</small></p>
+									<p class="mt-2 mb-0"><small>Price : <fmt:formatNumber value="${goods.goodsPrice}" pattern="#,###"/>원</small></p>
 									<div class="d-flex justify-content-between">
 										<div style="flex-grow: 1;">
 											<p class="mt-2 mb-0 text-container"><small>Description : ${goods.goodsMemo}</small></p>
