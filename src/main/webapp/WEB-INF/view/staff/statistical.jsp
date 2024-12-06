@@ -63,14 +63,14 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card border-left-primary shadow h-100 py-2 px-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
                                                 하루 매출 : ${getDailySales.paymentDate}</div>
                                             <c:if test="${getDailySales.dailySales == 0 }">
-                                            	<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${getDailySales.salesStatus}</div>
+                                            	<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${getDailySales.dailySales} 원 : ${getDailySales.salesStatus}</div>
                                             </c:if>
                                             <c:if test="${getDailySales.dailySales != 0 }">
                                             	<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800"><fmt:formatNumber value="${getDailySales.dailySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" />원</div>
@@ -86,14 +86,14 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card border-left-success shadow h-100 py-2 px-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-s font-weight-bold text-success text-uppercase mb-1">
                                                 오늘의 주문량 : ${dailyGoodsCount.paymentDate }</div>
                                            <c:if test="${dailyGoodsCount.dailySalesCount == 0}">
-                                           		<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건 - ${dailyGoodsCount.salesCountStatus}</div>
+                                           		<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건 : ${dailyGoodsCount.salesCountStatus}</div>
                                            </c:if>		
                                            <c:if test="${dailyGoodsCount.dailySalesCount != 0}">
                                            		<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건</div>
@@ -109,7 +109,7 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card border-left-info shadow h-100 py-2 px-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -127,18 +127,21 @@
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card border-left-warning shadow h-100 py-2 px-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-s font-weight-bold text-warning text-uppercase mb-1">
                                                 베스트 셀러 : ${monthlySales.monthly}</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            	
-                                            	<c:forEach var="best" items="${bestSeller}" varStatus="status">
-													${status.index+1 } NO.${best.goodsNo } : ${best.goodsTitle } - ${best.monthlyGoodsCount }건 판매	<br>				      		
-                                            	</c:forEach>
-		
+                                            <div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">
+                                            	<c:if test="${empty bestSeller}">
+                                            		<span>상품이 없습니다.</span>
+                                            	</c:if>
+                                            	<c:if test="${not empty bestSeller}">
+	                                            	<c:forEach var="best" items="${bestSeller}" varStatus="status">
+														${status.index+1 } NO.${best.goodsNo } : ${best.goodsTitle } - ${best.monthlyGoodsCount }건 판매	<br>				      		
+	                                            	</c:forEach>
+                                            	</c:if>
 											</div>
                                         </div>
                                          <div class="col-auto">

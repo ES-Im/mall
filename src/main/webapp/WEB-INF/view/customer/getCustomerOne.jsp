@@ -86,10 +86,10 @@
 			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px; ">
 				<div class="card" style="width: 800px; height: 600px;">
 					<div style="margin-left: 80px; margin-top: 30px;">
-						<h3>${fn:substringBefore(customer.customerEmail, "@")} 님 안녕하세요.</h3>
+						<h3>${fn:substringBefore(customer.customerEmail, "@")}님 안녕하세요.</h3>
 					</div>
 					
-					<div class="card-body d-flex flex-column flex-md-row p-4 gap-4 py-md-2" style="margin-left: 90px; margin-top: 25px;">
+					<div class="card-body d-flex flex-column flex-md-row p-4 gap-4 py-md-1" style="margin-left: 90px; margin-top: 25px;">
 						<div class="mb-3 mt-3">
 							<form id="checkPwForm" method="post">
 								<div class="row" style="margin-top:5px; width: 535px;">
