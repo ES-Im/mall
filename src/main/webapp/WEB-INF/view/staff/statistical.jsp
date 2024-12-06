@@ -26,7 +26,8 @@
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css" rel="stylesheet">
-
+    
+    
 </head>
 
 <body>
@@ -66,17 +67,17 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
                                                 하루 매출 : ${getDailySales.paymentDate}</div>
                                             <c:if test="${getDailySales.dailySales == 0 }">
-                                            	<div class="h5 mb-0 font-weight-bold text-gray-800">${getDailySales.salesStatus}</div>
+                                            	<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${getDailySales.salesStatus}</div>
                                             </c:if>
                                             <c:if test="${getDailySales.dailySales != 0 }">
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${getDailySales.dailySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" /> 원</div>
+                                            	<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800"><fmt:formatNumber value="${getDailySales.dailySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" /> 원</div>
                                         	</c:if>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="pt-5 fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -89,17 +90,17 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <div class="text-s font-weight-bold text-success text-uppercase mb-1">
                                                 오늘의 주문량 : ${dailyGoodsCount.paymentDate }</div>
                                            <c:if test="${dailyGoodsCount.dailySalesCount == 0}">
-                                           		<div class="h5 mb-0 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건 - ${dailyGoodsCount.salesCountStatus}</div>
+                                           		<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건 - ${dailyGoodsCount.salesCountStatus}</div>
                                            </c:if>		
                                            <c:if test="${dailyGoodsCount.dailySalesCount != 0}">
-                                           		<div class="h5 mb-0 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건</div>
+                                           		<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${dailyGoodsCount.dailySalesCount} 건</div>
                                            </c:if>		
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="pt-5 fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -112,12 +113,12 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1"> 당월 매출 : ${monthlySales.monthly}
+                                            <div class="text-s font-weight-bold text-info text-uppercase mb-1"> 당월 매출 : ${monthlySales.monthly}
                                             </div>
-       										<div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${monthlySales.monthlySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" />원</div>
+       										<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800"><fmt:formatNumber value="${monthlySales.monthlySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" />원</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="pt-5 fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +142,7 @@
 											</div>
                                         </div>
                                          <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="pt-5 fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +160,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">당해 월별 매출 그래프</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary" id="yearLabel"></h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
