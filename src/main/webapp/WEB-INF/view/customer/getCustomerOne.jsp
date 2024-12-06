@@ -81,7 +81,7 @@
 		<div class="col-sm-10 p-0">
 			<!-- main -->
 			<div style="margin-left: 80px; margin-top: 90px;">
-				<h3>Personal_Info</h3>
+				<h3>회원 정보</h3>
 			</div>
 			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center" style="margin-left: 110px; ">
 				<div class="card" style="width: 800px; height: 600px;">

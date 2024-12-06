@@ -32,8 +32,8 @@ let myLineChart = null;  // 초기에는 차트가 없으므로 null로 설정
 
 // 페이지 로드 시 2024년 데이터를 기본으로 표시
 window.onload = function() {
-    const initialYear = 2024;  // 기본적으로 2024년 데이터를 보여주도록 설정
-    fetchSalesData(initialYear);  // 2024년 데이터 로드
+    const currentYear = new Date().getFullYear();  // 현재 연도를 자동으로 가져옵니다.
+    fetchSalesData(currentYear);  // 2024년 데이터 로드
 };
 
 // 데이터를 가져오는 함수
@@ -116,7 +116,7 @@ function fetchSalesData(year) {
                                 maxTicksLimit: 5,
                                 padding: 10,
                                 callback: function(value) {
-                                    return '$' + number_format(value);
+                                    return number_format(value) + '원';
                                 }
                             },
                             gridLines: {

@@ -73,7 +73,7 @@
                                             	<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800">${getDailySales.salesStatus}</div>
                                             </c:if>
                                             <c:if test="${getDailySales.dailySales != 0 }">
-                                            	<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800"><fmt:formatNumber value="${getDailySales.dailySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" /> 원</div>
+                                            	<div class="h5 mb-0 pt-4 font-weight-bold text-gray-800"><fmt:formatNumber value="${getDailySales.dailySales}" type="number" groupingUsed="true" maxFractionDigits="0" minFractionDigits="0" />원</div>
                                         	</c:if>
                                         </div>
                                         <div class="col-auto">
@@ -131,7 +131,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <div class="text-s font-weight-bold text-warning text-uppercase mb-1">
                                                 베스트 셀러 : ${monthlySales.monthly}</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             	

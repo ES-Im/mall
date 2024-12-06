@@ -81,7 +81,7 @@
 		<!-- main -->
 		<div class="col-sm-10 p-0">
 			<div style="margin-left: 80px; margin-top: 90px;">
-				<h3>Add Staff</h3>
+				<h3>직원 등록</h3>
 			</div>
 			<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-2 align-items-center" style="margin-left: 110px; margin-top: 25px;">
 				<form id="formAddStaff" method="post" action="${pageContext.request.contextPath}/staff/addStaff" style="border: 1px solid #000; padding: 20px; border-radius: 10px; width: 400px;">
