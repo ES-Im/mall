@@ -5,7 +5,7 @@
 
 # 📑 서비스 설계 개요
  - <a href="https://app.luminpdf.com/viewer/6752b712f7ff78bf8b148b3e?credentials-id=e124a136-0814-4450-9acf-5ab668712655">스토리보드</a> <br>
- - <a href="https://docs.google.com/spreadsheets/d/11NJC1y1dsvDWexZ4eV6W06k6LUDjZuBRMJeBKP2Cx5I/edit?gid=0#gid=0">인터페이스 설계서</a>
+ - <a href="https://docs.google.com/spreadsheets/d/1xCPra5FvQ-RIjDnN1FtbF3Iha-nyHkSVYMtwjZj4QUM/edit?usp=sharing">인터페이스 설계서</a>
 
 # 🧰 개발 환경 및 기술 스택
 #### LANGUAGE
@@ -33,6 +33,7 @@
 
 
 # 📚 데이터 베이스 구조
+<img src="https://github.com/user-attachments/assets/3e61b3b8-8a0b-4cf0-89df-cf5153af9f96"  width="700" height="600"/>
 
 # 🗂️ 주요 기능
 이 사이트는 전자상거래 통합 관리 플랫폼입니다. <br>
@@ -66,7 +67,7 @@
 
 
 # 🧑‍🤝‍🧑 Collaborators
-| <a href="https://github.com/KHyun27">김동현</a>| <a href="https://github.com/KHyun27">김문정</a>| <a href="https://github.com/KHyun27">김은서</a>|
+| <a href="https://github.com/KHyun27">김동현</a>| <a href="https://github.com/KHyun27">김문정</a>| <a href="https://github.com/ES-Im">김은서</a>|
 |---|---|---|
 |사진| | |
 |관리자 페이지 중심 MVC 구현|공용 페이지 중심 MVC 구현|회원 페이지 중심 MVC 구현|
