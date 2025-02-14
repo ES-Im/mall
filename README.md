@@ -70,6 +70,5 @@
 # 🧑‍🤝‍🧑 Collaborators
 | <a href="https://github.com/KHyun27">김동현</a>| <a href="https://github.com/KHyun27">김문정</a>| <a href="https://github.com/ES-Im">김은서</a>|
 |---|---|---|
-|사진| | |
 |관리자 페이지 중심 MVC 구현|공용 페이지 중심 MVC 구현|회원 페이지 중심 MVC 구현|
 	
